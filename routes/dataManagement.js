@@ -9,7 +9,7 @@ const passport          = require('passport');
 const userController    = require('./../controllers/userController');
 const roleController    = require('./../controllers/roleController');
 
-router.get  ('/users',              checkAuthorization, userController.getUsers);
+router.get  ('/users',                                  userController.getUsers);
 router.get  ('/users/:id',                              userController.getUserById);
 router.post ('/users',                                  userController.createUser);
 router.put  ('/users/:id',          checkAuthorization, userController.updateUser);

@@ -162,12 +162,14 @@ const createUser = (req,res,next)=>{
     }
 
     function create_user(err,result,args,last_query){
+        console.log(last_query);
+        
         if(err){
             return err_response(res,BAD_REQ,err,500);
         }
 
-        if(!result.length){
-            return err_response(res,ZERO_RES,ZERO_RES,404);
+        if(result.length){
+            return err_response(res,INVALID_USER,INVALID_USER,404);
         }
         
         data.id = uuidv4();
@@ -190,6 +192,7 @@ const createUser = (req,res,next)=>{
     }
 
     function send_response(err,result,args,last_query){
+        console.log(last_query);
         if(err){
             return err_response(res,BAD_REQ,err,500);
         }
