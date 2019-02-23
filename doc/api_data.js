@@ -51,11 +51,47 @@ define({ "api": [
     "groupTitle": "Products"
   },
   {
+    "type": "post",
+    "url": "v1/products/:id",
+    "title": "Update Product",
+    "name": "Delete_Product",
+    "group": "Products",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID of the product</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/productController.js",
+    "groupTitle": "Products"
+  },
+  {
     "type": "get",
-    "url": "v1/products",
-    "title": "Request Product information",
+    "url": "v1/products/:id",
+    "title": "Request Specific Product information",
     "name": "Get_Product",
     "group": "Products",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID of the product</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "controllers/productController.js",
     "groupTitle": "Products"
@@ -79,6 +115,13 @@ define({ "api": [
     "parameter": {
       "fields": {
         "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID of the product</p>"
+          },
           {
             "group": "Parameter",
             "type": "String",

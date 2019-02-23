@@ -149,9 +149,11 @@ const getProducts =(req,res,next)=>{
 
 
 /**
- * @api {get} v1/products                  Request Product information
+ * @api {get} v1/products/:id               Request Specific Product information
  * @apiName Get Product
  * @apiGroup Products
+ *
+ * @apiParam {String}       id  	     	ID of the product
  */
 
 
@@ -210,7 +212,7 @@ const getOneProduct =(req,res,next)=>{
  * @apiName Update Product
  * @apiGroup Products
  * 
- * 
+ * @apiParam {String}       id 		     	ID of the product
  * @apiParam {String}       [name]      	Name of the product
  * @apiParam {String}       [description]   Product description
  * @apiParam {Int}       	[quantity]      Product quantity
@@ -283,6 +285,15 @@ const updateProduct = (req,res,next)=>{
 
 	start();
 }
+
+/**
+ * @api {post} v1/products/:id              Update Product 
+ * @apiName Delete Product
+ * @apiGroup Products
+ * 
+ * 
+ * @apiParam {String}       id      		ID of the product
+ */
 
 
 const deleteProduct = (req,res,next)=>{
