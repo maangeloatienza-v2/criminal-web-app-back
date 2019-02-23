@@ -23,6 +23,8 @@ router.post ('/roles',              checkAuthorization, roleController.createRol
 router.get  ('/roles',                                  roleController.getRole);
 
 router.post ('/products',       	checkAuthorization, productController.create);
+router.get  ('/products',       		 				productController.getProducts);
+
 
 
 

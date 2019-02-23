@@ -51,6 +51,16 @@
     "groupTitle": "Products"
   },
   {
+    "type": "get",
+    "url": "v1/users",
+    "title": "Request Product information",
+    "name": "Get_Product",
+    "group": "Products",
+    "version": "0.0.0",
+    "filename": "controllers/productController.js",
+    "groupTitle": "Products"
+  },
+  {
     "type": "post",
     "url": "v1/roles",
     "title": "Create Roles",
