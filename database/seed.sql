@@ -33,5 +33,5 @@ CREATE TABLE tokens (
   `created` DATETIME DEFAULT NULL
 );
 
-
+#updated 02-23-2019
 ALTER TABLE users ADD COLUMN deleted DATETIME DEFAULT null;
