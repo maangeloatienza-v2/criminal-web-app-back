@@ -107,7 +107,7 @@
   {
     "type": "get",
     "url": "v1/users/:id",
-    "title": "Request User information",
+    "title": "Request Specific User information",
     "name": "Get_User_By_Id",
     "group": "Users",
     "parameter": {

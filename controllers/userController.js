@@ -85,7 +85,7 @@ const getUsers = (req,res,next)=>{
     start();
 }
 /**
- * @api {get} v1/users/:id                  Request User information
+ * @api {get} v1/users/:id                  Request Specific User information
  * @apiName Get User By Id
  * @apiGroup Users
  * 
