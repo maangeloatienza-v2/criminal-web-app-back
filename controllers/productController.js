@@ -82,8 +82,8 @@ const create = (req,res,next)=>{
 }
 
 /**
- * @api {get} v1/products                   Request Product information
- * @apiName Get Product
+ * @api {get} v1/products                   Fetch Product information
+ * @apiName Get Products
  * @apiGroup Products
  *
  * @apiParams  {String}     [search]        Search matching name
@@ -149,8 +149,8 @@ const getProducts =(req,res,next)=>{
 
 
 /**
- * @api {get} v1/products/:id               Request Specific Product information
- * @apiName Get Product
+ * @api {get} v1/products/:id               Fetch Specific Product information
+ * @apiName Get One Product
  * @apiGroup Products
  *
  * @apiParam {String}       id  	     	ID of the product
