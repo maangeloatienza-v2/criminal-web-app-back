@@ -162,7 +162,6 @@ const createUser = (req,res,next)=>{
     }
 
     function create_user(err,result,args,last_query){
-        console.log(last_query);
         
         if(err){
             return err_response(res,BAD_REQ,err,500);
@@ -179,7 +178,7 @@ const createUser = (req,res,next)=>{
 
         bcrypt.hash(data.password, 10, function(err, hash) {
             if(err) err_response(res,err,BAD_REQ,500);
-            password = hash;
+            data.password = hash;
             mysql.use('master')
             .query(`INSERT INTO users SET ?`,
                 data,
@@ -192,7 +191,7 @@ const createUser = (req,res,next)=>{
     }
 
     function send_response(err,result,args,last_query){
-        console.log(last_query);
+
         if(err){
             return err_response(res,BAD_REQ,err,500);
         }
