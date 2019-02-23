@@ -53,7 +53,7 @@
   {
     "type": "post",
     "url": "v1/products/:id",
-    "title": "Update Product",
+    "title": "Delete Product",
     "name": "Delete_Product",
     "group": "Products",
     "parameter": {

@@ -287,7 +287,7 @@ const updateProduct = (req,res,next)=>{
 }
 
 /**
- * @api {post} v1/products/:id              Update Product 
+ * @api {post} v1/products/:id              Delete Product 
  * @apiName Delete Product
  * @apiGroup Products
  * 
