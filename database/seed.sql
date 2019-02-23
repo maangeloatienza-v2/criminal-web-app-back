@@ -33,5 +33,20 @@ CREATE TABLE tokens (
   `created` DATETIME DEFAULT NULL
 );
 
-#updated 02-23-2019
 ALTER TABLE users ADD COLUMN deleted DATETIME DEFAULT null;
+#updated 02-23-2019
+
+
+CREATE TABLE products (
+  `id` VARCHAR(64) NOT NULL PRIMARY KEY,
+  `name` VARCHAR(256) NULL,
+  `description` LONGTEXT  NOT NULL,
+  `user_id` VARCHAR(64) NOT NULL,
+  `quantity` INT DEFAULT 1 NOT NULL,
+  `price`  FLOAT NOT NULL,
+  `created` DATETIME  NULL,
+  `updated` DATETIME  NULL,
+  `deleted` DATETIME  NULL
+);
+
+ALTER TABLE users ADD COLUMN `address` LONGTEXT NOT NULL;
