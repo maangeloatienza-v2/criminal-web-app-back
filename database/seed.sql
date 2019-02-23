@@ -32,3 +32,6 @@ CREATE TABLE tokens (
   `token` LONGTEXT NOT NULL,
   `created` DATETIME DEFAULT NULL
 );
+
+
+ALTER TABLE users ADD COLUMN deleted DATETIME DEFAULT null;

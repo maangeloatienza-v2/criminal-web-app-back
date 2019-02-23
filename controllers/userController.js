@@ -41,6 +41,7 @@ const user_login = {
  * @apiName Get Users
  * @apiGroup Users
  *
+ * @apiParams  {String}     [search]        Search matching first name,last name,username
  * 
  * @apiSuccess {String}     first_name      First name of the user
  * @apiSuccess {String}     last_name       Last name of the user
@@ -56,12 +57,34 @@ const getUsers = (req,res,next)=>{
     const {
         username,
         first_name,
-        last_name
+        last_name,
+        search
     } = req.query;
+
+    let where = ' WHERE deleted IS null '
+
+    if(search){
+        where += `
+            AND first_name LIKE '%${search}%' \
+            OR last_name LIKE '%${search}%' \
+            OR username LIKE '%${search}%' \
+        `;
+    }
+
     function start(){
         mysql.use('master')
         .query(
-            `SELECT * FROM users`,
+            `SELECT \
+            id, \ 
+            first_name,\
+            last_name, \
+            username, \
+            email, \
+            phone_number, \
+            created, \
+            updated, \
+            deleted \
+            FROM users ${where}`,
             send_response
         )
         .end();
@@ -456,11 +479,67 @@ function saveToken(res,token){
 }
 
 
+const deleteUser = (req,res,next)=>{
+    const id = req.params.id;
+    let old_data = {};
+
+    function start(){
+        mysql.use('master')
+            .query(`SELECT 
+                id, \ 
+                first_name,\
+                last_name, \
+                username, \
+                email, \
+                phone_number \
+                FROM users WHERE id = '${id}' \
+                AND deleted IS null
+                `,delete_info)
+            .end();
+    }
+
+    function delete_info(err,result,args,last_query){
+        if(err){
+            return err_response(res,err,BAD_REQ,500);
+        }
+
+        if(!result.length){
+            return err_response(res,ZERO_RES,ZERO_RES,404);
+        }
+
+        old_data = result[0];
+
+        mysql.use('master')
+            .query(`UPDATE users SET deleted = NOW() WHERE id = '${result[0].id}'`,send_response)
+            .end();
+    }
+
+    function send_response(err,result,args,last_query){
+        if(err){
+            return err_response(res,err,BAD_REQ,500);
+        }
+
+        if(!result.affectedRows){
+            return err_response(res,NO_RECORD_UPDATED,NO_RECORD_UPDATED,404);
+        }
+
+        return res.json({
+            deleted_data : old_data,
+            message : 'Sucessfully deleted user',
+            context : 'Deleted successfully'
+        })
+        .send(); 
+    }
+
+    start();
+}
+
 module.exports = {
     getUsers,
     getUserById,
     createUser,
     updateUser,
+    deleteUser,
     login,
     logout
 }
