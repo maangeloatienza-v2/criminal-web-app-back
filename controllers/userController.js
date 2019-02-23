@@ -29,7 +29,7 @@ const opt_user = {
     _password    : '',
     _phone_number : '',
     _role_id      : '',
-    address : ''
+    _address : ''
 }
 
 const user_login = {
@@ -51,6 +51,7 @@ const user_login = {
  * @apiSuccess {String}     email           Email address of the user
  * @apiSuccess {String}     phone_number    Phone number of the user
  * @apiSuccess {String}     role_id         Role id of the user
+ * @apiSuccess {String}     address         Address of the user
  */
 
 
@@ -122,6 +123,8 @@ const getUsers = (req,res,next)=>{
  * @apiSuccess {String}     email           Email address of the user
  * @apiSuccess {String}     phone_number    Phone number of the user
  * @apiSuccess {String}     role_id         Role id of the user
+ * @apiSuccess {String}     address         Address of the user
+
  */
 
 const getUserById = (req,res,next)=>{
@@ -169,6 +172,7 @@ const getUserById = (req,res,next)=>{
  * @apiParam {String}       email           Email address of the user
  * @apiParam {String}       phone_number    Phone number of the user
  * @apiParam {String}       role_id         Role id of the user
+ * @apiSuccess {String}     address         Address of the user
  */
 
 
@@ -252,6 +256,7 @@ const createUser = (req,res,next)=>{
  * @apiParam {String}       [email]         Email address of the user
  * @apiParam {String}       [phone_number]  Phone number of the user
  * @apiParam {String}       [role_id]       Role id of the user
+ * @apiSuccess {String}     [address]       Address of the user
  */
 
 const updateUser = (req,res,next)=>{
