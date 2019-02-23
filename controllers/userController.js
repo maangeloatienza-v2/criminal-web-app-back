@@ -444,6 +444,13 @@ const logout = (req,res,next)=>{
     start();
 }
 
+/**
+ * @api {put}  v1/delete-user/:id                 Delete User 
+ * @apiName  Delete User
+ * @apiGroup Users
+*/
+
+
 
 function saveToken(res,token){
     let data = {};

@@ -105,6 +105,16 @@
     "groupTitle": "Users"
   },
   {
+    "type": "put",
+    "url": "v1/delete-user/:id",
+    "title": "Delete User",
+    "name": "Delete_User",
+    "group": "Users",
+    "version": "0.0.0",
+    "filename": "controllers/userController.js",
+    "groupTitle": "Users"
+  },
+  {
     "type": "get",
     "url": "v1/users/:id",
     "title": "Request Specific User information",
