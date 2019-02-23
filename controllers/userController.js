@@ -301,7 +301,8 @@ const updateUser = (req,res,next)=>{
 
         return res.status(200).json({
             data : data,
-            message : 'Success!'
+            message : 'User updated successfully',
+            context : 'Data updated successfully'
         })
         .send();
     }
@@ -443,20 +444,14 @@ const logout = (req,res,next)=>{
             return err_response(res,NO_TOKEN_DELETED,ZERO_RES,404);
         }
         return res.json({
-            message : 'Sucessfully logged out'
+            message : 'Sucessfully logged out',
+            context : "Token deleted successfully"
         })
         .send();
         
     }
     start();
 }
-
-/**
- * @api {put}  v1/delete-user/:id                 Delete User 
- * @apiName  Delete User
- * @apiGroup Users
-*/
-
 
 
 function saveToken(res,token){
@@ -492,6 +487,11 @@ function saveToken(res,token){
     start();
 }
 
+/**
+ * @api {put}  v1/delete-user/:id                 Delete User 
+ * @apiName  Delete User
+ * @apiGroup Users
+*/
 
 const deleteUser = (req,res,next)=>{
     const id = req.params.id;

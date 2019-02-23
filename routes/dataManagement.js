@@ -24,6 +24,9 @@ router.get  ('/roles',                                  roleController.getRole);
 
 router.post ('/products',       	checkAuthorization, productController.create);
 router.get  ('/products',       		 				productController.getProducts);
+router.get  ('/products/:id',       		 			productController.getOneProduct);
+router.put  ('/products/:id', 		checkAuthorization,	productController.updateProduct);
+router.put  ('/delete-product/:id', checkAuthorization,	productController.deleteProduct);
 
 
 

@@ -52,10 +52,64 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "v1/users",
+    "url": "v1/products",
     "title": "Request Product information",
     "name": "Get_Product",
     "group": "Products",
+    "version": "0.0.0",
+    "filename": "controllers/productController.js",
+    "groupTitle": "Products"
+  },
+  {
+    "type": "get",
+    "url": "v1/products",
+    "title": "Request Product information",
+    "name": "Get_Product",
+    "group": "Products",
+    "version": "0.0.0",
+    "filename": "controllers/productController.js",
+    "groupTitle": "Products"
+  },
+  {
+    "type": "post",
+    "url": "v1/products/:id",
+    "title": "Update Product",
+    "name": "Update_Product",
+    "group": "Products",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "name",
+            "description": "<p>Name of the product</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "description",
+            "description": "<p>Product description</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Int",
+            "optional": true,
+            "field": "quantity",
+            "description": "<p>Product quantity</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Float",
+            "optional": true,
+            "field": "price",
+            "description": "<p>Product's price</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "controllers/productController.js",
     "groupTitle": "Products"
@@ -161,6 +215,19 @@ define({ "api": [
         ]
       }
     },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "address",
+            "description": "<p>Address of the user</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "controllers/userController.js",
     "groupTitle": "Users"
@@ -238,6 +305,13 @@ define({ "api": [
             "optional": false,
             "field": "role_id",
             "description": "<p>Role id of the user</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "address",
+            "description": "<p>Address of the user</p>"
           }
         ]
       }
@@ -296,6 +370,13 @@ define({ "api": [
             "optional": false,
             "field": "role_id",
             "description": "<p>Role id of the user</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "address",
+            "description": "<p>Address of the user</p>"
           }
         ]
       }
@@ -401,6 +482,19 @@ define({ "api": [
             "optional": true,
             "field": "role_id",
             "description": "<p>Role id of the user</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": true,
+            "field": "address",
+            "description": "<p>Address of the user</p>"
           }
         ]
       }
