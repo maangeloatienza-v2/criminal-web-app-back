@@ -16,6 +16,21 @@ const product = {
 	price : 1.0,
 }
 
+/**
+ * @api {post} v1/products                  Create Product 
+ * @apiName Create Product
+ * @apiGroup Products
+ * 
+ * 
+ * @apiParam {String}       name      		Name of the product
+ * @apiParam {String}       description     Product description
+ * @apiParam {String}       user_id        	Id of the user who created the product
+ * @apiParam {Int}       	quantity        Product quantity
+ * @apiParam {Float}       	price			Product's price
+ */
+
+
+
 const create = (req,res,next)=>{
 	const data = util._get
     .form_data(product)
@@ -57,6 +72,19 @@ const create = (req,res,next)=>{
 }
 
 
+const getProducts =(req,res,next)=>{
+	const {
+		search
+	} = req.query;
+
+	function start(){
+
+	}
+
+	start();
+}
+
 module.exports = {
 	create,
+	getProducts
 }

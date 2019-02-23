@@ -1,6 +1,57 @@
 [
   {
     "type": "post",
+    "url": "v1/products",
+    "title": "Create Product",
+    "name": "Create_Product",
+    "group": "Products",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name of the product</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "description",
+            "description": "<p>Product description</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "user_id",
+            "description": "<p>Id of the user who created the product</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Int",
+            "optional": false,
+            "field": "quantity",
+            "description": "<p>Product quantity</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Float",
+            "optional": false,
+            "field": "price",
+            "description": "<p>Product's price</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/productController.js",
+    "groupTitle": "Products"
+  },
+  {
+    "type": "post",
     "url": "v1/roles",
     "title": "Create Roles",
     "name": "Create_Role",
