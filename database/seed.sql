@@ -1,8 +1,8 @@
-CREATE DATABASE IF NOT EXISTS criminal_watch_db;
+CREATE DATABASE IF NOT EXISTS agri_thesis;
 
-ALTER DATABASE criminal_watch_db CHARACTER SET utf32 COLLATE utf32_general_ci;
+ALTER DATABASE agri_thesis CHARACTER SET utf32 COLLATE utf32_general_ci;
 
-USE criminal_watch_db;
+USE agri_thesis;
 
 CREATE TABLE roles (
   `id` VARCHAR(64) NOT NULL PRIMARY KEY,
