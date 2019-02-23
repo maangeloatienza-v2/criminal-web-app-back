@@ -254,15 +254,9 @@ define({ "api": [
             "optional": false,
             "field": "role_id",
             "description": "<p>Role id of the user</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
+          },
           {
-            "group": "Success 200",
+            "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "address",
