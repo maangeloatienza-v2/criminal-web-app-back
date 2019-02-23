@@ -8,6 +8,8 @@ const passport          = require('passport');
 /* ROUTES */
 const userController    = require('./../controllers/userController');
 const roleController    = require('./../controllers/roleController');
+const productController = require('./../controllers/productController');
+
 
 router.get  ('/users',                                  userController.getUsers);
 router.get  ('/users/:id',                              userController.getUserById);
@@ -19,6 +21,9 @@ router.post ('/users/logout',       checkAuthorization, userController.logout);
 
 router.post ('/roles',              checkAuthorization, roleController.createRole);
 router.get  ('/roles',                                  roleController.getRole);
+
+router.post ('/products',       	checkAuthorization, productController.create);
+
 
 
 module.exports = router;
