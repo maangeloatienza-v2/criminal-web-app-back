@@ -14,6 +14,27 @@ define({ "api": [
             "optional": false,
             "field": "products[]",
             "description": "<p>Array of products</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "products.product_name",
+            "description": "<p>Product name</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Float",
+            "optional": false,
+            "field": "products.item_price",
+            "description": "<p>Product price</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Int",
+            "optional": false,
+            "field": "products.quantity",
+            "description": "<p>Product quantity</p>"
           }
         ]
       }

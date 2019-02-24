@@ -24,9 +24,9 @@ const products = [
  * 
  * 
  * @apiParam {Array}       products[]      			Array of products 
- * @apiParam {String}      products[].product_name  Product name
- * @apiParam {Float}       products[].item_price    Product price
- * @apiParam {Int}         products[].quantity      Product quantity
+ * @apiParam {String}      products.product_name  Product name
+ * @apiParam {Float}       products.item_price    Product price
+ * @apiParam {Int}         products.quantity      Product quantity
 
  */
 
