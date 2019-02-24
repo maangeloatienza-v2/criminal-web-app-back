@@ -14,7 +14,6 @@ const product = {
 	name : '',
 	_description : '',
 	user_id : '',
-	quantity : 1,
 	price : 1.0,
 }
 
@@ -23,7 +22,6 @@ const optProduct = {
 	_name : '',
 	_description : '',
 	_user_id : '',
-	_quantity : 1,
 	_price : 1.0,
 }
 
@@ -37,7 +35,6 @@ const optProduct = {
  * @apiParam {String}       name      		Name of the product
  * @apiParam {String}       description     Product description
  * @apiParam {String}       user_id        	Id of the user who created the product
- * @apiParam {Int}       	quantity        Product quantity
  * @apiParam {Float}       	price			Product's price
  */
 
@@ -218,7 +215,6 @@ const getOneProduct =(req,res,next)=>{
  * @apiParam {String}       id 		     	ID of the product
  * @apiParam {String}       [name]      	Name of the product
  * @apiParam {String}       [description]   Product description
- * @apiParam {Int}       	[quantity]      Product quantity
  * @apiParam {Float}       	[price]			Product's price
  */
 

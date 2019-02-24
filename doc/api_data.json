@@ -1,6 +1,29 @@
 [
   {
     "type": "post",
+    "url": "v1/add-orders",
+    "title": "Create order",
+    "name": "Create_Order",
+    "group": "Orders",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Array",
+            "optional": false,
+            "field": "products[]",
+            "description": "<p>Array of products</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/orderController.js",
+    "groupTitle": "Orders"
+  },
+  {
+    "type": "post",
     "url": "v1/products",
     "title": "Create Product",
     "name": "Create_Product",
@@ -28,13 +51,6 @@
             "optional": false,
             "field": "user_id",
             "description": "<p>Id of the user who created the product</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Int",
-            "optional": false,
-            "field": "quantity",
-            "description": "<p>Product quantity</p>"
           },
           {
             "group": "Parameter",
@@ -135,13 +151,6 @@
             "optional": true,
             "field": "description",
             "description": "<p>Product description</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Int",
-            "optional": true,
-            "field": "quantity",
-            "description": "<p>Product quantity</p>"
           },
           {
             "group": "Parameter",
@@ -453,7 +462,7 @@
     "groupTitle": "Users"
   },
   {
-    "type": "put",
+    "type": "post",
     "url": "v1/users/logout",
     "title": "Logout User",
     "name": "Logout_User",

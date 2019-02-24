@@ -396,7 +396,7 @@ const login = (req,res,next)=>{
 
 
 /**
- * @api {put}  v1/users/logout                 Logout User 
+ * @api {post}  v1/users/logout                 Logout User 
  * @apiName  Logout User
  * @apiGroup Users
 */

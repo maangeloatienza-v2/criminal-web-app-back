@@ -64,3 +64,6 @@ CREATE TABLE orders (
   `deleted` DATETIME  NULL
 );
 #updated 02-24-2019
+
+
+ALTER TABLE products DROP COLUMN quantity;
