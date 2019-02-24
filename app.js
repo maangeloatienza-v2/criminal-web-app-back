@@ -7,6 +7,7 @@ const dataManagement  = require('./routes/dataManagement');
 const app             = express();
 const MASTER_DB       = require('./config/db_config');
 const apidoc          = __dirname + '/doc';
+						require('./global_functions');
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());

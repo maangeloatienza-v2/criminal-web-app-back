@@ -9,6 +9,8 @@ const passport          = require('passport');
 const userController    = require('./../controllers/userController');
 const roleController    = require('./../controllers/roleController');
 const productController = require('./../controllers/productController');
+const orderController 	= require('./../controllers/orderController');
+
 
 
 router.get  ('/users',                                  userController.getUsers);
@@ -27,6 +29,9 @@ router.get  ('/products',       		 				productController.getProducts);
 router.get  ('/products/:id',       		 			productController.getOneProduct);
 router.put  ('/products/:id', 		checkAuthorization,	productController.updateProduct);
 router.put  ('/delete-product/:id', checkAuthorization,	productController.deleteProduct);
+
+router.post  ('/add-orders', 							orderController.addOrder);
+
 
 
 

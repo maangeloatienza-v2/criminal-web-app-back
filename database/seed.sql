@@ -50,3 +50,17 @@ CREATE TABLE products (
 );
 
 ALTER TABLE users ADD COLUMN `address` LONGTEXT NOT NULL;
+
+
+CREATE TABLE orders (
+  `id` VARCHAR(64) NOT NULL PRIMARY KEY,
+  `code` VARCHAR(10) NOT NULL,
+  `product_name` VARCHAR(256) NULL,
+  `quantity` INT NOT NULL,
+  `item_price` FLOAT NOT NULL,
+  `total_item` FLOAT NOT NULL,
+  `created` DATETIME  NULL,
+  `updated` DATETIME  NULL,
+  `deleted` DATETIME  NULL
+);
+#updated 02-24-2019

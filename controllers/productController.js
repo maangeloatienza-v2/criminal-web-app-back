@@ -5,8 +5,10 @@ const util              = require('./../helpers/util');
 const uuidv4            = require('uuid/v4');
 const jwt               = require('jsonwebtoken');
 const err_response      = require('./../libraries/response').err_response;
+const tx_code      		= require('./../libraries/code_generator').randomAlphanumeric;
                           require('./../config/err_config');
                           require('./../config/config');
+
 
 const product = {
 	name : '',
@@ -92,6 +94,7 @@ const create = (req,res,next)=>{
 
 
 const getProducts =(req,res,next)=>{
+	console.log(tx_code());
 	const {
 		search
 	} = req.query;
@@ -356,6 +359,7 @@ const deleteProduct = (req,res,next)=>{
 
 	start();
 }
+
 
 module.exports = {
 	create,
