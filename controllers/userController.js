@@ -378,11 +378,11 @@ const login = (req,res,next)=>{
                 if(saveToken(res,token)===false){
                     return err_response(res,NO_TOKEN_CREATED,err,500);
                 }
-    
+                userData.token = `Bearer ${token}`;
                 return res.status(200).json({
                     message     : 'Success',
                     data        : userData,
-                    token       : `Bearer ${token}`,
+                    //token       : `Bearer ${token}`,
                     success     : true
                 })
                 .send();
