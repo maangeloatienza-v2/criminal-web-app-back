@@ -10,6 +10,8 @@ const userController    = require('./../controllers/userController');
 const roleController    = require('./../controllers/roleController');
 const productController = require('./../controllers/productController');
 const orderController 	= require('./../controllers/orderController');
+const feedbackController= require('./../controllers/feedbackController');
+
 
 
 
@@ -33,6 +35,12 @@ router.put  ('/delete-product/:id', checkAuthorization,	productController.delete
 router.post  ('/add-orders', 		checkAuthorization, orderController.addOrder);
 router.get   ('/orders', 			checkAuthorization, orderController.getAll);
 router.get   ('/orders/:id',		checkAuthorization, orderController.getOne);
+
+router.post  ('/add-feedbacks', 		checkAuthorization, feedbackController.createFeedback);
+router.get   ('/feedbacks/:id',		checkAuthorization, feedbackController.showProductFeedback);
+router.put   ('/feedbacks/:id',		checkAuthorization, feedbackController.updateFeedback);
+router.put   ('/delete-feedbacks/:id',checkAuthorization, feedbackController.deleteFeedback);
+
 
 
 

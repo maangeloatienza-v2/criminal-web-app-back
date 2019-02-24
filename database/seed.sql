@@ -71,3 +71,16 @@ ALTER TABLE products DROP COLUMN quantity;
 #updated 02-24-2019
 
 ALTER TABLE orders ADD COLUMN order_by VARCHAR(64) NOT NULL;
+
+#updated 02-24-2019
+
+
+CREATE TABLE feedbacks (
+  `id` VARCHAR(64) NOT NULL PRIMARY KEY,
+  `description` LONGTEXT NOT NULL,
+  `product_id` VARCHAR(64) NOT NULL,
+  `user_id` VARCHAR(64) NOT NULL,
+  `created` DATETIME  NULL,
+  `updated` DATETIME  NULL,
+  `deleted` DATETIME  NULL
+);

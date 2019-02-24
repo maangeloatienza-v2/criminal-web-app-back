@@ -1,6 +1,105 @@
 [
   {
     "type": "post",
+    "url": "v1/add-feedback",
+    "title": "Add feedback",
+    "name": "Add_feedback",
+    "group": "Feedbacks",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "description",
+            "description": "<p>Feedback description</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "product_id",
+            "description": "<p>Product's id</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/feedbackController.js",
+    "groupTitle": "Feedbacks"
+  },
+  {
+    "type": "put",
+    "url": "v1/delete-feedbacks/:id",
+    "title": "Delete feedbacks",
+    "name": "Delete_feedback",
+    "group": "Feedbacks",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID of the feedback</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/feedbackController.js",
+    "groupTitle": "Feedbacks"
+  },
+  {
+    "type": "get",
+    "url": "v1/show-feedbacks/:id",
+    "title": "Fetch feedbacks",
+    "name": "Fetch_feedback",
+    "group": "Feedbacks",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID of the product</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/feedbackController.js",
+    "groupTitle": "Feedbacks"
+  },
+  {
+    "type": "put",
+    "url": "v1/feedbacks/:id",
+    "title": "Update feedbacks",
+    "name": "Update_feedback",
+    "group": "Feedbacks",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID of the feedback</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/feedbackController.js",
+    "groupTitle": "Feedbacks"
+  },
+  {
+    "type": "post",
     "url": "v1/add-orders",
     "title": "Create order",
     "name": "Create_Order",
