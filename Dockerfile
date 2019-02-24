@@ -14,4 +14,4 @@ RUN npm install
 
 EXPOSE $PORT
 
-CMD [ "nodemon"]
+CMD [ "forever", "start", "server.js"]

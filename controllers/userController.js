@@ -329,7 +329,7 @@ const login = (req,res,next)=>{
             return err_response(res,data.message,INC_DATA,500);
         }
         mysql.use('master')
-            .query(`SELECT user.*,role.* FROM users user
+            .query(`SELECT user.*,role.name FROM users user
                     LEFT JOIN roles role
                     ON role.id = user.role_id
                     WHERE user.username = ?`,
@@ -340,6 +340,7 @@ const login = (req,res,next)=>{
     }
 
     function validate_password(err,result,args,last_query){
+        console.log(result);
         if(err){
             return err_response(res,BAD_REQ,err,500);
         }
@@ -348,7 +349,8 @@ const login = (req,res,next)=>{
             return err_response(res,ZERO_RES,ZERO_RES,404);
         }
 
-        let userData = {                    
+        let userData = {  
+                id          : result[0].id,                  
                 first_name  : result[0].first_name,
                 last_name   : result[0].last_name,
                 username    : result[0].username,
@@ -368,6 +370,7 @@ const login = (req,res,next)=>{
             }
             if(resp){
                 const token = jwt.sign({
+                    id          : result[0].id,
                     first_name  : result[0].first_name,
                     last_name   : result[0].last_name,
                     username    : result[0].username,

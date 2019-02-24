@@ -2,4 +2,4 @@
 
 npm install 
 
-nodemon
+forever start server.js

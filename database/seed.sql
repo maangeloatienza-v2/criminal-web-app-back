@@ -67,3 +67,7 @@ CREATE TABLE orders (
 
 
 ALTER TABLE products DROP COLUMN quantity;
+
+#updated 02-24-2019
+
+ALTER TABLE orders ADD COLUMN order_by VARCHAR(64) NOT NULL;

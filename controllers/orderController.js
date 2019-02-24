@@ -40,7 +40,7 @@ async function check_tx_code(tx_code){
 }
 
 
-async function insert_order(items){
+async function insert_order(req,items){
 
 	let query = `INSERT INTO orders SET ?`;
 	let err_flag = 0;
@@ -57,13 +57,14 @@ async function insert_order(items){
     }
 
 
-
+    console.log(req.user);
 	await items.map(item=>{
 
 		item.code = txCode;
 		item.id = uuidv4();
 		item.created = new Date();
-  		item.total_item = ( item.quantity * item.item_price),
+  		item.total_item = ( item.quantity * item.item_price);
+  		item.order_by = req.user.id; 
 
 		(mysql.build(query,item)
 		 	.promise()
@@ -93,7 +94,6 @@ const addOrder = (req,res,next)=>{
     .form_data(products)
     .from(req.body);
 
-	let data_holder = [];
     let error,code,order;
 	
 	async function start(){
@@ -102,15 +102,15 @@ const addOrder = (req,res,next)=>{
 			return err_response(res,INC_DATA,INC_DATA,404);
 		}
 
-        [error,order] = await to(insert_order(data));
+        [error,order] = await to(insert_order(req,data));
+
 
         if(!order){
 
             return err_response(res,NO_RECORD_CREATED,NO_RECORD_CREATED,404);
 
         }
-
-        console.log(data);
+        
 
         return res.json({
         	data : data,
