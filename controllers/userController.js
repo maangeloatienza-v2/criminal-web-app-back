@@ -43,7 +43,7 @@ const user_login = {
  * @apiName Get Users
  * @apiGroup Users
  *
- * @apiParams  {String}     [search]        Search matching first name,last name,username
+ * @apiParam   {String}     [search]        Search matching first name,last name,username
  * 
  * @apiSuccess {String}     first_name      First name of the user
  * @apiSuccess {String}     last_name       Last name of the user

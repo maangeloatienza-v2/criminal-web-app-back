@@ -85,13 +85,13 @@ const create = (req,res,next)=>{
  * @apiName Get Products
  * @apiGroup Products
  *
- * @apiParams  {String}     [search]        Search matching name
+ * @apiParam  {String}     [search]        Search matching name
  */
 
 
 
 const getProducts =(req,res,next)=>{
-	console.log(tx_code());
+
 	const {
 		search
 	} = req.query;
@@ -99,7 +99,6 @@ const getProducts =(req,res,next)=>{
 	let where = ` WHERE p.deleted IS null `;
 
 	if(search) {
-		console.log(search);
 		where += ` AND p.name LIKE '%${search}%'`;
 	}
 
@@ -319,7 +318,6 @@ const deleteProduct = (req,res,next)=>{
     }
 
     function delete_product(err,result,args,last_query){
-    	console.log(last_query);
     	if(err){
             return err_response(res,BAD_REQ,err,500);
         }

@@ -31,7 +31,8 @@ router.put  ('/products/:id', 		checkAuthorization,	productController.updateProd
 router.put  ('/delete-product/:id', checkAuthorization,	productController.deleteProduct);
 
 router.post  ('/add-orders', 		checkAuthorization, orderController.addOrder);
-
+router.get   ('/orders', 			checkAuthorization, orderController.getAll);
+router.get   ('/orders/:id',		checkAuthorization, orderController.getOne);
 
 
 

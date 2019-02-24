@@ -44,6 +44,67 @@
     "groupTitle": "Orders"
   },
   {
+    "type": "get",
+    "url": "v1/orders/:id",
+    "title": "Fetch specific order",
+    "name": "Get_Order",
+    "group": "Orders",
+    "version": "0.0.0",
+    "filename": "controllers/orderController.js",
+    "groupTitle": "Orders"
+  },
+  {
+    "type": "get",
+    "url": "v1/orders",
+    "title": "Fetch orders",
+    "name": "Get_Orders",
+    "group": "Orders",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "search",
+            "description": "<p>Search order by first_name,last_name,username.code</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "product_name",
+            "description": "<p>Filter matching Product name</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "username",
+            "description": "<p>Filter by username</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "first_name",
+            "description": "<p>Filter by first_name</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "last_name",
+            "description": "<p>Filter by last_name</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/orderController.js",
+    "groupTitle": "Orders"
+  },
+  {
     "type": "post",
     "url": "v1/products",
     "title": "Create Product",
@@ -139,6 +200,19 @@
     "title": "Fetch Product information",
     "name": "Get_Products",
     "group": "Products",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "search",
+            "description": "<p>Search matching name</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "controllers/productController.js",
     "groupTitle": "Products"
@@ -393,6 +467,19 @@
     "title": "Request User information",
     "name": "Get_Users",
     "group": "Users",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "search",
+            "description": "<p>Search matching first name,last name,username</p>"
+          }
+        ]
+      }
+    },
     "success": {
       "fields": {
         "Success 200": [

@@ -56,8 +56,6 @@ async function insert_order(req,items){
     	return err_response(res,EXISTING,EXISTING,500);
     }
 
-
-    console.log(req.user);
 	await items.map(item=>{
 
 		item.code = txCode;
@@ -69,10 +67,8 @@ async function insert_order(req,items){
 		(mysql.build(query,item)
 		 	.promise()
 		 	.then(res =>{
-		 		console.log(res.affectedRows);
 		 	})
 		 	.catch(err=>{
-		 		console.log(err)
 		 			err_flag = 1
 		 		}
 
@@ -127,6 +123,174 @@ const addOrder = (req,res,next)=>{
 }
 
 
+/**
+ * @api {get} v1/orders               	Fetch orders 
+ * @apiName Get Orders
+ * @apiGroup Orders
+ * 
+ * 
+ * @apiParam {String}      [search]      			Search order by first_name,last_name,username.code 
+ * @apiParam {String}      [product_name]          Filter matching Product name
+ * @apiParam {String}      [username]			    Filter by username
+ * @apiParam {String}      [first_name]			Filter by first_name
+ * @apiParam {String}      [last_name]			    Filter by last_name
+ */
+
+
+
+
+const getAll = (req,res,next)=>{
+	const {
+		search,
+		username,
+		first_name,
+		last_name,
+		product_name
+	} = req.query;
+
+	let where = ` WHERE o.deleted is null `;
+
+	if(search){
+		where += 
+		` 	AND o.code LIKE '%${search}%' \
+		  	OR o.product_name LIKE '%${search}%' \
+		`;
+	}
+
+
+	if(product_name){
+		where +=
+		`
+			AND o.product_name = '${product_name}'\
+		`;
+	}
+
+	if(username){
+		where +=
+		`
+			AND user.username = '${username}'\
+		`;
+	}
+
+	if(first_name){
+		where +=
+		`
+			AND user.first_name = '${first_name}'\
+		`;
+	}
+
+	if(last_name){
+		where +=
+		`
+			AND user.last_name = '${last_name}'\
+		`;
+	}
+
+
+	let query = 
+	`	SELECT \ 
+		o.*,
+		user.username, \
+		user.first_name, \
+		user.last_name \
+		FROM orders o \
+		LEFT JOIN users user \
+		ON user.id = o.order_by \
+		${where}
+	`;
+
+	function start(){
+
+		mysql.use('master')
+			.query(query,send_response)
+			.end()
+
+	}
+
+	function send_response(err,result,args,last_query){
+		if(err){
+			return err_response(res,BAD_REQ,BAD_REQ,500)
+		}
+		
+		if(!result.length){
+			return err_response(res,ZERO_RES,ZERO_RES,400);
+		}
+
+		return res.json({
+			data : result,
+			message : 'Successfully fetched orders',
+			context : 'Data fetched successfully'
+		})
+		.status(200)
+		.send();
+
+	}
+
+	start();
+}
+
+
+/**
+ * @api {get} v1/orders/:id               	Fetch specific order 
+ * @apiName Get Order
+ * @apiGroup Orders
+ * 
+ */
+
+
+const getOne = (req,res,next)=>{
+	const id = req.params.id;
+
+	let where = ` WHERE o.deleted is null AND o.id = '${id}'`;
+
+
+	let query = 
+	`	SELECT \ 
+		o.*,
+		user.username, \
+		user.first_name, \
+		user.last_name \
+		FROM orders o \
+		LEFT JOIN users user \
+		ON user.id = o.order_by \
+		${where}
+	`;
+
+	function start(){
+
+		mysql.use('master')
+			.query(query,send_response)
+			.end()
+
+	}
+
+	function send_response(err,result,args,last_query){
+
+		if(err){
+			return err_response(res,BAD_REQ,BAD_REQ,500)
+		}
+		
+		if(!result.length){
+			return err_response(res,ZERO_RES,ZERO_RES,400);
+		}
+
+		return res.json({
+			data : result[0],
+			message : 'Successfully fetched orders',
+			context : 'Data fetched successfully'
+		})
+		.status(200)
+		.send();
+
+	}
+
+	start();
+}
+
+
+
 module.exports = {
-	addOrder
+	addOrder,
+	getAll,
+	getOne
 }
