@@ -1,4 +1,5 @@
 web: nodemon
 res: rs
-bot: forever start server.js
-stop: forever stop server.js
+pm2: pm2 start server.js
+stop: pm2 stop
+monit: pm2 monit
