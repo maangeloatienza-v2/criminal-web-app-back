@@ -106,6 +106,7 @@ const getUsers = (req,res,next)=>{
             message : 'Success!',
             data : result
         })
+        .status(200)
         .send();
     }
 

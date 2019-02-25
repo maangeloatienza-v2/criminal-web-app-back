@@ -1,6 +1,6 @@
 DEVELOPMENT = false;
 
-PORT = 8084,
+PORT = 8084;
 
 MYSQL_HOST = DEVELOPMENT ?process.env.MYSQL_HOST : '85.10.205.173' //'localhost';
 MYSQL_USER = DEVELOPMENT ?process.env.MYSQL_USER : 'agri_thesis' //'root';
