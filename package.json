@@ -4,8 +4,8 @@
   "description": "Criminal web app for real calamba",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-prebuild": "npm install forver -g",
+    // "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-prebuild": "forever start server.js",
     "start": "forever start server.js"
   },
   "author": "jrm",
