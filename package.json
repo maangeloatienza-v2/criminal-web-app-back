@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "npm install nodemon -g",
+    "heroku-postbuild": "npm install nodemon -g && npm install forever -g",
     "start": "nodemon"
   },
   "author": "jrm",
