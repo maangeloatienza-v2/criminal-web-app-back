@@ -84,6 +84,7 @@ const getUsers = (req,res,next)=>{
             username, \
             email, \
             phone_number, \
+            address, \
             created, \
             updated, \
             deleted \
@@ -508,7 +509,8 @@ const deleteUser = (req,res,next)=>{
                 last_name, \
                 username, \
                 email, \
-                phone_number \
+                phone_number, \
+                address, \
                 FROM users WHERE id = '${id}' \
                 AND deleted IS null
                 `,delete_info)
