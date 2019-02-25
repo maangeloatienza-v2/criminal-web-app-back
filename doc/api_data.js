@@ -228,13 +228,6 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "user_id",
-            "description": "<p>Id of the user who created the product</p>"
-          },
-          {
-            "group": "Parameter",
             "type": "Float",
             "optional": false,
             "field": "price",

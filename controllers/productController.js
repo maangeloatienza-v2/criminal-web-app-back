@@ -13,7 +13,6 @@ const tx_code      		= require('./../libraries/code_generator').randomAlphanumer
 const product = {
 	name : '',
 	_description : '',
-	user_id : '',
 	price : 1.0,
 }
 
@@ -21,7 +20,6 @@ const product = {
 const optProduct = {
 	_name : '',
 	_description : '',
-	_user_id : '',
 	_price : 1.0,
 }
 
@@ -34,7 +32,6 @@ const optProduct = {
  * 
  * @apiParam {String}       name      		Name of the product
  * @apiParam {String}       description     Product description
- * @apiParam {String}       user_id        	Id of the user who created the product
  * @apiParam {Float}       	price			Product's price
  */
 
@@ -53,6 +50,7 @@ const create = (req,res,next)=>{
 
         data.id = uuidv4();
         data.created = new Date();
+        data.user_id = req.user.id;
         
         mysql.use('master')
         	.query(`INSERT INTO products SET ?`,data,send_response)
@@ -220,6 +218,7 @@ const getOneProduct =(req,res,next)=>{
 
 const updateProduct = (req,res,next)=>{
 	const id = req.params.id;
+    const user_id = req.user.id;
 
 	const data = util._get
     .form_data(optProduct)
@@ -243,7 +242,9 @@ const updateProduct = (req,res,next)=>{
 					FROM products p \
 					LEFT JOIN users u \
 					ON p.user_id = u.id \ 
-        			WHERE p.id = '${id}' AND p.deleted IS null`,update_product)
+        			WHERE p.id = '${id}' \ 
+                    AND p.user_id = '${user_id}' \
+                    AND p.deleted IS null`,update_product)
         	.end();
     }
 
