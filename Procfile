@@ -1,2 +1,2 @@
-web: forever start server.js
+web: nodemons
 bot: forever start server.js
