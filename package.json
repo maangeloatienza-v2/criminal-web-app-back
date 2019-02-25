@@ -4,8 +4,8 @@
   "description": "Criminal web app for real calamba",
   "main": "server.js",
   "scripts": {
-    "heroku-prebuild": "forever start server.js",
-    "start": "forever start server.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": ""
   },
   "author": "jrm",
   "license": "ISC",
