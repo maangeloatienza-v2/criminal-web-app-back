@@ -1,4 +1,4 @@
 $ cat Procfile
 
-web: pm2 start server.js
+web: forever start server.js
 bot: nodemon
