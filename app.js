@@ -12,7 +12,13 @@ const apidoc          = __dirname + '/doc';
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
-mysql.add('master',MASTER_DB);
+
+try {
+	mysql.add('master',MASTER_DB);
+}
+catch(err){
+	console.log(err.message);
+}
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
