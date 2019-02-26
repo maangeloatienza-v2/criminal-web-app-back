@@ -455,6 +455,9 @@ const logout = (req,res,next)=>{
         if(!result.affectedRows){
             return err_response(res,NO_TOKEN_DELETED,ZERO_RES,404);
         }
+
+        console.log(result);
+
         return res.json({
             message : 'Sucessfully logged out',
             context : "Token deleted successfully"
