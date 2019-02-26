@@ -412,6 +412,7 @@ res.setHeader('Content-Type', 'application/json');
 
 const logout = (req,res,next)=>{
     res.setHeader('Content-Type', 'application/json');
+    console.log(req.user);
     let token = req.user.token;
 
     function start(){
@@ -446,6 +447,7 @@ const logout = (req,res,next)=>{
     }
 
     function send_response(err,result,args,last_query){
+        console.log(err);
         if(err){
             return err_response(res,err,BAD_REQ,500);
         }
@@ -457,6 +459,7 @@ const logout = (req,res,next)=>{
             message : 'Sucessfully logged out',
             context : "Token deleted successfully"
         })
+        .status(200)
         .send();
         
     }
