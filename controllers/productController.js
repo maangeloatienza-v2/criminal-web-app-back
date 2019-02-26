@@ -139,7 +139,7 @@ const getProducts =(req,res,next)=>{
         	context : 'Retrieved data successfully'
         })
         .status(200)
-        .send();
+        .send()
 	}
 
 	start();
