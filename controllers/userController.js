@@ -411,6 +411,8 @@ res.setHeader('Content-Type', 'application/json');
 */
 
 const logout = (req,res,next)=>{
+    res.setHeader('Content-Type', 'application/json');
+
     let token = req.user.token;
 
     function start(){
