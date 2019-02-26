@@ -504,7 +504,7 @@ function saveToken(res,token){
 */
 
 const deleteUser = (req,res,next)=>{
-    res.setHeader('Content-Type', 'application/json');
+
     const id = req.params.id;
     let old_data = {};
 
