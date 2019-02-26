@@ -138,6 +138,7 @@ const getProducts =(req,res,next)=>{
             message : 'Successfully fetched products',
         	context : 'Retrieved data successfully'
         })
+        .status(200)
         .send();
 	}
 
@@ -197,6 +198,7 @@ const getOneProduct =(req,res,next)=>{
             message : 'Successfully fetched product',
         	context : 'Retrieved data successfully'
         })
+        .status(200)
         .send();
 	}
 
@@ -277,7 +279,8 @@ const updateProduct = (req,res,next)=>{
         	edited_data : data,
         	message : 'Product updated successfully',
         	context : 'Data updated successfully'
-        }).status(200)
+        })
+        .status(200)
         .send();
 
     }
@@ -347,7 +350,8 @@ const deleteProduct = (req,res,next)=>{
         	deleted_data : old_data,
         	message : 'Product deleted successfully',
         	context : 'Data deleted successfully'
-        }).status(200)
+        })
+        .status(200)
         .send();
 
     }
