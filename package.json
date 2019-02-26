@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "npm install nodemon -g && npm install forever -g",
-    "start": "pm2 start server.js"
+    "heroku-postbuild": "npm install nodemon -g",
+    "start": "nodemon"
   },
   "author": "jrm",
   "license": "ISC",
