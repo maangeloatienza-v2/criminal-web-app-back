@@ -38,6 +38,7 @@ const optProduct = {
 
 
 const create = (req,res,next)=>{
+    res.setHeader('Content-Type', 'application/json');
 	const data = util._get
     .form_data(product)
     .from(req.body);
@@ -89,7 +90,7 @@ const create = (req,res,next)=>{
 
 
 const getProducts =(req,res,next)=>{
-
+    res.setHeader('Content-Type', 'application/json');
 	const {
 		search
 	} = req.query;
@@ -156,6 +157,7 @@ const getProducts =(req,res,next)=>{
 
 
 const getOneProduct =(req,res,next)=>{
+    res.setHeader('Content-Type', 'application/json');
 	const id = req.params.id;
 
 	let where = ` WHERE p.deleted IS null AND p.id = '${id}'`;
@@ -219,6 +221,7 @@ const getOneProduct =(req,res,next)=>{
 
 
 const updateProduct = (req,res,next)=>{
+    res.setHeader('Content-Type', 'application/json');
 	const id = req.params.id;
     const user_id = req.user.id;
 
@@ -299,6 +302,7 @@ const updateProduct = (req,res,next)=>{
 
 
 const deleteProduct = (req,res,next)=>{
+    res.setHeader('Content-Type', 'application/json');
 	const id = req.params.id;
 
 	let old_data = {};

@@ -22,6 +22,7 @@ const role = {
 
 
 const createRole = (req,res,next)=>{
+    res.setHeader('Content-Type', 'application/json');
     let data = util._get
     .form_data(role)
     .from(req.body);
@@ -86,6 +87,7 @@ const createRole = (req,res,next)=>{
  */
 
 const getRole = (req,res)=>{
+    res.setHeader('Content-Type', 'application/json');
     function start(){
         mysql.use('master')
             .query('SELECT * FROM roles',

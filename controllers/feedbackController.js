@@ -32,6 +32,7 @@ const optFeedbacks = {
 
 
 const createFeedback = (req,res,next)=>{
+	res.setHeader('Content-Type', 'application/json');
 	const data = util._get
 	.form_data(feedbacks)
 	.from(req.body);
@@ -91,6 +92,7 @@ const createFeedback = (req,res,next)=>{
 
 
 const showProductFeedback = (req,res,next)=>{
+	res.setHeader('Content-Type', 'application/json');
 	const id = req.params.id;
 
 	let query = 
@@ -159,6 +161,7 @@ const showProductFeedback = (req,res,next)=>{
 
 
 const updateFeedback = (req,res,next) =>{
+	res.setHeader('Content-Type', 'application/json');
 	const data = util._get
 	.form_data(optFeedbacks)
 	.from(req.body);
@@ -234,7 +237,7 @@ const updateFeedback = (req,res,next) =>{
 
 
 const deleteFeedback = (req,res,next) =>{
-
+	res.setHeader('Content-Type', 'application/json');
 	const id = req.params.id;
 	const user_id = req.user.id;
 

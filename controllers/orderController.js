@@ -86,6 +86,7 @@ async function insert_order(req,items){
 }
 
 const addOrder = (req,res,next)=>{
+	res.setHeader('Content-Type', 'application/json');
 	const data = util._get
     .form_data(products)
     .from(req.body);
@@ -140,6 +141,7 @@ const addOrder = (req,res,next)=>{
 
 
 const getAll = (req,res,next)=>{
+	res.setHeader('Content-Type', 'application/json');
 	const {
 		search,
 		username,
@@ -239,6 +241,7 @@ const getAll = (req,res,next)=>{
 
 
 const getOne = (req,res,next)=>{
+	res.setHeader('Content-Type', 'application/json');
 	const id = req.params.id;
 
 	let where = ` WHERE o.deleted is null AND o.id = '${id}'`;

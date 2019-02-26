@@ -57,6 +57,7 @@ const user_login = {
 
 
 const getUsers = (req,res,next)=>{
+    res.setHeader('Content-Type', 'application/json');
     const {
         username,
         first_name,
@@ -130,6 +131,7 @@ const getUsers = (req,res,next)=>{
  */
 
 const getUserById = (req,res,next)=>{
+    res.setHeader('Content-Type', 'application/json');
     const id = req.params.id;
     function start(){
 
@@ -179,6 +181,7 @@ const getUserById = (req,res,next)=>{
 
 
 const createUser = (req,res,next)=>{
+    res.setHeader('Content-Type', 'application/json');
     const data = util._get
     .form_data(user)
     .from(req.body);
@@ -262,6 +265,7 @@ const createUser = (req,res,next)=>{
  */
 
 const updateUser = (req,res,next)=>{
+    res.setHeader('Content-Type', 'application/json');
     const data = util._get
     .form_data(opt_user)
     .from(req.body);
@@ -321,7 +325,7 @@ const updateUser = (req,res,next)=>{
  */
 
 const login = (req,res,next)=>{
-
+res.setHeader('Content-Type', 'application/json');
     const data = util._get
     .form_data(user_login)
     .from(req.body);
@@ -407,6 +411,7 @@ const login = (req,res,next)=>{
 */
 
 const logout = (req,res,next)=>{
+    res.setHeader('Content-Type', 'application/json');
     let token = req.user.token;
 
     function start(){
@@ -499,6 +504,7 @@ function saveToken(res,token){
 */
 
 const deleteUser = (req,res,next)=>{
+    res.setHeader('Content-Type', 'application/json');
     const id = req.params.id;
     let old_data = {};
 
