@@ -29,12 +29,20 @@ app.use((req, res, next) => {
 app.use('/v1',dataManagement);
 app.use('/apidoc', express.static(apidoc));
 
-
 app.use('/', (req,res)=>{
   return res.json({
     message : 'Route not found',
     context : 'Route does not exists'
   }).status(404);
 });
+
+
+app.use((req, res, next) => {
+    const err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+
 
 module.exports = app;
