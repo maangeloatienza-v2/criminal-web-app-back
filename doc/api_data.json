@@ -434,7 +434,7 @@
   },
   {
     "type": "post",
-    "url": "v1/add-activity",
+    "url": "v1/activity",
     "title": "Schedule Activity",
     "name": "Create_Activity",
     "group": "Schedule_Activity",
@@ -454,6 +454,20 @@
             "optional": false,
             "field": "description",
             "description": "<p>Activity description</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Activity name</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "staff",
+            "description": "<p>Activity assigned to</p>"
           }
         ]
       }
@@ -464,7 +478,7 @@
   },
   {
     "type": "post",
-    "url": "v1/sheduled-activities",
+    "url": "v1/activity",
     "title": "Fetch Scheduled Activity",
     "name": "Fetch_Activities",
     "group": "Schedule_Activity",
@@ -491,6 +505,57 @@
             "optional": false,
             "field": "order",
             "description": "<p>Order schedules by ASC or DESC (ascending,descending--date)</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/scheduleTestController.js",
+    "groupTitle": "Schedule_Activity"
+  },
+  {
+    "type": "put",
+    "url": "v1/activity/:id",
+    "title": "Schedule Activity",
+    "name": "Update_Activity",
+    "group": "Schedule_Activity",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Id of the activity</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "scheduled_date",
+            "description": "<p>Scheduled date for the activity</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "description",
+            "description": "<p>Activity description</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "name",
+            "description": "<p>Activity name</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "staff",
+            "description": "<p>Activity assigned to</p>"
           }
         ]
       }

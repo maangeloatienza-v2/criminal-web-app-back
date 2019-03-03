@@ -102,3 +102,7 @@ ALTER TABLE schedule_activity
 ADD COLUMN cancelled DATETIME DEFAULT null,
 ADD COLUMN completed DATETIME DEFAULT null;
 #updated 03-03-2019
+
+ALTER TABLE schedule_activity
+ADD COLUMN name VARCHAR(256) not null,
+ADD COLUMN staff VARCHAR(256) DEFAULT null;

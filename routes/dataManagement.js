@@ -43,8 +43,9 @@ router.get  ('/feedbacks/:id',		checkAuthorization, feedbackController.showProdu
 router.put  ('/feedbacks/:id',		checkAuthorization, feedbackController.updateFeedback);
 router.put  ('/delete-feedbacks/:id',checkAuthorization, feedbackController.deleteFeedback);
 
-router.post ('/add-activity',		checkAuthorization, scheduleController.createSchedule);
-router.get  ('/scheduled-activities', 					scheduleController.showSchedule);
+router.post ('/activity',			checkAuthorization, scheduleController.createSchedule);
+router.get  ('/activity', 								scheduleController.showSchedule);
+router.put  ('/activity/:id', 		checkAuthorization, scheduleController.updateActivity);
 router.post ('/cancel-activity/:id',checkAuthorization, scheduleController.cancel_activity);
 router.post ('/complete-activity/:id',checkAuthorization, scheduleController.complete_activity);
 

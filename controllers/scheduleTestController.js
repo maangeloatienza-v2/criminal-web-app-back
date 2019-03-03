@@ -13,8 +13,18 @@ const tx_code      		= require('./../libraries/code_generator').randomAlphanumer
 
 const schedule = {
 	scheduled_date : '',
-	description : ''
+	description : '',
+	name : '',
+	staff : ''
 }
+
+const scheduleOpt = {
+	_scheduled_date : '',
+	_description : '',
+	_name : '',
+	_staff : ''
+}
+
 
 const cancelActivity = {
 	cancelled : ''
@@ -29,7 +39,7 @@ async function checkActivity(res,queryString){
 	let query = `SELECT * from schedule_activity WHERE ${queryString}`;
 
 	let err,activity;
-	console.log(query);
+
 	[err,activity] = await to(mysql.build(query).promise());
 
 	if(err) return err_response(res,err,BAD_REQ,500);
@@ -42,13 +52,32 @@ async function checkActivity(res,queryString){
 
 }
 
+async function getActivity(res,queryString){
+
+	let query = `SELECT * from schedule_activity WHERE deleted IS null ${queryString}`;
+
+	let err,activity;
+
+	[err,activity] = await to(mysql.build(query).promise());
+
+	if(err) return err_response(res,err,BAD_REQ,500);
+
+	if(!activity.length) return err_response(res,ZERO_RES,ZERO_RES,400);
+	
+
+	return activity[0];
+
+}
+
 /**
- * @api {post} v1/add-activity              Schedule Activity 
+ * @api {post} v1/activity                  Schedule Activity 
  * @apiName Create Activity
  * @apiGroup Schedule Activity
  * 
  * @apiParam {String}       scheduled_date  Scheduled date for the activity
  * @apiParam {String}		description		Activity description	
+ * @apiParam {String}		name			Activity name	
+ * @apiParam {String}		staff			Activity assigned to	
  */
 
 
@@ -104,7 +133,7 @@ const createSchedule = (req,res,next)=>{
 
 
 /**
- * @api {post} v1/sheduled-activities       Fetch Scheduled Activity 
+ * @api {post} v1/activity       			Fetch Scheduled Activity 
  * @apiName Fetch Activities
  * @apiGroup Schedule Activity
  *
@@ -151,12 +180,15 @@ const showSchedule = (req,res,next)=>{
 
 	let query = 
 	`SELECT \
+	 schedule_activity.id AS id,  \
 	 DATE(schedule_activity.scheduled_date) AS scheduled_date,  \
+	 schedule_activity.name AS name,  \
 	 schedule_activity.description AS description,  \
 	 schedule_activity.completed AS completed,  \
 	 schedule_activity.cancelled AS cancelled,  \
-	 user.first_name AS first_name, \
-	 user.last_name AS last_name, \
+	 schedule_activity.staff AS staff,  \
+	 user.first_name AS creator_first_name, \
+	 user.last_name AS creator_last_name, \
 	 user.username AS username \
 	 FROM schedule_activity schedule_activity \
 	 LEFT JOIN users user \
@@ -293,10 +325,76 @@ const complete_activity = (req,res,next)=>{
 
 }
 
+/**
+ * @api {put} v1/activity/:id  	             Schedule Activity 
+ * @apiName Update Activity
+ * @apiGroup Schedule Activity
+ * 
+ * @apiParam {String}       id  			 Id of the activity
+ *
+ * @apiParam {String}       [scheduled_date] Scheduled date for the activity
+ * @apiParam {String}		[description]	 Activity description	
+ * @apiParam {String}		[name]			 Activity name	
+ * @apiParam {String}		[staff]			 Activity assigned to	
+ */
+
+
+
+const updateActivity = (req,res,next)=>{
+	const id = req.params.id;
+	const data = util._get
+	.form_data(scheduleOpt)
+	.from(req.body);
+
+	async function start(){
+
+		let error,activity;
+
+		if(data instanceof Error){
+            return err_response(res,data.message,INC_DATA,500);
+		}
+
+		[error,activity] = await to(getActivity(res,` AND id = '${id}'`));
+		console.log(error);
+		if(error) return err_response(res,error,BAD_REQ,500);
+		data.updated = new Date();
+		mysql.use('master')
+			.query(`UPDATE schedule_activity SET ? WHERE id = '${id}' AND deleted IS null`,data,
+			async (err,result,args,last_query)=>{
+				console.log(err);
+				
+				if(err) return err_response(res,BAD_REQ,BAD_REQ,500);
+
+				if(!result.affectedRows) return err_response(res,NO_RECORD_UPDATED,NO_RECORD_UPDATED,500);
+				
+				let updatedActivity;
+
+				[error,updatedActivity] = await to(getActivity(res,` AND id = '${id}'`));
+				console.log(error);
+
+				if(error) return err_response(res,error,BAD_REQ,500);
+
+				return res.json({
+					data: updatedActivity,
+					message : 'Successfully updated scheduled activity',
+					context : 'Data updated successfully'
+				})
+				.status(200)
+				.send()
+
+			})
+			.end();
+	}
+
+	start();
+
+}
+
 
 module.exports = {
 	createSchedule,
 	showSchedule,
 	cancel_activity,
-	complete_activity
+	complete_activity,
+	updateActivity
 }
