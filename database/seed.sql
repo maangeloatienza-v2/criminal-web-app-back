@@ -84,3 +84,21 @@ CREATE TABLE feedbacks (
   `updated` DATETIME  NULL,
   `deleted` DATETIME  NULL
 );
+#updated 02-24-2019
+
+
+CREATE TABLE schedule_activity (
+  `id` VARCHAR(64) NOT NULL PRIMARY KEY,
+  `description` LONGTEXT NOT NULL,
+  `scheduled_date` DATETIME  NULL,
+  `user_id` VARCHAR(64) NOT NULL,
+  `created` DATETIME  NULL,
+  `updated` DATETIME  NULL,
+  `deleted` DATETIME  NULL
+);
+
+
+ALTER TABLE schedule_activity
+ADD COLUMN cancelled DATETIME DEFAULT null,
+ADD COLUMN completed DATETIME DEFAULT null;
+#updated 03-03-2019

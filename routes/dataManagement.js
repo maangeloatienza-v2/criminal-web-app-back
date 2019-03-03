@@ -11,6 +11,8 @@ const roleController    = require('./../controllers/roleController');
 const productController = require('./../controllers/productController');
 const orderController 	= require('./../controllers/orderController');
 const feedbackController= require('./../controllers/feedbackController');
+const scheduleController= require('./../controllers/scheduleTestController');
+
 
 
 
@@ -32,14 +34,20 @@ router.get  ('/products/:id',       		 			productController.getOneProduct);
 router.put  ('/products/:id', 		checkAuthorization,	productController.updateProduct);
 router.put  ('/delete-product/:id', checkAuthorization,	productController.deleteProduct);
 
-router.post  ('/add-orders', 		checkAuthorization, orderController.addOrder);
-router.get   ('/orders', 			checkAuthorization, orderController.getAll);
-router.get   ('/orders/:id',		checkAuthorization, orderController.getOne);
+router.post ('/add-orders', 		checkAuthorization, orderController.addOrder);
+router.get  ('/orders', 			checkAuthorization, orderController.getAll);
+router.get  ('/orders/:id',			checkAuthorization, orderController.getOne);
 
-router.post  ('/add-feedbacks', 		checkAuthorization, feedbackController.createFeedback);
-router.get   ('/feedbacks/:id',		checkAuthorization, feedbackController.showProductFeedback);
-router.put   ('/feedbacks/:id',		checkAuthorization, feedbackController.updateFeedback);
-router.put   ('/delete-feedbacks/:id',checkAuthorization, feedbackController.deleteFeedback);
+router.post ('/add-feedbacks', 		checkAuthorization, feedbackController.createFeedback);
+router.get  ('/feedbacks/:id',		checkAuthorization, feedbackController.showProductFeedback);
+router.put  ('/feedbacks/:id',		checkAuthorization, feedbackController.updateFeedback);
+router.put  ('/delete-feedbacks/:id',checkAuthorization, feedbackController.deleteFeedback);
+
+router.post ('/add-activity',		checkAuthorization, scheduleController.createSchedule);
+router.get  ('/scheduled-activities', 					scheduleController.showSchedule);
+router.post ('/cancel-activity/:id',checkAuthorization, scheduleController.cancel_activity);
+router.post ('/complete-activity/:id',checkAuthorization, scheduleController.complete_activity);
+
 
 
 

@@ -388,6 +388,119 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "v1/cancel-activity/:id",
+    "title": "Mark Activity as cancelled",
+    "name": "Cancel_Activity",
+    "group": "Schedule_Activity",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Id of the activity</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/scheduleTestController.js",
+    "groupTitle": "Schedule_Activity"
+  },
+  {
+    "type": "post",
+    "url": "v1/complete-activity/:id",
+    "title": "Mark Activity as completed",
+    "name": "Complete_Activity",
+    "group": "Schedule_Activity",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Id of the activity</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/scheduleTestController.js",
+    "groupTitle": "Schedule_Activity"
+  },
+  {
+    "type": "post",
+    "url": "v1/add-activity",
+    "title": "Schedule Activity",
+    "name": "Create_Activity",
+    "group": "Schedule_Activity",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "scheduled_date",
+            "description": "<p>Scheduled date for the activity</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "description",
+            "description": "<p>Activity description</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/scheduleTestController.js",
+    "groupTitle": "Schedule_Activity"
+  },
+  {
+    "type": "post",
+    "url": "v1/sheduled-activities",
+    "title": "Fetch Scheduled Activity",
+    "name": "Fetch_Activities",
+    "group": "Schedule_Activity",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": false,
+            "field": "completed",
+            "description": "<p>Show completed activities (completed=true)</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": false,
+            "field": "cancelled",
+            "description": "<p>Show cancelled activities (cancelled=true)</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "order",
+            "description": "<p>Order schedules by ASC or DESC (ascending,descending--date)</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/scheduleTestController.js",
+    "groupTitle": "Schedule_Activity"
+  },
+  {
+    "type": "post",
     "url": "v1/users",
     "title": "Create User",
     "name": "Create_User",
