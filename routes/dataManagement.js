@@ -27,6 +27,8 @@ router.post ('/users/logout',       checkAuthorization, userController.logout);
 
 router.post ('/roles',              checkAuthorization, roleController.createRole);
 router.get  ('/roles',                                  roleController.getRole);
+router.get  ('/roles/:id',                              roleController.getOneRole);
+
 
 router.post ('/products',       	checkAuthorization, productController.create);
 router.get  ('/products',       		 				productController.getProducts);

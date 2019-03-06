@@ -65,7 +65,7 @@ const getUsers = (req,res,next)=>{
         search
     } = req.query;
 
-    let where = ' WHERE deleted IS null '
+    let where = ' WHERE user.deleted IS null '
 
     if(search){
         where += `
@@ -79,17 +79,21 @@ const getUsers = (req,res,next)=>{
         mysql.use('master')
         .query(
             `SELECT \
-            id, \ 
+            user.id AS id, \ 
             first_name,\
             last_name, \
             username, \
             email, \
             phone_number, \
             address, \
-            created, \
-            updated, \
-            deleted \
-            FROM users ${where}`,
+            name AS role, \
+            user.created, \
+            user.updated, \
+            user.deleted \
+            FROM users user\
+            LEFT JOIN roles role \ 
+            ON role.id = user.role_id \
+            ${where}`,
             send_response
         )
         .end();
@@ -97,7 +101,7 @@ const getUsers = (req,res,next)=>{
     function send_response(err,result,args,last_query){
         if(err){
             console.log(err);
-            
+
             return err_response(res,BAD_REQ,err,500);
         }
 
@@ -343,7 +347,7 @@ res.setHeader('Content-Type', 'application/json');
             return err_response(res,data.message,INC_DATA,500);
         }
         mysql.use('master')
-            .query(`SELECT user.*,role.name FROM users user
+            .query(`SELECT user.*,role.name AS role FROM users user
                     LEFT JOIN roles role
                     ON role.id = user.role_id
                     WHERE user.username = ?`,
@@ -369,7 +373,9 @@ res.setHeader('Content-Type', 'application/json');
                 last_name   : result[0].last_name,
                 username    : result[0].username,
                 email       : result[0].email,
-                phone_number: result[0].phone_number
+                phone_number: result[0].phone_number,
+                role        : result[0].role
+
             };
         
 
@@ -391,7 +397,8 @@ res.setHeader('Content-Type', 'application/json');
                     last_name   : result[0].last_name,
                     username    : result[0].username,
                     email       : result[0].email,
-                    phone_number: result[0].phone_number
+                    phone_number: result[0].phone_number,
+                    role        : result[0].role
                 },JWT_TOKEN);
 
                 if(saveToken(res,token)===false){

@@ -1,4 +1,4 @@
-DEVELOPMENT = false;
+DEVELOPMENT = true;
 
 PORT = 8084;
 

@@ -112,7 +112,45 @@ const getRole = (req,res)=>{
 }
 
 
+/**
+ * @api {get} v1/roles/:id                  Fetch One Role 
+ * @apiName Fetch Role
+ * @apiGroup Roles
+ * 
+ * 
+ */
+
+const getOneRole = (req,res)=>{
+    res.setHeader('Content-Type', 'application/json');
+
+    let id = req.params.id;
+    function start(){
+        mysql.use('master')
+            .query(`SELECT * FROM roles WHERE id = '${id}'`,
+                send_response
+            ).end();
+    }
+    function send_response(err,result,args,last_query){
+        if(err){
+            console.log('GET ONE ROLES',err)
+            return err_response(res,BAD_REQ,err,500);
+        }
+        if(!result.length){
+            return err_response(res,ZERO_RES,ZERO_RES,404);
+        }
+
+        return res.json({
+            message : 'Success!',
+            data : result[0]
+        })
+        .send();
+    }
+    start();
+}
+
+
 module.exports = {
     createRole,
-    getRole
+    getRole,
+    getOneRole
 }
