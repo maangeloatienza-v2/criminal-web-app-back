@@ -156,7 +156,7 @@ const showSchedule = (req,res,next)=>{
 
 	let where = ` WHERE schedule_activity.deleted IS null `;
 	
-	if(completed){
+	if(completed==true){
 		
 		where += 
 		`
@@ -164,10 +164,25 @@ const showSchedule = (req,res,next)=>{
 		`;
 	}
 
-	if(cancelled){
+	if(cancelled==true){
 		where += 
 		`
 			AND cancelled IS NOT null \		
+		`;
+	}
+
+	if(completed==false){
+		
+		where += 
+		`
+			AND completed IS null \
+		`;
+	}
+
+	if(cancelled==false){
+		where += 
+		`
+			AND cancelled IS null \		
 		`;
 	}
 
@@ -177,7 +192,7 @@ const showSchedule = (req,res,next)=>{
 			ORDER BY DATE(scheduled_date) ${order}
 		`;
 	}
-
+	console.log(where);
 	let query = 
 	`SELECT \
 	 schedule_activity.id AS id,  \
@@ -205,7 +220,7 @@ const showSchedule = (req,res,next)=>{
 	}
 
 	function send_response(err,result,args,last_query){
-		console.log(last_query);
+
 		if(err){
             return err_response(res,BAD_REQ,err,500);
         }

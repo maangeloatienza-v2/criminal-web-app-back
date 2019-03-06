@@ -444,7 +444,8 @@ const logout = (req,res,next)=>{
         .end();
     }
 
-    function validate_token(err,result,args,last_query){
+    function validate_token(err,result,args,last_query){ 
+        console.log(result);
         if(err){
             console.log(err);
             return err_response(res,err,BAD_REQ,500);
@@ -474,14 +475,13 @@ const logout = (req,res,next)=>{
             return err_response(res,NO_TOKEN_DELETED,ZERO_RES,404);
         }
 
-        if(result.affectedRows){
-            return res.status(200).json({
-                message : 'Sucessfully logged out',
-                context : "Token deleted successfully"
-            })
-            .send()
-        }
-        
+
+        return res.status(200).json({
+            message : 'Sucessfully logged out',
+            context : "Token deleted successfully"
+        })
+        // .send()
+
         
     }
     start();
