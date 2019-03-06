@@ -96,6 +96,8 @@ const getUsers = (req,res,next)=>{
     }
     function send_response(err,result,args,last_query){
         if(err){
+            console.log(err);
+            
             return err_response(res,BAD_REQ,err,500);
         }
 
@@ -108,7 +110,7 @@ const getUsers = (req,res,next)=>{
             data : result
         })
         .status(200)
-        .send();
+        // .send();
     }
 
     start();
@@ -145,6 +147,8 @@ const getUserById = (req,res,next)=>{
     }
     function send_response(err,result,args,last_query){
         if(err){
+            console.log(err);
+
             return err_response(res,BAD_REQ,err,500);
         }
 
@@ -156,7 +160,7 @@ const getUserById = (req,res,next)=>{
             message : 'Success!',
             data : result
         })
-        .send();
+        // .send();
     }
 
     start();
@@ -198,6 +202,8 @@ const createUser = (req,res,next)=>{
     function create_user(err,result,args,last_query){
         
         if(err){
+            console.log(err);
+
             return err_response(res,BAD_REQ,err,500);
         }
 
@@ -299,6 +305,8 @@ const updateUser = (req,res,next)=>{
 
     function send_response(err,result,args,last_query){
         if(err){
+            console.log(err);
+
             return err_response(res,BAD_REQ,err,500);
         }
         if(!result.affectedRows){
@@ -368,6 +376,8 @@ res.setHeader('Content-Type', 'application/json');
         bcrypt.compare(data.password,result[0].password,(err,resp)=>{
 
             if(err){
+                console.log(err);
+
                 return err_response(res,LOG_FAIL,err,500);
             }
     
@@ -429,6 +439,7 @@ const logout = (req,res,next)=>{
 
     function validate_token(err,result,args,last_query){
         if(err){
+            console.log(err);
             return err_response(res,err,BAD_REQ,500);
         }
 
