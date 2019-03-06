@@ -243,7 +243,7 @@ const createUser = (req,res,next)=>{
             },
             message : 'Success'
         })
-        .send();
+        // .send();
     }
 
     start();
@@ -310,7 +310,7 @@ const updateUser = (req,res,next)=>{
             message : 'User updated successfully',
             context : 'Data updated successfully'
         })
-        .send();
+        // .send();
     }
 
     start();
@@ -394,7 +394,7 @@ res.setHeader('Content-Type', 'application/json');
                     //token       : `Bearer ${token}`,
                     success     : true
                 })
-                .send();
+                // .send();
             }
             
         });
@@ -560,7 +560,7 @@ const deleteUser = (req,res,next)=>{
             message : 'Sucessfully deleted user',
             context : 'Deleted successfully'
         })
-        .send(); 
+        // .send(); 
     }
 
     start();

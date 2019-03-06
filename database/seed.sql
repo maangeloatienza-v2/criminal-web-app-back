@@ -106,3 +106,17 @@ ADD COLUMN completed DATETIME DEFAULT null;
 ALTER TABLE schedule_activity
 ADD COLUMN name VARCHAR(256) not null,
 ADD COLUMN staff VARCHAR(256) DEFAULT null;
+#updated 03-03-2019
+
+
+CREATE TABLE reports (
+  `id` VARCHAR(64) NOT NULL PRIMARY KEY,
+  `code` VARCHAR(20) NOT NULL,
+  `description` LONGTEXT NOT NULL,
+  `activity_id` VARCHAR(64) NOT NULL,
+  `fw_test` FLOAT NULL,
+  `bw_test` FLOAT NULL,
+  `created` DATETIME  NULL,
+  `updated` DATETIME  NULL,
+  `deleted` DATETIME  NULL
+);
