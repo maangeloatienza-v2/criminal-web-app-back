@@ -465,7 +465,7 @@ const logout = (req,res,next)=>{
     }
 
     function send_response(err,result,args,last_query){
-        console.log(err);
+        console.log(result);
         if(err){
             return err_response(res,err,BAD_REQ,500);
         }

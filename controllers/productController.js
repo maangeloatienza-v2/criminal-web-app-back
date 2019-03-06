@@ -88,12 +88,34 @@ const create = (req,res,next)=>{
  */
 
 
+async function countProducts(res){
+        let query = 
+        `   SELECT \
+            count(*) AS total \
+            FROM products \
+            WHERE \
+            deleted IS null `;
+        let err,products;
 
-const getProducts =(req,res,next)=>{
+        [err,products] = await to(mysql.build(query).promise());
+
+        if(err) return err_response(res,BAD_REQ,err,500);
+
+        return products[0].total;
+}
+
+
+const getProducts = async (req,res,next)=>{
     res.setHeader('Content-Type', 'application/json');
 	const {
 		search
 	} = req.query;
+
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 10;
+    const offset = `LIMIT ${(page - 1) * limit}, ${limit}`;
+
+    let err,products,count =0;
 
 	let where = ` WHERE p.deleted IS null `;
 
@@ -114,7 +136,12 @@ const getProducts =(req,res,next)=>{
 		LEFT JOIN users u \
 		ON p.user_id = u.id \ 
 		${where} \
+        ${offset}
 	`;
+
+    [err,products] = await to(countProducts(res,where));
+
+    count = products;
 	
 
 	function start(){
@@ -126,6 +153,7 @@ const getProducts =(req,res,next)=>{
 	}
 
 	function send_response(err,result,args,last_query){
+        console.log(last_query)
 		if(err){
             return err_response(res,BAD_REQ,err,500);
         }
@@ -136,6 +164,9 @@ const getProducts =(req,res,next)=>{
 
         return res.json({
             data : result,
+            total : count,
+            page,
+            limit,
             message : 'Successfully fetched products',
         	context : 'Retrieved data successfully'
         })
