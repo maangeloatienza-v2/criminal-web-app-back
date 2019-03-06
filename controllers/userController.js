@@ -187,6 +187,19 @@ const getUserById = (req,res,next)=>{
  * @apiParam {String}       address         Address of the user
  */
 
+async function getRole(res,data){
+    let query = `
+        SELECT id FROM roles WHERE name = '${data}'
+    `;
+
+    let err,role;
+
+    [err,role] = await to(mysql.build(query).promise());
+
+    if(err) return err_response(res,err,BAD_REQ,500);
+
+    return role[0];
+}
 
 const createUser = (req,res,next)=>{
     res.setHeader('Content-Type', 'application/json');
@@ -194,10 +207,26 @@ const createUser = (req,res,next)=>{
     .form_data(user)
     .from(req.body);
     let password = '';
-    function start(){
+
+    let {
+        role
+    } = req.query;
+    let error,roles;
+
+    async function start(){
         if(data instanceof Error){
             return err_response(res,data.message,INC_DATA,500);
         }
+
+        role = role?role:'customer';
+        if(role){
+            [error,roles] = await to(getRole(res,role))
+            console.log(roles);
+            if(error) return err_response(res,err,BAD_REQ,500);
+
+            data.role_id = roles.id; 
+        }
+
         mysql.use('master')
             .query(`SELECT * FROM users where username = '${data.username}'`,create_user)
             .end();
