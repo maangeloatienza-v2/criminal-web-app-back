@@ -113,7 +113,7 @@ const getRole = (req,res)=>{
 
 
 /**
- * @api {get} v1/roles/:id                  Fetch One Role 
+ * @api {get} v1/roles/:id                 Fetch One Role 
  * @apiName Fetch Role
  * @apiGroup Roles
  * 
