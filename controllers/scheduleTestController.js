@@ -70,7 +70,7 @@ async function getActivity(res,queryString){
 }
 
 /**
- * @api {post} v1/activity                  Schedule Activity 
+ * @api {post} v1/activity                  Create Scheduled Activity 
  * @apiName Create Activity
  * @apiGroup Schedule Activity
  * 
@@ -326,7 +326,7 @@ const complete_activity = (req,res,next)=>{
 }
 
 /**
- * @api {put} v1/activity/:id  	             Schedule Activity 
+ * @api {put} v1/activity/:id  	             Update Activity 
  * @apiName Update Activity
  * @apiGroup Schedule Activity
  * 

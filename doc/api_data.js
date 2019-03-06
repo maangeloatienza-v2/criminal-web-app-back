@@ -387,6 +387,16 @@ define({ "api": [
     "groupTitle": "Roles"
   },
   {
+    "type": "get",
+    "url": "v1/roles/:id",
+    "title": "Fetch One Role",
+    "name": "Fetch_Role",
+    "group": "Roles",
+    "version": "0.0.0",
+    "filename": "controllers/roleController.js",
+    "groupTitle": "Roles"
+  },
+  {
     "type": "post",
     "url": "v1/cancel-activity/:id",
     "title": "Mark Activity as cancelled",
@@ -435,7 +445,7 @@ define({ "api": [
   {
     "type": "post",
     "url": "v1/activity",
-    "title": "Schedule Activity",
+    "title": "Create Scheduled Activity",
     "name": "Create_Activity",
     "group": "Schedule_Activity",
     "parameter": {
@@ -516,7 +526,7 @@ define({ "api": [
   {
     "type": "put",
     "url": "v1/activity/:id",
-    "title": "Schedule Activity",
+    "title": "Update Activity",
     "name": "Update_Activity",
     "group": "Schedule_Activity",
     "parameter": {
