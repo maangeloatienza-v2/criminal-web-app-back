@@ -12,6 +12,7 @@ const productController = require('./../controllers/productController');
 const orderController 	= require('./../controllers/orderController');
 const feedbackController= require('./../controllers/feedbackController');
 const scheduleController= require('./../controllers/scheduleTestController');
+const reportController  = require('./../controllers/reportController');
 
 
 
@@ -51,7 +52,8 @@ router.put  ('/activity/:id', 		checkAuthorization, scheduleController.updateAct
 router.post ('/cancel-activity/:id',checkAuthorization, scheduleController.cancel_activity);
 router.post ('/complete-activity/:id',checkAuthorization, scheduleController.complete_activity);
 
-
+router.post ('/reports/:id', 	     reportController.create_reports);
+router.get  ('/reports/:id', 	     reportController.show_reports);
 
 
 

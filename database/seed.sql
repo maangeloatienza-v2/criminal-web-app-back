@@ -129,3 +129,8 @@ CREATE TABLE reports_item_list (
   `updated` DATETIME  NULL,
   `deleted` DATETIME  NULL
 );
+
+
+ALTER TABLE reports_item_list
+ADD COLUMN code VARCHAR(20) NOT NULL;
+#updated 03-08-2019
