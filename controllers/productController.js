@@ -88,7 +88,7 @@ const create = (req,res,next)=>{
  */
 
 
-async function countProducts(res){
+async function countProducts(res,offset){
         let query = 
         `   SELECT \
             count(*) AS total \
@@ -171,7 +171,6 @@ const getProducts = async (req,res,next)=>{
         	context : 'Retrieved data successfully'
         })
         .status(200)
-        .send()
 	}
 
 	start();
@@ -232,7 +231,6 @@ const getOneProduct =(req,res,next)=>{
         	context : 'Retrieved data successfully'
         })
         .status(200)
-        .send();
 	}
 
 	start();
@@ -315,7 +313,6 @@ const updateProduct = (req,res,next)=>{
         	context : 'Data updated successfully'
         })
         .status(200)
-        .send();
 
     }
 
@@ -387,7 +384,6 @@ const deleteProduct = (req,res,next)=>{
         	context : 'Data deleted successfully'
         })
         .status(200)
-        .send();
 
     }
 

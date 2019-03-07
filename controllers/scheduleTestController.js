@@ -9,8 +9,6 @@ const tx_code      		= require('./../libraries/code_generator').randomAlphanumer
                           require('./../config/err_config');
                           require('./../config/config');
 
-
-
 const schedule = {
 	scheduled_date : '',
 	description : '',
@@ -151,7 +149,8 @@ const showSchedule = (req,res,next)=>{
 	const {
 		order,
 		completed,
-		cancelled
+		cancelled,
+		both
 	} = req.query;
 
 	let where = ` WHERE schedule_activity.deleted IS null `;
@@ -186,13 +185,29 @@ const showSchedule = (req,res,next)=>{
 		`;
 	}
 
+	if(both==true){
+		where += 
+		`
+			AND cancelled IS NOT null \
+			AND completed IS NOT null \	
+		`;
+	}
+
+	if(both==false){
+		where += 
+		`
+			AND cancelled IS null \
+			AND completed IS null \	
+		`;
+	}
+
+
 	if(order){
 		where += 
 		`
 			ORDER BY DATE(scheduled_date) ${order}
 		`;
 	}
-	console.log(where);
 	let query = 
 	`SELECT \
 	 schedule_activity.id AS id,  \
@@ -210,6 +225,7 @@ const showSchedule = (req,res,next)=>{
 		ON user.id = schedule_activity.user_id \
 	 ${where}
 	`;
+	console.log(query);
 
 	function start(){
 
@@ -235,7 +251,6 @@ const showSchedule = (req,res,next)=>{
         	context : 'Fetched data successfully'
         })
         .status(200)
-        .send();
 
 	}
 

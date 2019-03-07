@@ -9,37 +9,42 @@ module.exports = (req, res, next) => {
     try {
         
     const token = req.headers.authorization.split(" ")[1];
+    const decoded = jwt.verify(token, JWT_TOKEN);
 
-    function start(){
-        mysql.use('master')
-        .query(
-            `
-                SELECT token from tokens where token = ?
-            `,
-            token,
-            validate_token
-        )
-        .end();
-    }
-
-    function validate_token(err,result,args,last_query){
-        if(err){
-            return false;
-        }
-
-        if(!result.length){
-            return err_response(res,NO_TOKEN,BAD_REQ,500);
-        }
-        const decoded = jwt.verify(token, JWT_TOKEN);
-
-        req.user = decoded;
-        req.user.token = token;
-        next();
+    req.user = decoded;
+    req.user.token = token;
+    next();
     
-    }
+    // function start(){
+    //     mysql.use('master')
+    //     .query(
+    //         `
+    //             SELECT token from tokens where token = ?
+    //         `,
+    //         token,
+    //         validate_token
+    //     )
+    //     .end();
+    // }
+
+    // function validate_token(err,result,args,last_query){
+    //     if(err){
+    //         return false;
+    //     }
+
+    //     if(!result.length){
+    //         return err_response(res,NO_TOKEN,BAD_REQ,500);
+    //     }
+    //     const decoded = jwt.verify(token, JWT_TOKEN);
+
+    //     req.user = decoded;
+    //     req.user.token = token;
+    //     next();
+    
+    // }
     
 
-    start();
+    // start();
 
     } catch (error) {
         return res.status(401).json({

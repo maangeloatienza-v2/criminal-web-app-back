@@ -114,6 +114,15 @@ CREATE TABLE reports (
   `code` VARCHAR(20) NOT NULL,
   `description` LONGTEXT NOT NULL,
   `activity_id` VARCHAR(64) NOT NULL,
+  `created` DATETIME  NULL,
+  `updated` DATETIME  NULL,
+  `deleted` DATETIME  NULL
+);
+
+
+CREATE TABLE reports_item_list (
+  `id` VARCHAR(64) NOT NULL PRIMARY KEY,
+  `report_id` VARCHAR(64) NOT NULL,
   `fw_test` FLOAT NULL,
   `bw_test` FLOAT NULL,
   `created` DATETIME  NULL,

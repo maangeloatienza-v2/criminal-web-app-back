@@ -463,28 +463,6 @@ const logout = (req,res,next)=>{
 
     function start(){
         mysql.use('master')
-        .query(
-            `
-                SELECT * FROM tokens WHERE token = ?
-            `,
-            token,
-            validate_token
-        )
-        .end();
-    }
-
-    function validate_token(err,result,args,last_query){ 
-        console.log(result);
-        if(err){
-            console.log(err);
-            return err_response(res,err,BAD_REQ,500);
-        }
-
-        if(!result.length){
-            return err_response(res,NO_ACTIVE_TOKEN,NO_TOKEN,404);
-        }
-
-        mysql.use('master')
         .query(`
             DELETE FROM tokens WHERE token = ?
         `,
@@ -494,15 +472,28 @@ const logout = (req,res,next)=>{
         .end();
     }
 
-    function send_response(err,result,args,last_query){
-        console.log(result);
-        if(err){
-            return err_response(res,err,BAD_REQ,500);
-        }
+    // function validate_token(err,result,args,last_query){ 
+    //     console.log(result);
+    //     if(err){
+    //         console.log(err);
+    //         return err_response(res,err,BAD_REQ,500);
+    //     }
 
-        if(!result.affectedRows){
-            return err_response(res,NO_TOKEN_DELETED,ZERO_RES,404);
-        }
+    //     if(!result.length){
+    //         return err_response(res,NO_ACTIVE_TOKEN,NO_TOKEN,404);
+    //     }
+
+    //     mysql.use('master')
+    //     .query(`
+    //         DELETE FROM tokens WHERE token = ?
+    //     `,
+    //     token,
+    //     send_response
+    //     )
+    //     .end();
+    // }
+
+    function send_response(err,result,args,last_query){
 
 
         return res.status(200).json({
