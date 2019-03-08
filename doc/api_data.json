@@ -354,6 +354,66 @@
     "groupTitle": "Products"
   },
   {
+    "type": "POST",
+    "url": "v1/reports/:id",
+    "title": "Create reports",
+    "name": "Create_Report",
+    "group": "Reports",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Activity id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Float",
+            "optional": false,
+            "field": "fw_test[]",
+            "description": "<p>Array of fw test result</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Float",
+            "optional": false,
+            "field": "bw_test[]",
+            "description": "<p>Array of bw test result</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/reportController.js",
+    "groupTitle": "Reports"
+  },
+  {
+    "type": "get",
+    "url": "v1/reporta/:id",
+    "title": "Fetch One report",
+    "name": "Fetch_Reports",
+    "group": "Reports",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "Activity",
+            "description": "<p>id</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/reportController.js",
+    "groupTitle": "Reports"
+  },
+  {
     "type": "post",
     "url": "v1/roles",
     "title": "Create Roles",
