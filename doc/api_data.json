@@ -416,9 +416,29 @@
   {
     "type": "get",
     "url": "v1/reports",
-    "title": "Fetch Monthly report",
+    "title": "Fetch Monthly Report with average",
     "name": "Fetch_Reports",
     "group": "Reports",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "start_date",
+            "description": "<p>Provide time span for reports</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "end_date",
+            "description": "<p>Provide time span for reports</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "controllers/reportController.js",
     "groupTitle": "Reports"

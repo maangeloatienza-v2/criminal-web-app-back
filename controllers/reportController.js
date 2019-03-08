@@ -310,10 +310,12 @@ const show_reports = (req,res,next)=>{
 
 
 /**
- * @api {get} v1/reports               		Fetch Monthly report 
+ * @api {get} v1/reports               		Fetch Monthly Report with average 
  * @apiName Fetch Reports
  * @apiGroup Reports
  * 
+ * @apiParam		{String}   start_date	Provide time span for reports
+ * @apiParam		{String}   end_date		Provide time span for reports
  */
 
 
