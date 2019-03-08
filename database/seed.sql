@@ -133,4 +133,7 @@ CREATE TABLE reports_item_list (
 
 ALTER TABLE reports_item_list
 ADD COLUMN code VARCHAR(20) NOT NULL;
+
+ALTER TABLE reports
+MODIFY COLUMN description LONGTEXT NULL;
 #updated 03-08-2019

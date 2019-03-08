@@ -211,6 +211,7 @@ const createUser = (req,res,next)=>{
     let {
         role
     } = req.query;
+    
     let error,roles;
 
     async function start(){
@@ -300,7 +301,7 @@ const createUser = (req,res,next)=>{
  * @apiParam {String}       [email]         Email address of the user
  * @apiParam {String}       [phone_number]  Phone number of the user
  * @apiParam {String}       [role_id]       Role id of the user
- * @apiSuccess {String}     [address]       Address of the user
+ * @apiParam {String}       [address]       Address of the user
  */
 
 const updateUser = (req,res,next)=>{

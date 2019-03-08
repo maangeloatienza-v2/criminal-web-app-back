@@ -238,7 +238,7 @@ const getOneProduct =(req,res,next)=>{
 
 
 /**
- * @api {post} v1/products/:id              Update Product 
+ * @api {put} v1/products/:id               Update Product 
  * @apiName Update Product
  * @apiGroup Products
  * 
