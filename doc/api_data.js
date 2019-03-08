@@ -310,7 +310,7 @@ define({ "api": [
     "groupTitle": "Products"
   },
   {
-    "type": "post",
+    "type": "put",
     "url": "v1/products/:id",
     "title": "Update Product",
     "name": "Update_Product",
@@ -392,7 +392,7 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "v1/reporta/:id",
+    "url": "v1/reports/:id",
     "title": "Fetch One report",
     "name": "Fetch_Reports",
     "group": "Reports",
@@ -403,12 +403,22 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "Activity",
-            "description": "<p>id</p>"
+            "field": "id",
+            "description": "<p>Activity id</p>"
           }
         ]
       }
     },
+    "version": "0.0.0",
+    "filename": "controllers/reportController.js",
+    "groupTitle": "Reports"
+  },
+  {
+    "type": "get",
+    "url": "v1/reports",
+    "title": "Fetch Monthly report",
+    "name": "Fetch_Reports",
+    "group": "Reports",
     "version": "0.0.0",
     "filename": "controllers/reportController.js",
     "groupTitle": "Reports"
@@ -976,15 +986,9 @@ define({ "api": [
             "optional": true,
             "field": "role_id",
             "description": "<p>Role id of the user</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
+          },
           {
-            "group": "Success 200",
+            "group": "Parameter",
             "type": "String",
             "optional": true,
             "field": "address",

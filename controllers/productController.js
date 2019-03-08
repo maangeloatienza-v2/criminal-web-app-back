@@ -307,7 +307,7 @@ const updateProduct = (req,res,next)=>{
             return err_response(res,NO_RECORD_UPDATED,NO_RECORD_UPDATED,404);
         }
 
-        return res.json({
+        return res.send({
         	edited_data : data,
         	message : 'Product updated successfully',
         	context : 'Data updated successfully'

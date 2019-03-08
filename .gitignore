@@ -6,4 +6,7 @@
 
 
 #config
-/config/config.js
+config/
+
+#node_modules
+node_modules/

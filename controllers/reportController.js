@@ -89,7 +89,24 @@ async function createItemReport(res,data){
 			return result;
 	});
 	
-} 
+}
+
+async function updateActivity(res,data){
+	let query = `
+		UPDATE schedule_activity SET completed = NOW() WHERE id = '${data}'
+	`;
+
+	let err,activity;
+
+	[err,activity] = await to(mysql.build(query).promise());
+
+	if(err){
+
+		return err_response(res,err,NO_RECORD_UPDATED);
+	}
+
+	return true;
+}
 
 
 
@@ -137,7 +154,7 @@ const create_reports = (req,res)=>{
 			return err_response(err,NO_RECORD_CREATED,NO_RECORD_CREATED,500);
 		}
 
-		let error,reports,itemReport;
+		let error,reports,itemReport,activity;
 
 		[error,reports] = await to(getReports(res,code));
 
@@ -180,8 +197,15 @@ const create_reports = (req,res)=>{
 			return err_response(err,BAD_REQ,BAD_REQ,500);
 		}
 
-		console.log(itemReport);
+		[err,activity] = await to(updateActivity(res,id));
 
+		
+		if(error){
+			console.log('UPDATE ACTIVITY',err);
+			return err_response(err,BAD_REQ,BAD_REQ,500);
+		}
+
+		console.log(activity)
 		return res.send({
 			message : 'Test created successfully',
 			context: 'Data created successfully'
@@ -199,7 +223,7 @@ const create_reports = (req,res)=>{
  * @apiName Fetch Reports
  * @apiGroup Reports
  * 
- * @apiParam 		{String}				Activity id
+ * @apiParam 		{String}       id		 Activity id
  */
 
 
@@ -260,7 +284,7 @@ const show_reports = (req,res,next)=>{
 	}
 
 	function send_response(err,result,args,last_query){
-		console.log(result)
+
 		if(err){
 			console.log('SHOW ITEM REPORT', err);
 			return err_response(res,err,BAD_REQ,500);
@@ -269,6 +293,9 @@ const show_reports = (req,res,next)=>{
 		if(!result.length){
 			return err_response(res,ZERO_RES,ZERO_RES,400);
 		}
+
+
+		 
 
 
 		return res.send({
@@ -282,6 +309,12 @@ const show_reports = (req,res,next)=>{
 }
 
 
+/**
+ * @api {get} v1/reports               		Fetch Monthly report 
+ * @apiName Fetch Reports
+ * @apiGroup Reports
+ * 
+ */
 
 
 const monthly_reports = (req,res,next)=>{
@@ -328,6 +361,7 @@ const monthly_reports = (req,res,next)=>{
 	}
 
 	function send_response(err,result,args,last_query){
+		console.log(result);
 		if(err){
 
 			return err_response(res,err,BAD_REQ,500);
@@ -340,10 +374,21 @@ const monthly_reports = (req,res,next)=>{
 
 		}
 
-		console.log(result);
+		let test = [
+			(result[0].avg_fw1 + result[0].avg_bw1)/2,
+			(result[0].avg_fw2 + result[0].avg_bw2)/2,
+			(result[0].avg_fw3 + result[0].avg_bw3)/2,
+			(result[0].avg_fw4 + result[0].avg_bw4)/2,
+			(result[0].avg_fw5 + result[0].avg_bw5)/2,
+			(result[0].avg_fw6 + result[0].avg_bw6)/2,
+			(result[0].avg_fw7 + result[0].avg_bw7)/2,
+			(result[0].avg_fw8 + result[0].avg_bw8)/2,
+		];
+
+		
 
 		return res.send({
-			data : result,
+			data : test,
 			message : 'Fetched reports successfully',
 			context : 'Data fetched successfully'
 		}).status(200);

@@ -311,16 +311,25 @@ const updateUser = (req,res,next)=>{
     .from(req.body);
     let id = req.params.id;
 
+    let {
+        role
+    } = req.query;
+
 
     function start(){
+    
         if(data instanceof Error){
             return err_response(res,data.message,INC_DATA,500);
         }
+    
         mysql.use('master')
             .query(`SELECT * FROM users WHERE id=${id}`,update_user)
             .end();
+    
     }
-    function update_user(err,result,args,last_query){
+
+    async function update_user(err,result,args,last_query){
+
         if(err){
             return err_response(res,BAD_REQ,err,500);
         }
@@ -328,7 +337,19 @@ const updateUser = (req,res,next)=>{
         if(!result.length){
             return err_response(res,ZERO_RES,ZERO_RES,404);
         }
-        data.updated = new Date();
+
+        if(role){
+
+        [error,roles] = await to(getRole(res,role));
+
+        if(error) return err_response(res,err,BAD_REQ,500);
+
+            data.role_id = roles.id; 
+        }
+
+
+            data.updated = new Date();
+
         mysql.use('master')
             .query(`UPDATE users SET ?`,
             [data],
@@ -473,26 +494,6 @@ const logout = (req,res,next)=>{
         .end();
     }
 
-    // function validate_token(err,result,args,last_query){ 
-    //     console.log(result);
-    //     if(err){
-    //         console.log(err);
-    //         return err_response(res,err,BAD_REQ,500);
-    //     }
-
-    //     if(!result.length){
-    //         return err_response(res,NO_ACTIVE_TOKEN,NO_TOKEN,404);
-    //     }
-
-    //     mysql.use('master')
-    //     .query(`
-    //         DELETE FROM tokens WHERE token = ?
-    //     `,
-    //     token,
-    //     send_response
-    //     )
-    //     .end();
-    // }
 
     function send_response(err,result,args,last_query){
 
@@ -500,11 +501,10 @@ const logout = (req,res,next)=>{
         return res.status(200).json({
             message : 'Sucessfully logged out',
             context : "Token deleted successfully"
-        })
-        // .send()
-
-        
+        });
+   
     }
+
     start();
 }
 
