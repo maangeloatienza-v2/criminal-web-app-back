@@ -54,6 +54,8 @@ router.post ('/complete-activity/:id',checkAuthorization, scheduleController.com
 
 router.post ('/reports/:id', 	     reportController.create_reports);
 router.get  ('/reports/:id', 	     reportController.show_reports);
+router.get  ('/reports', 	     	 reportController.monthly_reports);
+
 
 
 
