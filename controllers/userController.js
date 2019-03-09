@@ -323,7 +323,7 @@ const updateUser = (req,res,next)=>{
         }
     
         mysql.use('master')
-            .query(`SELECT * FROM users WHERE id=${id}`,update_user)
+            .query(`SELECT * FROM users WHERE id='${id}'`,update_user)
             .end();
     
     }
@@ -562,7 +562,7 @@ const deleteUser = (req,res,next)=>{
                 username, \
                 email, \
                 phone_number, \
-                address, \
+                address \
                 FROM users WHERE id = '${id}' \
                 AND deleted IS null
                 `,delete_info)

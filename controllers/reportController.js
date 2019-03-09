@@ -390,7 +390,7 @@ const monthly_reports = (req,res,next)=>{
 		
 
 		return res.send({
-			data : test,
+			data : result[0],
 			message : 'Fetched reports successfully',
 			context : 'Data fetched successfully'
 		}).status(200);
