@@ -232,6 +232,13 @@ define({ "api": [
             "optional": false,
             "field": "price",
             "description": "<p>Product's price</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "file",
+            "description": "<p>Upload photo for product</p>"
           }
         ]
       }
