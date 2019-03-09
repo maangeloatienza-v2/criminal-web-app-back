@@ -2,6 +2,7 @@
 
 const express           = require('express');
 const router            = express.Router();
+const multer  			= require('multer');
 const checkAuthorization= require('./../middleware/checkauth');
 const passport          = require('passport');
                           require('./../middleware/passport')(passport);
@@ -13,6 +14,8 @@ const orderController 	= require('./../controllers/orderController');
 const feedbackController= require('./../controllers/feedbackController');
 const scheduleController= require('./../controllers/scheduleTestController');
 const reportController  = require('./../controllers/reportController');
+
+const upload 			= multer({ dest: 'uploads/' });
 
 
 
@@ -31,7 +34,7 @@ router.get  ('/roles',                                  roleController.getRole);
 router.get  ('/roles/:id',                              roleController.getOneRole);
 
 
-router.post ('/products',       	checkAuthorization, productController.create);
+router.post ('/products', checkAuthorization, upload.single('file'), productController.create);
 router.get  ('/products',       		 				productController.getProducts);
 router.get  ('/products/:id',       		 			productController.getOneProduct);
 router.put  ('/products/:id', 		checkAuthorization,	productController.updateProduct);

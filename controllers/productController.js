@@ -14,6 +14,7 @@ const product = {
 	name : '',
 	_description : '',
 	price : 1.0,
+    _file : ''
 }
 
 
@@ -21,6 +22,7 @@ const optProduct = {
 	_name : '',
 	_description : '',
 	_price : 1.0,
+    _file : ''
 }
 
 
@@ -32,17 +34,17 @@ const optProduct = {
  * 
  * @apiParam {String}       name      		Name of the product
  * @apiParam {String}       description     Product description
- * @apiParam {Float}       	price			Product's price
+ * @apiParam {Float}        price           Product's price
+ * @apiParam {String}       file			Upload photo for product
  */
 
 
 
 const create = (req,res,next)=>{
-    res.setHeader('Content-Type', 'application/json');
 	const data = util._get
     .form_data(product)
     .from(req.body);
-
+    console.log(req.file);
     function start(){
 		
 		if(data instanceof Error){
@@ -52,7 +54,9 @@ const create = (req,res,next)=>{
         data.id = uuidv4();
         data.created = new Date();
         data.user_id = req.user.id;
-        
+        if(req.file){
+            data.file = req.file.path
+        }
         mysql.use('master')
         	.query(`INSERT INTO products SET ?`,data,send_response)
         	.end();

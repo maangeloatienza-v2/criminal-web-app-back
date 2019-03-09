@@ -9,8 +9,9 @@ const MASTER_DB       = require('./config/db_config');
 const apidoc          = __dirname + '/doc';
 						require('./global_functions');
 
-app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({limit: "50mb", extended: false, parameterLimit:50000,type:'*/x-www-form-urlencoded'}));
+// app.use(express.json({limit : '50mb'}));
 
 
 try {
@@ -19,6 +20,12 @@ try {
 catch(err){
 	console.log(err.message);
 }
+
+// app.use(function(err, req, res, next) {
+//   if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+//     console.error('Bad JSON',err.message);
+//   }
+// });
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');

@@ -4,6 +4,7 @@ const mysql             = require('anytv-node-mysql');
 const util              = require('./../helpers/util');
 const uuidv4            = require('uuid/v4');
 const jwt               = require('jsonwebtoken');
+const nodemailer 		= require('nodemailer');
 const err_response      = require('./../libraries/response').err_response;
 const tx_code      		= require('./../libraries/code_generator').randomAlphanumeric;
                           require('./../config/err_config');
@@ -92,6 +93,8 @@ const addOrder = (req,res,next)=>{
     .from(req.body);
 
     let error,code,order;
+
+    let user = req.user;
 	
 	async function start(){
 
@@ -107,6 +110,7 @@ const addOrder = (req,res,next)=>{
             return err_response(res,NO_RECORD_CREATED,NO_RECORD_CREATED,404);
 
         }
+
         
 
         return res.json({
