@@ -37,6 +37,11 @@ const user_login = {
     password : ''
 }
 
+const update_password = {
+    password : '',
+    confirm_password : ''
+}
+
 
 /**
  * @api {get} v1/users                      Request User information
@@ -290,6 +295,89 @@ const createUser = (req,res,next)=>{
 }
 
 /**
+ * @api {put}  v1/update-password/:id       Update User password 
+ * @apiName  Update User
+ * @apiGroup Users
+
+ * @apiParam {String}       [password]      Password of the user
+*/
+
+const updatePassword = (req,res,next)=>{
+
+    let id = req.params.id;
+    const data = util._get
+    .form_data(update_password)
+    .from(req.body);
+
+
+    function start(){
+        if(data instanceof Error){
+            return err_response(res,data.message,INC_DATA,500);
+        }
+    
+        mysql.use('master')
+            .query(`SELECT * FROM users WHERE id='${id}'`,update)
+            .end();
+    }
+
+    function update(err,result,args,last_query){
+
+        if(err){
+            console.log('VERIFY USER',err);
+            return err_response(res,BAD_REQ,err,500);
+        }
+
+        if(!result.length){
+            return err_response(res,ZERO_RES,ZERO_RES,404);
+        }
+
+        if(data.confirm_password !== data.password){
+            console.log('DOES NOT MATCH',err);
+            return err_response(res,INV_PASS,err,500);
+        }
+
+
+        bcrypt.hash(data.password, 10, function(err, hash) {
+            if(err) err_response(res,err,BAD_REQ,500);
+            
+            data.password = hash;
+            
+
+            mysql.use('master')
+            .query(`UPDATE users SET password = '${hash}', updated = NOW() WHERE id = '${id}'`,
+            send_response
+            )
+            .end();
+
+        })    
+
+    }
+
+
+    function send_response(err,result,args,last_query){
+
+        if(err){
+            console.log(err);
+
+            return err_response(res,BAD_REQ,err,500);
+        }
+
+        if(!result.affectedRows){
+            return err_response(res,ERR_UPDATING,NO_RECORD_UPDATED,402)
+        }
+
+        return res.status(200).json({
+            data : data,
+            message : 'User updated successfully',
+            context : 'Data updated successfully'
+        });
+    }
+
+
+    start();
+}
+
+/**
  * @api {put}  v1/users/:id                 Update User information 
  * @apiName  Update User
  * @apiGroup Users
@@ -297,12 +385,13 @@ const createUser = (req,res,next)=>{
  * @apiParam {String}       [first_name]    First name of the user
  * @apiParam {String}       [last_name]     Last name of the user
  * @apiParam {String}       [username]      Username of the user
- * @apiParam {String}       [password]      Password of the user
  * @apiParam {String}       [email]         Email address of the user
  * @apiParam {String}       [phone_number]  Phone number of the user
  * @apiParam {String}       [role_id]       Role id of the user
  * @apiParam {String}       [address]       Address of the user
  */
+
+
 
 const updateUser = (req,res,next)=>{
     res.setHeader('Content-Type', 'application/json');
@@ -353,10 +442,12 @@ const updateUser = (req,res,next)=>{
 
         mysql.use('master')
             .query(`UPDATE users SET ? WHERE id = '${id}'`,
-            [data],
+            data,
             send_response
             )
             .end();
+
+   
     }
 
     function send_response(err,result,args,last_query){
@@ -612,6 +703,7 @@ module.exports = {
     createUser,
     updateUser,
     deleteUser,
+    updatePassword,
     login,
     logout
 }

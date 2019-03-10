@@ -28,6 +28,7 @@ router.put  ('/users/:id',			checkAuthorization, userController.updateUser);
 router.put  ('/delete-user/:id',    checkAuthorization, userController.deleteUser);
 router.post ('/users/login',                            userController.login);
 router.post ('/users/logout',       checkAuthorization, userController.logout);
+router.put  ('/update-password/:id',checkAuthorization, userController.updatePassword);
 
 router.post ('/roles',              checkAuthorization, roleController.createRole);
 router.get  ('/roles',                                  roleController.getRole);
