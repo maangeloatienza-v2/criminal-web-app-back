@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
         
     const token = req.headers.authorization.split(" ")[1];
     const decoded = jwt.verify(token, JWT_TOKEN);
-
+    console.log('MIDDLEWARE',token);
     req.user = decoded;
     req.user.token = token;
     next();

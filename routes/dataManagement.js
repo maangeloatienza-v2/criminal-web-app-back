@@ -24,7 +24,7 @@ const upload 			= multer({ dest: 'uploads/' });
 router.get  ('/users',                                  userController.getUsers);
 router.get  ('/users/:id',                              userController.getUserById);
 router.post ('/users',                                  userController.createUser);
-router.put  ('/users/:id',          checkAuthorization, userController.updateUser);
+router.put  ('/users/:id',			checkAuthorization, userController.updateUser);
 router.put  ('/delete-user/:id',    checkAuthorization, userController.deleteUser);
 router.post ('/users/login',                            userController.login);
 router.post ('/users/logout',       checkAuthorization, userController.logout);

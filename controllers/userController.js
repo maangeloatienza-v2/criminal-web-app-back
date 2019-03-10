@@ -331,13 +331,14 @@ const updateUser = (req,res,next)=>{
     async function update_user(err,result,args,last_query){
 
         if(err){
+            console.log('VERIFY USER',err);
             return err_response(res,BAD_REQ,err,500);
         }
 
         if(!result.length){
             return err_response(res,ZERO_RES,ZERO_RES,404);
         }
-        let roles,err;
+        let roles,error;
         if(role){
 
         [error,roles] = await to(getRole(res,role));
