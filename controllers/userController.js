@@ -337,7 +337,7 @@ const updateUser = (req,res,next)=>{
         if(!result.length){
             return err_response(res,ZERO_RES,ZERO_RES,404);
         }
-
+        let roles,err;
         if(role){
 
         [error,roles] = await to(getRole(res,role));
