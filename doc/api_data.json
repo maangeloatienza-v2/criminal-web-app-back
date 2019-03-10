@@ -422,30 +422,20 @@
   },
   {
     "type": "get",
-    "url": "v1/reports",
+    "url": "v1/reports/date",
     "title": "Fetch Monthly Report with average",
     "name": "Fetch_Reports",
     "group": "Reports",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "start_date",
-            "description": "<p>Provide time span for reports</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "end_date",
-            "description": "<p>Provide time span for reports</p>"
-          }
-        ]
-      }
-    },
+    "version": "0.0.0",
+    "filename": "controllers/reportController.js",
+    "groupTitle": "Reports"
+  },
+  {
+    "type": "get",
+    "url": "v1/reports",
+    "title": "Fetch  Reports",
+    "name": "Fetch_Reports",
+    "group": "Reports",
     "version": "0.0.0",
     "filename": "controllers/reportController.js",
     "groupTitle": "Reports"
@@ -475,8 +465,8 @@
   },
   {
     "type": "get",
-    "url": "v1/roles",
-    "title": "Fetch Roles",
+    "url": "v1/roles/:id",
+    "title": "Fetch One Role",
     "name": "Fetch_Role",
     "group": "Roles",
     "version": "0.0.0",
@@ -485,8 +475,8 @@
   },
   {
     "type": "get",
-    "url": "v1/roles/:id",
-    "title": "Fetch One Role",
+    "url": "v1/roles",
+    "title": "Fetch Roles",
     "name": "Fetch_Role",
     "group": "Roles",
     "version": "0.0.0",

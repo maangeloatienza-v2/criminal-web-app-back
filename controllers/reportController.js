@@ -310,12 +310,10 @@ const show_reports = (req,res,next)=>{
 
 
 /**
- * @api {get} v1/reports               		Fetch Monthly Report with average 
+ * @api {get} v1/reports/date               Fetch Monthly Report with average 
  * @apiName Fetch Reports
  * @apiGroup Reports
  * 
- * @apiParam		{String}   start_date	Provide time span for reports
- * @apiParam		{String}   end_date		Provide time span for reports
  */
 
 
@@ -354,7 +352,6 @@ const monthly_reports = (req,res,next)=>{
 			ON report.id = item.report_id \
 			INNER JOIN schedule_activity activity
 			ON report.activity_id = activity.id
-
 			`;
 
 	function start(){
@@ -400,8 +397,90 @@ const monthly_reports = (req,res,next)=>{
 }
 
 
+
+
+/**
+ * @api {get} v1/reports             		Fetch  Reports  
+ * @apiName Fetch Reports
+ * @apiGroup Reports
+ * 
+ */
+
+
+const retrieve_all = (req,res,next)=>{
+	let {
+		start_date,
+		end_date
+	} = req.query;
+
+	let date_now = moment().format('YYYY-MM-DD'); 
+
+	start_date = start_date? start_date : date_now;
+	end_date = end_date? end_date : date_now;
+
+	let query = `
+			SELECT \
+			activity.name, \
+			item.fw1, \
+			item.fw2, \
+			item.fw3, \
+			item.fw4, \
+			item.fw5, \
+			item.fw6, \
+			item.fw7, \
+			item.fw8, \
+			item.bw1, \
+			item.bw2, \
+			item.bw3, \
+			item.bw4, \
+			item.bw5, \
+			item.bw6, \
+			item.bw7, \
+			item.bw8\
+			FROM \
+			reports report \
+			INNER JOIN reports_item_list item \
+			ON report.id = item.report_id \
+			INNER JOIN schedule_activity activity
+			ON report.activity_id = activity.id
+
+			`;
+
+	function start(){
+		mysql.use('master')
+		.query(query,send_response);
+	}
+
+	function send_response(err,result,args,last_query){
+		console.log(result);
+		if(err){
+
+			return err_response(res,err,BAD_REQ,500);
+		
+		}
+
+		if(!result.length){
+
+			return err_response(res,ZERO_RES,ZERO_RES,400);
+
+		}
+
+
+		return res.send({
+			data : result,
+			message : 'Fetched reports successfully',
+			context : 'Data fetched successfully'
+		}).status(200);
+	}
+
+	start();
+}
+
+
+
 module.exports = {
 	create_reports,
 	show_reports,
-	monthly_reports
+	monthly_reports,
+    retrieve_all
 }
