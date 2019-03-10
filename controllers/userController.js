@@ -351,7 +351,7 @@ const updateUser = (req,res,next)=>{
             data.updated = new Date();
 
         mysql.use('master')
-            .query(`UPDATE users SET ?`,
+            .query(`UPDATE users SET ? WHERE id = '${id}'`,
             [data],
             send_response
             )
