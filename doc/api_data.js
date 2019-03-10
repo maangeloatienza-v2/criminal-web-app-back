@@ -399,6 +399,16 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "v1/average/reports",
+    "title": "Fetch Report with average",
+    "name": "Fetch_Average",
+    "group": "Reports",
+    "version": "0.0.0",
+    "filename": "controllers/reportController.js",
+    "groupTitle": "Reports"
+  },
+  {
+    "type": "get",
     "url": "v1/reports/:id",
     "title": "Fetch One report",
     "name": "Fetch_Reports",
@@ -422,18 +432,8 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "v1/reports/date",
-    "title": "Fetch Monthly Report with average",
-    "name": "Fetch_Reports",
-    "group": "Reports",
-    "version": "0.0.0",
-    "filename": "controllers/reportController.js",
-    "groupTitle": "Reports"
-  },
-  {
-    "type": "get",
     "url": "v1/reports",
-    "title": "Fetch  Reports",
+    "title": "Fetch Reports",
     "name": "Fetch_Reports",
     "group": "Reports",
     "version": "0.0.0",
@@ -465,8 +465,8 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "v1/roles/:id",
-    "title": "Fetch One Role",
+    "url": "v1/roles",
+    "title": "Fetch Roles",
     "name": "Fetch_Role",
     "group": "Roles",
     "version": "0.0.0",
@@ -475,8 +475,8 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "v1/roles",
-    "title": "Fetch Roles",
+    "url": "v1/roles/:id",
+    "title": "Fetch One Role",
     "name": "Fetch_Role",
     "group": "Roles",
     "version": "0.0.0",
@@ -948,6 +948,29 @@ define({ "api": [
   },
   {
     "type": "put",
+    "url": "v1/update-password/:id",
+    "title": "Update User password",
+    "name": "Update_User",
+    "group": "Users",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "password",
+            "description": "<p>Password of the user</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/userController.js",
+    "groupTitle": "Users"
+  },
+  {
+    "type": "put",
     "url": "v1/users/:id",
     "title": "Update User information",
     "name": "Update_User",
@@ -975,13 +998,6 @@ define({ "api": [
             "optional": true,
             "field": "username",
             "description": "<p>Username of the user</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": true,
-            "field": "password",
-            "description": "<p>Password of the user</p>"
           },
           {
             "group": "Parameter",
