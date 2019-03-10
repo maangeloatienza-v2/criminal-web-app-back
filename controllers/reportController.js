@@ -205,6 +205,7 @@ const create_reports = (req,res)=>{
 			return err_response(err,BAD_REQ,BAD_REQ,500);
 		}
 
+		tempHolder.id = null;
 		console.log(activity)
 		return res.send({
 			message : 'Test created successfully',
