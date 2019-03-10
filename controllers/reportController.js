@@ -310,10 +310,9 @@ const show_reports = (req,res,next)=>{
 
 
 /**
- * @api {get} v1/reports/date               Fetch Monthly Report with average 
- * @apiName Fetch Reports
+ * @api {get} v1/average/reports            Fetch Report with average 
+ * @apiName Fetch Average
  * @apiGroup Reports
- * 
  */
 
 
@@ -350,10 +349,9 @@ const monthly_reports = (req,res,next)=>{
 			reports report \
 			INNER JOIN reports_item_list item \
 			ON report.id = item.report_id \
-			INNER JOIN schedule_activity activity
-			ON report.activity_id = activity.id
-			`;
 
+			`;
+			console.log(query);
 	function start(){
 		mysql.use('master')
 		.query(query,send_response);
@@ -367,7 +365,7 @@ const monthly_reports = (req,res,next)=>{
 		
 		}
 
-		if(!result.length){
+		if(!result.length || result[0].avg_fw1 == null){
 
 			return err_response(res,ZERO_RES,ZERO_RES,400);
 
@@ -400,7 +398,7 @@ const monthly_reports = (req,res,next)=>{
 
 
 /**
- * @api {get} v1/reports             		Fetch  Reports  
+ * @api {get} v1/reports               		Fetch Reports 
  * @apiName Fetch Reports
  * @apiGroup Reports
  * 
@@ -414,13 +412,13 @@ const retrieve_all = (req,res,next)=>{
 	} = req.query;
 
 	let date_now = moment().format('YYYY-MM-DD'); 
-
 	start_date = start_date? start_date : date_now;
 	end_date = end_date? end_date : date_now;
 
 	let query = `
 			SELECT \
 			activity.name, \
+			report.id, \
 			item.fw1, \
 			item.fw2, \
 			item.fw3, \
@@ -436,13 +434,14 @@ const retrieve_all = (req,res,next)=>{
 			item.bw5, \
 			item.bw6, \
 			item.bw7, \
-			item.bw8\
+			item.bw8,
+			report.created  \
 			FROM \
 			reports report \
 			INNER JOIN reports_item_list item \
 			ON report.id = item.report_id \
-			INNER JOIN schedule_activity activity
-			ON report.activity_id = activity.id
+			INNER JOIN schedule_activity activity \
+			ON report.activity_id = activity.id \
 
 			`;
 
@@ -482,5 +481,5 @@ module.exports = {
 	create_reports,
 	show_reports,
 	monthly_reports,
-    retrieve_all
+	retrieve_all
 }

@@ -55,10 +55,10 @@ router.put  ('/activity/:id', 		checkAuthorization, scheduleController.updateAct
 router.post ('/cancel-activity/:id',checkAuthorization, scheduleController.cancel_activity);
 router.post ('/complete-activity/:id',checkAuthorization, scheduleController.complete_activity);
 
-router.post ('/reports/:id', 	     reportController.create_reports);
+router.post ('/reports/:id', 		checkAuthorization, reportController.create_reports);
 router.get  ('/reports/:id', 	     reportController.show_reports);
 router.get  ('/reports', 	     	 reportController.retrieve_all);
-router.get  ('/reports/date', 	     reportController.monthly_reports);
+router.get  ('/average/reports', 	 reportController.monthly_reports);
 
 
 
