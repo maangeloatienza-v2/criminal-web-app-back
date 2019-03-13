@@ -44,7 +44,7 @@ const create = (req,res,next)=>{
 	const data = util._get
     .form_data(product)
     .from(req.body);
-    console.log(req.file);
+    console.log('FILE UPLOADED',req.file);
     function start(){
 		
 		if(data instanceof Error){
