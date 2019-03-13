@@ -147,7 +147,22 @@ const getUserById = (req,res,next)=>{
 
         mysql.use('master')
         .query(
-            `SELECT * FROM users WHERE id = ?`,
+            `SELECT \
+            user.id AS id, \ 
+            first_name,\
+            last_name, \
+            username, \
+            email, \
+            phone_number, \
+            address, \
+            name AS role, \
+            user.created, \
+            user.updated, \
+            user.deleted \
+            FROM users user\
+            LEFT JOIN roles role \ 
+            ON role.id = user.role_id \
+            WHERE user.id = ?`,
             [req.params.id],
             send_response
         )
