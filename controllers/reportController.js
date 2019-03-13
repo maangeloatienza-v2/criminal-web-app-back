@@ -252,6 +252,7 @@ const show_reports = (req,res,next)=>{
 			SELECT \
 			report.id, \
 			activity.description AS activity, \
+			report.id AS activity_id, \
 			item.code, \
 			item.fw1, \
 			item.fw2, \
@@ -294,10 +295,6 @@ const show_reports = (req,res,next)=>{
 		if(!result.length){
 			return err_response(res,ZERO_RES,ZERO_RES,400);
 		}
-
-
-		 
-
 
 		return res.send({
 			data : result,
@@ -418,8 +415,9 @@ const retrieve_all = (req,res,next)=>{
 
 	let query = `
 			SELECT \
-			activity.name, \
 			report.id, \
+			activity.id AS activity_id, \
+			activity.name, \
 			item.fw1, \
 			item.fw2, \
 			item.fw3, \

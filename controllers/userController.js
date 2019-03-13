@@ -28,7 +28,6 @@ const opt_user = {
     _email       : '',
     _password    : '',
     _phone_number : '',
-    _role_id      : '',
     _address : ''
 }
 
