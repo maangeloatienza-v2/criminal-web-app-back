@@ -58,6 +58,29 @@ const update_password = {
  * @apiSuccess {String}     address         Address of the user
  */
 
+async function countUsers(res,where,offset){
+        let query = 
+        `SELECT \
+            COUNT(*) AS total
+            FROM users user\
+            LEFT JOIN roles role \ 
+            ON role.id = user.role_id \
+            ${where} \
+            ${offset}
+            `;
+
+            console.log(query);
+        let err,users;
+
+        [err,users] = await to(mysql.build(query).promise());
+
+        if(err) return err_response(res,BAD_REQ,err,500);
+        console.log(users)
+        return users[0].total;
+}
+
+
+
 
 
 const getUsers = (req,res,next)=>{
@@ -69,6 +92,12 @@ const getUsers = (req,res,next)=>{
         search
     } = req.query;
 
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 10;
+    const offset = `LIMIT ${(page - 1) * limit}, ${limit}`;
+    let error,users,count =0;
+
+
     let where = ' WHERE user.deleted IS null '
 
     if(search){
@@ -79,10 +108,7 @@ const getUsers = (req,res,next)=>{
         `;
     }
 
-    function start(){
-        mysql.use('master')
-        .query(
-            `SELECT \
+    let query = `SELECT \
             user.id AS id, \ 
             first_name,\
             last_name, \
@@ -97,7 +123,21 @@ const getUsers = (req,res,next)=>{
             FROM users user\
             LEFT JOIN roles role \ 
             ON role.id = user.role_id \
-            ${where}`,
+            ${where} \
+            ${offset}
+            `
+
+    async function start(){
+
+        [error,users] = await to(countUsers(res,where,offset));
+
+        count = users;
+
+
+
+        mysql.use('master')
+        .query(
+            query,
             send_response
         )
         .end();
@@ -113,9 +153,13 @@ const getUsers = (req,res,next)=>{
             return err_response(res,ZERO_RES,ZERO_RES,404);
         }
 
-        return res.json({
-            message : 'Success!',
-            data : result
+        return res.send({
+            data :result,
+            count,
+            page,
+            limit,
+            message : 'Successfully fetched users',
+            context : 'Retrieved data successfully'
         })
         .status(200)
         // .send();
