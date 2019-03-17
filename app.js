@@ -5,8 +5,12 @@ const bodyParser      = require('body-parser');
 const mysql           = require('anytv-node-mysql');                
 const dataManagement  = require('./routes/dataManagement');
 const app             = express();
+const path            = require('path');
 const MASTER_DB       = require('./config/db_config');
 const apidoc          = __dirname + '/doc';
+const uploads         = __dirname + '/uploads/';
+const serveIndex      = require('serve-index');
+
 						require('./global_functions');
 
 app.use(bodyParser.json());
@@ -35,6 +39,7 @@ app.use((req, res, next) => {
 
 app.use('/v1',dataManagement);
 app.use('/apidoc', express.static(apidoc));
+app.use('/uploads',serveIndex(uploads));
 
 app.use('/', (req,res)=>{
   return res.json({

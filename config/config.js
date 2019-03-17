@@ -12,4 +12,7 @@ JWT_TOKEN      = 'secret_key';
 SECRET_KEY     = 'secret';
 
 
-
+CLOUD_NAME	   = 'agrithesis';
+API_SECRET 	   = 'z8A5SJ_zExYrOtMUZxnvU7FBlwM';
+API_KEY		   = '584391562241729';
+ENV_VARIABLE   = 'cloudinary://584391562241729:z8A5SJ_zExYrOtMUZxnvU7FBlwM@agrithesis/';

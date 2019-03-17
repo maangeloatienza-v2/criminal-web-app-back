@@ -5,6 +5,8 @@ const util              = require('./../helpers/util');
 const uuidv4            = require('uuid/v4');
 const jwt               = require('jsonwebtoken');
 const err_response      = require('./../libraries/response').err_response;
+const cloudinary        = require('cloudinary').v2;
+const fs                = require('fs');
 const tx_code      		= require('./../libraries/code_generator').randomAlphanumeric;
                           require('./../config/err_config');
                           require('./../config/config');
@@ -26,6 +28,12 @@ const optProduct = {
 }
 
 
+cloudinary.config({
+    cloud_name  : CLOUD_NAME,
+    api_key     : API_KEY,
+    api_secret  : API_SECRET
+});
+
 /**
  * @api {post} v1/products                  Create Product 
  * @apiName Create Product
@@ -44,8 +52,11 @@ const create = (req,res,next)=>{
 	const data = util._get
     .form_data(product)
     .from(req.body);
-    console.log('FILE UPLOADED',req.file);
-    function start(){
+
+    let file = '';
+    let temp_holder;
+
+    async function start(){
 		
 		if(data instanceof Error){
             return err_response(res,data.message,INC_DATA,500);
@@ -55,8 +66,32 @@ const create = (req,res,next)=>{
         data.created = new Date();
         data.user_id = req.user.id;
         if(req.file){
-            data.file = req.file.path
+            file = req.file.path
+
+        temp_holder = await cloudinary.uploader.upload(
+                file,
+                {
+                    public_id : file,
+                    tags : 'uploads'
+                },
+                (err,image)=>{
+                    if(err){
+                        return err_response(res,err,'ERROR UPLOADING',500);
+                    }
+
+                    fs.unlinkSync(file);
+
+                    console.log('image url ****' ,image.url);
+                    return image;
+
+                    
+                }
+            );
         }
+
+        data.file = temp_holder.url;
+        console.log('FILE',data.file);
+
         mysql.use('master')
         	.query(`INSERT INTO products SET ?`,data,send_response)
         	.end();
@@ -71,6 +106,8 @@ const create = (req,res,next)=>{
         if(!result.affectedRows){
             return err_response(res,ERR_CREATING,NO_RECORD_CREATED,402)
         }
+
+
 
         return res.json({
         	data : data,
