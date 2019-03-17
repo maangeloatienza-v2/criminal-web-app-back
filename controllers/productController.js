@@ -70,10 +70,6 @@ const create = (req,res,next)=>{
 
         temp_holder = await cloudinary.uploader.upload(
                 file,
-                {
-                    public_id : file,
-                    tags : 'uploads'
-                },
                 (err,image)=>{
                     if(err){
                         return err_response(res,err,'ERROR UPLOADING',500);
@@ -341,10 +337,6 @@ const updateProduct = (req,res,next)=>{
 
         temp_holder = await cloudinary.uploader.upload(
                 file,
-                {
-                    public_id : file,
-                    tags : 'uploads'
-                },
                 (err,image)=>{
                     if(err){
                         return err_response(res,err,'ERROR UPLOADING',500);
