@@ -70,12 +70,16 @@ const create = (req,res,next)=>{
 
         temp_holder = await cloudinary.uploader.upload(
                 file,
+                {
+                    public_id : file,
+                    tags : 'uploads'
+                },
                 (err,image)=>{
                     if(err){
                         return err_response(res,err,'ERROR UPLOADING',500);
                     }
 
-                    //fs.unlinkSync(file);
+                    // fs.unlinkSync(file);
 
                     console.log('image url ****' ,image.url);
                     return image;
@@ -331,12 +335,16 @@ const updateProduct = (req,res,next)=>{
         }
 
         data.updated = new Date();
-
+        console.log(req.file.path);
         if(req.file){
             file = req.file.path
 
         temp_holder = await cloudinary.uploader.upload(
                 file,
+                {
+                    public_id : file,
+                    tags : 'uploads'
+                },
                 (err,image)=>{
                     if(err){
                         return err_response(res,err,'ERROR UPLOADING',500);

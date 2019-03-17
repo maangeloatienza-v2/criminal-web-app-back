@@ -16,18 +16,18 @@ const scheduleController= require('./../controllers/scheduleTestController');
 const reportController  = require('./../controllers/reportController');
 
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/')	
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname)
-  }
-})
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, 'uploads/')	
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, file.originalname)
+//   }
+// })
 
-const upload 			= multer({ storage: storage });
+// const upload 			= multer({ storage: storage });
 
-// const upload 			= multer({ dest: 'uploads/' });
+const upload 			= multer({ dest: 'uploads/' });
 
 
 
