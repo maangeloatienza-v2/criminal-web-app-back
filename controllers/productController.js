@@ -299,6 +299,8 @@ const updateProduct = (req,res,next)=>{
     .form_data(optProduct)
     .from(req.body);
 
+    let error,cloud,temp_holder,file;
+
     function start(){
 		
 		if(data instanceof Error){
@@ -323,7 +325,7 @@ const updateProduct = (req,res,next)=>{
         	.end();
     }
 
-    function update_product(err,result,args,last_query){
+    async function update_product(err,result,args,last_query){
     	if(err){
             return err_response(res,BAD_REQ,err,500);
         }
@@ -333,6 +335,33 @@ const updateProduct = (req,res,next)=>{
         }
 
         data.updated = new Date();
+
+        if(req.file){
+            file = req.file.path
+
+        temp_holder = await cloudinary.uploader.upload(
+                file,
+                {
+                    public_id : file,
+                    tags : 'uploads'
+                },
+                (err,image)=>{
+                    if(err){
+                        return err_response(res,err,'ERROR UPLOADING',500);
+                    }
+
+                    fs.unlinkSync(file);
+
+                    console.log('image url ****' ,image.url);
+                    return image;
+
+                    
+                }
+            );
+        }
+
+        data.file = temp_holder.url;
+
 
         mysql.use('master')
         	.query(`UPDATE products SET ? WHERE id = '${id}'`,data,send_response)

@@ -51,7 +51,7 @@ router.get  ('/roles/:id',                              roleController.getOneRol
 router.post ('/products', checkAuthorization, upload.single('file'), productController.create);
 router.get  ('/products',       		 				productController.getProducts);
 router.get  ('/products/:id',       		 			productController.getOneProduct);
-router.put  ('/products/:id', 		checkAuthorization,	productController.updateProduct);
+router.put  ('/products/:id', checkAuthorization, upload.single('file'), 		checkAuthorization,	productController.updateProduct);
 router.put  ('/delete-product/:id', checkAuthorization,	productController.deleteProduct);
 
 router.post ('/add-orders', 		checkAuthorization, orderController.addOrder);
