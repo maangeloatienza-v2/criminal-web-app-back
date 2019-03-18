@@ -84,7 +84,6 @@ async function countUsers(res,where,offset){
 
 
 const getUsers = (req,res,next)=>{
-    res.setHeader('Content-Type', 'application/json');
     const {
         username,
         first_name,
@@ -161,7 +160,7 @@ const getUsers = (req,res,next)=>{
             message : 'Successfully fetched users',
             context : 'Retrieved data successfully'
         })
-        .status(200)
+        .status(200);
         // .send();
     }
 

@@ -147,7 +147,6 @@ async function countProducts(res,offset){
 
 
 const getProducts = async (req,res,next)=>{
-    res.setHeader('Content-Type', 'application/json');
 	const {
 		search
 	} = req.query;
@@ -203,7 +202,7 @@ const getProducts = async (req,res,next)=>{
             return err_response(res,ZERO_RES,ZERO_RES,404);
         }
 
-        return res.json({
+        return res.send({
             data : result,
             total : count,
             page,
@@ -211,7 +210,7 @@ const getProducts = async (req,res,next)=>{
             message : 'Successfully fetched products',
         	context : 'Retrieved data successfully'
         })
-        .status(200)
+        .status(200);
 	}
 
 	start();
