@@ -6,6 +6,6 @@ const MASTER_DB = {
   user : MYSQL_USER || 'root',
   password : MYSQL_PASSWORD || '12345',
   database : MYSQL_DATABASE || 'agri_thesis',
-  retryable_errors: ['ER_LOCK_DEADLOCK', 'PROTOCOL_SEQUENCE_TIMEOUT']
+  // retryable_errors: ['ER_LOCK_DEADLOCK', 'PROTOCOL_SEQUENCE_TIMEOUT']
 };
 module.exports = MASTER_DB;

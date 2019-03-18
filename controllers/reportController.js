@@ -10,7 +10,6 @@ const tx_code      		= require('./../libraries/code_generator').randomAlphanumer
                           require('./../config/config');
 
 const reqBody = {
-	id : uuidv4(),
 	_description : '',
 
 }
@@ -119,9 +118,10 @@ const create_reports = (req,res)=>{
 	.form_data(itemBody)
 	.from(req.body);
 
+
 	let id = req.params.id;
 	let code = tx_code();
-
+	
 	async function start(){
 		if(reportsData instanceof Error){
 			return err_response(res,reportsData.message,INC_DATA,500);
@@ -134,11 +134,13 @@ const create_reports = (req,res)=>{
 			return err_response(res,ZERO_RES,ZERO_RES,400);
 		}
 
-
+		reportsData.id = uuidv4();
 		reportsData.activity_id = id;
 		reportsData.code = code;
 		reportsData.created = new Date();
 		
+
+		console.log('ID ****************',reportsData);
 		mysql.use('master')
 			.query(`INSERT INTO reports SET ?`,reportsData,addToList)
 			.end();
