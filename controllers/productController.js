@@ -202,7 +202,7 @@ const getProducts = async (req,res,next)=>{
             return err_response(res,ZERO_RES,ZERO_RES,404);
         }
 
-        return res.send({
+        return res.json({
             data : result,
             total : count,
             page,
