@@ -145,6 +145,7 @@ const create_reports = (req,res)=>{
 	}
 
 	async function addToList(err,result,args,last_query){
+		console.log('GENERATE REPORTS',result);
 		if(err) {
 			console.log('CREATE REPORTS',err);
 			return err_response(res,BAD_REQ,err,500);
