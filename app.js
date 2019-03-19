@@ -10,7 +10,7 @@ const MASTER_DB       = require('./config/db_config');
 const apidoc          = __dirname + '/doc';
 const uploads         = __dirname + '/uploads/';
 
-						require('./global_functions');
+						            require('./global_functions');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({limit: "50mb", extended: false, parameterLimit:50000,type:'*/x-www-form-urlencoded'}));
@@ -53,6 +53,13 @@ app.use((req, res, next) => {
     next(err);
 });
 
+function force200Responses(req, res, next) {
+    req.headers['if-none-match'] = 'no-match-for-this';
+    next();
+}
 
+app.use(force200Responses)
+
+app.disable('etag');
 
 module.exports = app;
