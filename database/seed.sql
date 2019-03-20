@@ -141,3 +141,10 @@ MODIFY COLUMN description LONGTEXT NULL;
 
 ALTER TABLE products
 ADD COLUMN file VARCHAR(256) NULL;
+
+
+ALTER TABLE schedule_activity
+ADD COLUMN staff_id VARCHAR(64) NOT NULL;
+
+ALTER TABLE schedule_activity
+ADD CONSTRAINT `schedule_activity_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `users` (`id`); 

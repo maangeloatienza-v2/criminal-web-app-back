@@ -89,7 +89,8 @@ const getUsers = (req,res,next)=>{
         last_name,
         search,
         sort_desc,
-        sort_id
+        sort_id,
+        role
     } = req.query;
 
     const page = parseInt(req.query.page, 10) || 1;
@@ -111,6 +112,12 @@ const getUsers = (req,res,next)=>{
             AND first_name LIKE '%${search}%' \
             OR last_name LIKE '%${search}%' \
             OR username LIKE '%${search}%' \
+        `;
+    }
+
+    if(role){
+        where += `
+            AND role.name = '${role}'
         `;
     }
 
