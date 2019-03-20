@@ -415,14 +415,14 @@ const retrieve_all = (req,res,next)=>{
 	let date_now = moment().format('YYYY-MM-DD'); 
 	let WHERE = ` WHERE report.deleted IS NULL `;
 
-	start_date = start_date? start_date : date_now;
-	end_date = end_date? end_date : date_now;
+	// start_date = start_date? start_date : date_now;
+	// end_date = end_date? end_date : date_now;
 
-		WHERE += `
-			AND DATE(report.created) \
-			BETWEEN '${start_date}' \
-			AND '${end_date}' \
-		`;
+	// 	WHERE += `
+	// 		AND DATE(report.created) \
+	// 		BETWEEN '${start_date}' \
+	// 		AND '${end_date}' \
+	// 	`;
 	
 
 	let query = `
