@@ -88,7 +88,9 @@ const getUsers = (req,res,next)=>{
         username,
         first_name,
         last_name,
-        search
+        search,
+        sort_desc,
+        sort_id
     } = req.query;
 
     const page = parseInt(req.query.page, 10) || 1;
@@ -98,6 +100,12 @@ const getUsers = (req,res,next)=>{
 
 
     let where = ' WHERE user.deleted IS null '
+
+    if(sort_id){
+        where += `
+            ORDER BY ${sort_id} ${sort_desc?sort_desc:ASC}
+        `;
+    }
 
     if(search){
         where += `
