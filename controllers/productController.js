@@ -65,7 +65,7 @@ const create = (req,res,next)=>{
         data.id = uuidv4();
         data.created = new Date();
         data.user_id = req.user.id;
-        if(req.file){
+        if(data.file){
             file = req.file.path
 
         temp_holder = await cloudinary.uploader.upload(
@@ -335,7 +335,7 @@ const updateProduct = (req,res,next)=>{
 
         data.updated = new Date();
 
-        if(req.file){
+        if(data.file){
             file = req.file.path
 
         temp_holder = await cloudinary.uploader.upload(
