@@ -87,10 +87,10 @@ const create = (req,res,next)=>{
                     
                 }
             );
-        }
 
         data.file = temp_holder.url;
-        console.log('FILE',data.file);
+        }
+
 
         mysql.use('master')
         	.query(`INSERT INTO products SET ?`,data,send_response)
