@@ -327,7 +327,9 @@ const updateProduct = (req,res,next)=>{
     }
 
     async function update_product(err,result,args,last_query){
-    	if(err){
+    	console.log(last_query);
+        if(err){
+            console.log(err);
             return err_response(res,BAD_REQ,err,500);
         }
 
@@ -335,7 +337,7 @@ const updateProduct = (req,res,next)=>{
             return err_response(res,ZERO_RES,ZERO_RES,404);
         }
 
-        data.updated = new Date();
+        
 
         if(req.file){
             file = req.file.path
@@ -361,7 +363,8 @@ const updateProduct = (req,res,next)=>{
             );
         // data.file = temp_holder.url;
         }
-
+        
+        data.updated = new Date();
         data.file =temp_holder? temp_holder.url : null;
         console.log(data.file);
         
