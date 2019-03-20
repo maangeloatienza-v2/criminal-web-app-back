@@ -65,8 +65,6 @@ async function countUsers(res,where,offset){
             FROM users user\
             LEFT JOIN roles role \ 
             ON role.id = user.role_id \
-            ${where} \
-            ${offset}
             `;
 
             console.log(query);
