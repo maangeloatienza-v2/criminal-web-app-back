@@ -4,7 +4,7 @@ PORT = 8084;
 
 MYSQL_HOST = DEVELOPMENT ?'localhost'/*process.env.MYSQL_HOST*/ : 'db4free.net'//'85.10.205.173:3306' //'localhost';
 MYSQL_USER = DEVELOPMENT ?'root'/*process.env.MYSQL_USER*/ : 'agri_thesis' //'root';
-MYSQL_PASSWORD = DEVELOPMENT ?'secretPassword123'/*process.env.MYSQL_PASSWORD*/ : 'secretPassword123'// '12345';
+MYSQL_PASSWORD = DEVELOPMENT ?'password'/*process.env.MYSQL_PASSWORD*/ : 'secretPassword123'// '12345';
 MYSQL_DATABASE = 'agri_thesis';// 'criminal_watch_db';
 
 
