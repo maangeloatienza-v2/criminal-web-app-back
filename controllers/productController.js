@@ -65,7 +65,7 @@ const create = (req,res,next)=>{
         data.id = uuidv4();
         data.created = new Date();
         data.user_id = req.user.id;
-        if(data.file){
+        if(req.file){
             file = req.file.path
 
         temp_holder = await cloudinary.uploader.upload(
@@ -88,9 +88,11 @@ const create = (req,res,next)=>{
                 }
             );
 
-        data.file = temp_holder.url;
+        
         }
 
+        data.file =temp_holder? temp_holder.url : null;
+        console.log(data.file);
 
         mysql.use('master')
         	.query(`INSERT INTO products SET ?`,data,send_response)
@@ -335,7 +337,7 @@ const updateProduct = (req,res,next)=>{
 
         data.updated = new Date();
 
-        if(data.file){
+        if(req.file){
             file = req.file.path
 
         temp_holder = await cloudinary.uploader.upload(
@@ -357,9 +359,11 @@ const updateProduct = (req,res,next)=>{
                     
                 }
             );
-        data.file = temp_holder.url;
+        // data.file = temp_holder.url;
         }
 
+        data.file =temp_holder? temp_holder.url : null;
+        console.log(data.file);
         
 
 
