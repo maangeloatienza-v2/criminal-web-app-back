@@ -321,7 +321,6 @@ const updateProduct = (req,res,next)=>{
 					LEFT JOIN users u \
 					ON p.user_id = u.id \ 
         			WHERE p.id = '${id}' \ 
-                    AND p.user_id = '${user_id}' \
                     AND p.deleted IS null`,update_product)
         	.end();
     }
