@@ -357,9 +357,10 @@ const updateProduct = (req,res,next)=>{
                     
                 }
             );
+        data.file = temp_holder.url;
         }
 
-        data.file = temp_holder.url;
+        
 
 
         mysql.use('master')
