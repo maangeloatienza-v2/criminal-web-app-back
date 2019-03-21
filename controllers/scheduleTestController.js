@@ -161,7 +161,7 @@ const showSchedule = (req,res,next)=>{
 
 	let where = ` WHERE schedule_activity.deleted IS null `;
 
-	if(req.user.role == 'STAFF'){
+	if(req.user.role == 'STAFF'||req.user.role == 'staff'){
 		where +=
 		`
 			AND staff_id = '${req.user.id}'
