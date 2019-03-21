@@ -64,7 +64,7 @@ router.put  ('/feedbacks/:id',		checkAuthorization, feedbackController.updateFee
 router.put  ('/delete-feedbacks/:id',checkAuthorization, feedbackController.deleteFeedback);
 
 router.post ('/activity',			checkAuthorization, scheduleController.createSchedule);
-router.get  ('/activity', 								scheduleController.showSchedule);
+router.get  ('/activity', 			checkAuthorization, scheduleController.showSchedule);
 router.put  ('/activity/:id', 		checkAuthorization, scheduleController.updateActivity);
 router.post ('/cancel-activity/:id',checkAuthorization, scheduleController.cancel_activity);
 router.post ('/complete-activity/:id',checkAuthorization, scheduleController.complete_activity);

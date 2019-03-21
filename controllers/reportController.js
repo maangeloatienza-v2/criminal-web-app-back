@@ -10,7 +10,6 @@ const tx_code      		= require('./../libraries/code_generator').randomAlphanumer
                           require('./../config/config');
 
 const reqBody = {
-	id : uuidv4(),
 	_description : '',
 
 }
@@ -119,9 +118,10 @@ const create_reports = (req,res)=>{
 	.form_data(itemBody)
 	.from(req.body);
 
+
 	let id = req.params.id;
 	let code = tx_code();
-
+	
 	async function start(){
 		if(reportsData instanceof Error){
 			return err_response(res,reportsData.message,INC_DATA,500);
@@ -134,17 +134,20 @@ const create_reports = (req,res)=>{
 			return err_response(res,ZERO_RES,ZERO_RES,400);
 		}
 
-
+		reportsData.id = uuidv4();
 		reportsData.activity_id = id;
 		reportsData.code = code;
 		reportsData.created = new Date();
 		
+
+		console.log('ID ****************',reportsData);
 		mysql.use('master')
 			.query(`INSERT INTO reports SET ?`,reportsData,addToList)
 			.end();
 	}
 
 	async function addToList(err,result,args,last_query){
+		console.log('GENERATE REPORTS',result);
 		if(err) {
 			console.log('CREATE REPORTS',err);
 			return err_response(res,BAD_REQ,err,500);
@@ -410,8 +413,17 @@ const retrieve_all = (req,res,next)=>{
 	} = req.query;
 
 	let date_now = moment().format('YYYY-MM-DD'); 
-	start_date = start_date? start_date : date_now;
-	end_date = end_date? end_date : date_now;
+	let WHERE = ` WHERE report.deleted IS NULL `;
+
+	// start_date = start_date? start_date : date_now;
+	// end_date = end_date? end_date : date_now;
+
+	// 	WHERE += `
+	// 		AND DATE(report.created) \
+	// 		BETWEEN '${start_date}' \
+	// 		AND '${end_date}' \
+	// 	`;
+	
 
 	let query = `
 			SELECT \
@@ -441,7 +453,7 @@ const retrieve_all = (req,res,next)=>{
 			ON report.id = item.report_id \
 			INNER JOIN schedule_activity activity \
 			ON report.activity_id = activity.id \
-
+			${WHERE}
 			`;
 
 	function start(){
@@ -450,7 +462,7 @@ const retrieve_all = (req,res,next)=>{
 	}
 
 	function send_response(err,result,args,last_query){
-		console.log(result);
+		console.log(last_query);
 		if(err){
 
 			return err_response(res,err,BAD_REQ,500);

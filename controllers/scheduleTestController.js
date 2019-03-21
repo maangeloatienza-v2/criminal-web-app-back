@@ -13,14 +13,17 @@ const schedule = {
 	scheduled_date : '',
 	description : '',
 	name : '',
-	staff : ''
+	staff : '',
+	staff_id : ''
 }
 
 const scheduleOpt = {
 	_scheduled_date : '',
 	_description : '',
 	_name : '',
-	_staff : ''
+	_staff : '',
+	_staff_id : ''
+
 }
 
 
@@ -75,7 +78,8 @@ async function getActivity(res,queryString){
  * @apiParam {String}       scheduled_date  Scheduled date for the activity
  * @apiParam {String}		description		Activity description	
  * @apiParam {String}		name			Activity name	
- * @apiParam {String}		staff			Activity assigned to	
+ * @apiParam {String}		staff			Activity assigned to
+ * @apiParam {String}		staff_id		ID of the staff	
  */
 
 
@@ -150,10 +154,19 @@ const showSchedule = (req,res,next)=>{
 		order,
 		completed,
 		cancelled,
-		both
+		staff,
+		both,
+		search
 	} = req.query;
 
 	let where = ` WHERE schedule_activity.deleted IS null `;
+
+	if(req.user.role == 'STAFF'){
+		where +=
+		`
+			AND staff_id = '${req.user.id}'
+		`;
+	}
 	
 	if(completed==true){
 		
@@ -202,6 +215,21 @@ const showSchedule = (req,res,next)=>{
 	}
 
 
+	if(staff){
+		where +=
+		`
+			AND staff = '${staff}'
+		`;
+	}
+
+	if(search){
+		where += 
+		`
+			AND schedule_activity.name LIKE '%${search}%'		
+			OR  schedule_activity.staff LIKE '%${search}%'			
+		`
+	}
+
 	if(order){
 		where += 
 		`
@@ -212,11 +240,13 @@ const showSchedule = (req,res,next)=>{
 	`SELECT \
 	 schedule_activity.id AS id,  \
 	 DATE(schedule_activity.scheduled_date) AS scheduled_date,  \
+	 TIME(schedule_activity.created) AS schedule_time,  \
 	 schedule_activity.name AS name,  \
 	 schedule_activity.description AS description,  \
 	 schedule_activity.completed AS completed,  \
 	 schedule_activity.cancelled AS cancelled,  \
 	 schedule_activity.staff AS staff,  \
+	 schedule_activity.staff_id AS staff_id,  \
 	 user.first_name AS creator_first_name, \
 	 user.last_name AS creator_last_name, \
 	 user.username AS username \
@@ -365,7 +395,9 @@ const complete_activity = (req,res,next)=>{
  * @apiParam {String}       [scheduled_date] Scheduled date for the activity
  * @apiParam {String}		[description]	 Activity description	
  * @apiParam {String}		[name]			 Activity name	
- * @apiParam {String}		[staff]			 Activity assigned to	
+ * @apiParam {String}		[staff]			 Activity assigned to
+ * @apiParam {String}		staff_id		 ID of the staff	
+
  */
 
 

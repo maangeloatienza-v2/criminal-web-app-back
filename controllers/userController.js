@@ -65,8 +65,7 @@ async function countUsers(res,where,offset){
             FROM users user\
             LEFT JOIN roles role \ 
             ON role.id = user.role_id \
-            ${where} \
-            ${offset}
+            ${where}
             `;
 
             console.log(query);
@@ -84,12 +83,14 @@ async function countUsers(res,where,offset){
 
 
 const getUsers = (req,res,next)=>{
-    res.setHeader('Content-Type', 'application/json');
     const {
         username,
         first_name,
         last_name,
-        search
+        search,
+        sort_desc,
+        sort_id,
+        role
     } = req.query;
 
     const page = parseInt(req.query.page, 10) || 1;
@@ -100,11 +101,23 @@ const getUsers = (req,res,next)=>{
 
     let where = ' WHERE user.deleted IS null '
 
+    if(sort_id){
+        where += `
+            ORDER BY ${sort_id} ${sort_desc?sort_desc:ASC}
+        `;
+    }
+
     if(search){
         where += `
             AND first_name LIKE '%${search}%' \
             OR last_name LIKE '%${search}%' \
             OR username LIKE '%${search}%' \
+        `;
+    }
+
+    if(role){
+        where += `
+            AND role.name = '${role}'
         `;
     }
 
@@ -153,7 +166,7 @@ const getUsers = (req,res,next)=>{
             return err_response(res,ZERO_RES,ZERO_RES,404);
         }
 
-        return res.send({
+        return res.json({
             data :result,
             count,
             page,
@@ -161,7 +174,7 @@ const getUsers = (req,res,next)=>{
             message : 'Successfully fetched users',
             context : 'Retrieved data successfully'
         })
-        .status(200)
+        .status(200);
         // .send();
     }
 

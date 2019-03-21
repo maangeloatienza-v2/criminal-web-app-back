@@ -87,10 +87,12 @@ const create = (req,res,next)=>{
                     
                 }
             );
+
+        
         }
 
-        data.file = temp_holder.url;
-        console.log('FILE',data.file);
+        data.file =temp_holder? temp_holder.url : null;
+        console.log(data.file);
 
         mysql.use('master')
         	.query(`INSERT INTO products SET ?`,data,send_response)
@@ -147,7 +149,6 @@ async function countProducts(res,offset){
 
 
 const getProducts = async (req,res,next)=>{
-    res.setHeader('Content-Type', 'application/json');
 	const {
 		search
 	} = req.query;
@@ -211,7 +212,7 @@ const getProducts = async (req,res,next)=>{
             message : 'Successfully fetched products',
         	context : 'Retrieved data successfully'
         })
-        .status(200)
+        .status(200);
 	}
 
 	start();
@@ -320,13 +321,14 @@ const updateProduct = (req,res,next)=>{
 					LEFT JOIN users u \
 					ON p.user_id = u.id \ 
         			WHERE p.id = '${id}' \ 
-                    AND p.user_id = '${user_id}' \
                     AND p.deleted IS null`,update_product)
         	.end();
     }
 
     async function update_product(err,result,args,last_query){
-    	if(err){
+    	console.log(last_query);
+        if(err){
+            console.log(err);
             return err_response(res,BAD_REQ,err,500);
         }
 
@@ -336,6 +338,7 @@ const updateProduct = (req,res,next)=>{
 
         data.updated = new Date();
         console.log(req.file.path);
+
         if(req.file){
             file = req.file.path
 
@@ -358,9 +361,13 @@ const updateProduct = (req,res,next)=>{
                     
                 }
             );
+        // data.file = temp_holder.url;
         }
-
-        data.file = temp_holder.url;
+        
+        data.updated = new Date();
+        data.file =temp_holder? temp_holder.url : null;
+        console.log(data.file);
+        
 
 
         mysql.use('master')
