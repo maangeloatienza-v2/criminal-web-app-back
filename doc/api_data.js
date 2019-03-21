@@ -565,6 +565,13 @@ define({ "api": [
             "optional": false,
             "field": "staff",
             "description": "<p>Activity assigned to</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "staff_id",
+            "description": "<p>ID of the staff</p>"
           }
         ]
       }
@@ -653,6 +660,13 @@ define({ "api": [
             "optional": true,
             "field": "staff",
             "description": "<p>Activity assigned to</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "staff_id",
+            "description": "<p>ID of the staff</p>"
           }
         ]
       }
