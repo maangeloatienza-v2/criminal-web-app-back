@@ -148,3 +148,12 @@ ADD COLUMN staff_id VARCHAR(64) NOT NULL;
 
 ALTER TABLE schedule_activity
 ADD CONSTRAINT `schedule_activity_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `users` (`id`); 
+
+CREATE TABLE order_v2 (
+  `id` VARCHAR(64) NOT NULL PRIMARY KEY,
+  `customer_id` VARCHAR(64) NOT NULL,
+  `message` LONGTEXT NOT NULL,
+  `created` DATETIME  NULL,
+  `updated` DATETIME  NULL,
+  `deleted` DATETIME  NULL
+);

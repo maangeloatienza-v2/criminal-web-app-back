@@ -11,6 +11,7 @@ const userController    = require('./../controllers/userController');
 const roleController    = require('./../controllers/roleController');
 const productController = require('./../controllers/productController');
 const orderController 	= require('./../controllers/orderController');
+const orderControllerv2 = require('./../controllers/orderController_v2');
 const feedbackController= require('./../controllers/feedbackController');
 const scheduleController= require('./../controllers/scheduleTestController');
 const reportController  = require('./../controllers/reportController');
@@ -54,9 +55,14 @@ router.get  ('/products/:id',       		 			productController.getOneProduct);
 router.put  ('/products/:id', checkAuthorization, upload.single('file'), 		checkAuthorization,	productController.updateProduct);
 router.put  ('/delete-product/:id', checkAuthorization,	productController.deleteProduct);
 
-router.post ('/add-orders', 		checkAuthorization, orderController.addOrder);
-router.get  ('/orders', 			checkAuthorization, orderController.getAll);
-router.get  ('/orders/:id',			checkAuthorization, orderController.getOne);
+// router.post ('/add-orders', 		checkAuthorization, orderController.addOrder);
+// router.get  ('/orders', 			checkAuthorization, orderController.getAll);
+// router.get  ('/orders/:id',			checkAuthorization, orderController.getOne);
+
+router.post ('/orders', 			checkAuthorization, orderControllerv2.create);
+router.get  ('/orders', 			checkAuthorization, orderControllerv2.getAll);
+// router.get  ('/orders/:id',			checkAuthorization, orderController.getOne);
+
 
 router.post ('/add-feedbacks', 		checkAuthorization, feedbackController.createFeedback);
 router.get  ('/feedbacks/:id',		checkAuthorization, feedbackController.showProductFeedback);
