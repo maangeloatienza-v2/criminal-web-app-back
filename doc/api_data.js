@@ -205,6 +205,39 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "v1/orders",
+    "title": "Create order",
+    "name": "Create_Order_v2",
+    "group": "Orders_v2",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Order content</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/orderController_v2.js",
+    "groupTitle": "Orders_v2"
+  },
+  {
+    "type": "get",
+    "url": "v1/orders",
+    "title": "Get orders",
+    "name": "Fetch_Order_v2",
+    "group": "Orders_v2",
+    "version": "0.0.0",
+    "filename": "controllers/orderController_v2.js",
+    "groupTitle": "Orders_v2"
+  },
+  {
+    "type": "post",
     "url": "v1/products",
     "title": "Create Product",
     "name": "Create_Product",
@@ -409,6 +442,16 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "v1/reports",
+    "title": "Fetch Reports",
+    "name": "Fetch_Reports",
+    "group": "Reports",
+    "version": "0.0.0",
+    "filename": "controllers/reportController.js",
+    "groupTitle": "Reports"
+  },
+  {
+    "type": "get",
     "url": "v1/reports/:id",
     "title": "Fetch One report",
     "name": "Fetch_Reports",
@@ -426,16 +469,6 @@ define({ "api": [
         ]
       }
     },
-    "version": "0.0.0",
-    "filename": "controllers/reportController.js",
-    "groupTitle": "Reports"
-  },
-  {
-    "type": "get",
-    "url": "v1/reports",
-    "title": "Fetch Reports",
-    "name": "Fetch_Reports",
-    "group": "Reports",
     "version": "0.0.0",
     "filename": "controllers/reportController.js",
     "groupTitle": "Reports"
@@ -465,8 +498,8 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "v1/roles",
-    "title": "Fetch Roles",
+    "url": "v1/roles/:id",
+    "title": "Fetch One Role",
     "name": "Fetch_Role",
     "group": "Roles",
     "version": "0.0.0",
@@ -475,8 +508,8 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "v1/roles/:id",
-    "title": "Fetch One Role",
+    "url": "v1/roles",
+    "title": "Fetch Roles",
     "name": "Fetch_Role",
     "group": "Roles",
     "version": "0.0.0",
