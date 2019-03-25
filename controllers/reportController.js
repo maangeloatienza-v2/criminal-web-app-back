@@ -255,6 +255,7 @@ const show_reports = (req,res,next)=>{
 			SELECT \
 			report.id, \
 			activity.description AS activity, \
+			activity.staff, \
 			report.id AS activity_id, \
 			item.code, \
 			item.fw1, \
