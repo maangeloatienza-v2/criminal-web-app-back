@@ -431,6 +431,7 @@ const retrieve_all = (req,res,next)=>{
 			report.id, \
 			activity.id AS activity_id, \
 			activity.name, \
+			activity.staff, \
 			item.fw1, \
 			item.fw2, \
 			item.fw3, \
