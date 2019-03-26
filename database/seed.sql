@@ -157,3 +157,7 @@ CREATE TABLE order_v2 (
   `updated` DATETIME  NULL,
   `deleted` DATETIME  NULL
 );
+
+
+ALTER TABLE order_v2
+ADD COLUMN is_read BOOLEAN DEFAULT false;

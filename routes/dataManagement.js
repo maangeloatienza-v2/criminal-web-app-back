@@ -61,7 +61,7 @@ router.put  ('/delete-product/:id', checkAuthorization,	productController.delete
 
 router.post ('/orders', 			checkAuthorization, orderControllerv2.create);
 router.get  ('/orders', 			checkAuthorization, orderControllerv2.getAll);
-// router.get  ('/orders/:id',			checkAuthorization, orderController.getOne);
+router.get  ('/orders/:id',			checkAuthorization, orderControllerv2.getOne);
 
 
 router.post ('/add-feedbacks', 		checkAuthorization, feedbackController.createFeedback);
