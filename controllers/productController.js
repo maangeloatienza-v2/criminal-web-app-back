@@ -88,11 +88,9 @@ const create = (req,res,next)=>{
                 }
             );
 
-        
+        data.file =temp_holder? temp_holder.url : null;
         }
 
-        data.file =temp_holder? temp_holder.url : null;
-        console.log(data.file);
 
         mysql.use('master')
         	.query(`INSERT INTO products SET ?`,data,send_response)
