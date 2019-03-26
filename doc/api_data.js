@@ -123,8 +123,8 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "v1/orders/:id",
-    "title": "Get specific order",
+    "url": "v1/orders",
+    "title": "Get orders",
     "name": "Fetch_Order_v2",
     "group": "Orders_v2",
     "version": "0.0.0",
@@ -133,9 +133,9 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "v1/orders",
-    "title": "Get orders",
-    "name": "Fetch_Order_v2",
+    "url": "v1/orders/:id",
+    "title": "Get specific order",
+    "name": "Fetch_specific_Order_v2",
     "group": "Orders_v2",
     "version": "0.0.0",
     "filename": "controllers/orderController_v2.js",

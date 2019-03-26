@@ -178,7 +178,7 @@ const getAll = (req,res,next)=>{
 
 /**
  * @api {get} v1/orders/:id               Get specific order
- * @apiName Fetch Order v2
+ * @apiName Fetch specific Order v2
  * @apiGroup Orders v2
  * 
  */
