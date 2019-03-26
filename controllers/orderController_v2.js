@@ -32,6 +32,7 @@ async function getOrder(res,where){
 		ord.id AS id, \
 		ord.message, \
 		ord.is_read, \
+		ord.is_completed, \
 		user.id AS user_id, \
 		user.first_name, \
 		user.last_name, \
@@ -66,7 +67,10 @@ async function updateRead(res,id){
 
 
 	let query = `
-		UPDATE order_v2 SET is_read = true \
+		UPDATE order_v2 \
+		SET \
+		is_read = true, \
+		updated = NOW() \
 		WHERE id = '${id}'
 	`;
 
@@ -78,6 +82,32 @@ async function updateRead(res,id){
 
 	if(!order){
 		return err_response(res,NO_DATA_UPDATED,err,500);
+	}
+
+	return true;
+}
+
+
+async function updateCompleted(res,id){
+	let err,order;
+
+
+	let query = `
+		UPDATE order_v2 \
+		SET \
+		is_completed = true, \
+		updated = NOW() \
+		WHERE id = '${id}'
+	`;
+
+	[err,order] = await to(mysql.build(query).promise());
+
+	if(err){
+		return err_response(res,NO_RECORD_UPDATED,err,500);
+	}
+
+	if(!order){
+		return err_response(res,NO_RECORD_UPDATED,err,500);
 	}
 
 	return true;
@@ -111,7 +141,7 @@ const create = (req,res,next)=>{
 		}
 
 		if(!result.affectedRows){
-			return err_response(res,NO_DATA_CREATED,NO_DATA_CREATED,400);
+			return err_response(res,NO_RECORD_CREATED,NO_RECORD_CREATED,400);
 		}
 
 		return res.send({
@@ -136,7 +166,8 @@ const create = (req,res,next)=>{
 const getAll = (req,res,next)=>{
 	res.setHeader('Content-Type', 'application/json');
 	const {
-		is_read
+		is_read,
+		is_completed
 	} = req.query;
 	let where = ` WHERE ord.deleted IS NULL `;
 
@@ -153,6 +184,20 @@ const getAll = (req,res,next)=>{
 		console.log("false ***");		
 		where += `
 			AND is_read = false \
+		`;
+	}
+
+	if(is_completed==true){
+		console.log("true ***");
+		where += `
+			AND is_completed = true \
+		`;
+	}
+
+	if(is_completed==false){
+		console.log("false ***");		
+		where += `
+			AND is_completed = false \
 		`;
 	}
 
@@ -212,10 +257,50 @@ const getOne = (req,res,next)=>{
 	start();
 }
 
+/**
+ * @api {put} v1/orders/:id               Mark specific order as completed
+ * @apiName Update specific Order v2
+ * @apiGroup Orders v2
+ * 
+ */
+
+const markComplete = (req,res,next) =>{
+
+	let id = req.params.id;
+	
+	async function start(){
+	let err,order,updateOrder;
+
+		[err,order] = await to(getOrder(res,` WHERE ord.id = '${id}'`));
+
+		if(!order.length){
+			return err_response(res,ZERO_RES,ZERO_RES,400);
+		}
+
+		if(err){
+			return err_response(res,err,BAD_REQ,500);
+		}
+
+		[err,updateOrder] = await to(updateCompleted(res,id));
+
+		if(err){
+			return err_response(res,err,BAD_REQ,500);
+		}
+
+		return res.send({
+			message : 'Order marked completed',
+			context : 'Data updated successfully'
+		}).status(200);
+	}
+
+	start();
+}
+
 
 module.exports = {
 	create,
 	getAll,
-	getOne
+	getOne,
+	markComplete
 };
 

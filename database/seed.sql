@@ -161,3 +161,6 @@ CREATE TABLE order_v2 (
 
 ALTER TABLE order_v2
 ADD COLUMN is_read BOOLEAN DEFAULT false;
+
+ALTER TABLE order_v2
+ADD COLUMN is_completed BOOLEAN DEFAULT false;
