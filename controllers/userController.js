@@ -588,6 +588,7 @@ res.setHeader('Content-Type', 'application/json');
                 username    : result[0].username,
                 email       : result[0].email,
                 phone_number: result[0].phone_number,
+                address     : result[0].address,
                 role        : result[0].role
 
             };
