@@ -18,20 +18,6 @@
 // 	}
 // ]
 
-// /**
-//  * @api {post} v1/add-orders               	Create order 
-//  * @apiName Create Order
-//  * @apiGroup Orders
-//  * 
-//  * 
-//  * @apiParam {Array}       products[]      			Array of products 
-//  * @apiParam {String}      products.product_name  Product name
-//  * @apiParam {Float}       products.item_price    Product price
-//  * @apiParam {Int}         products.quantity      Product quantity
-
-//  */
-
-
 // async function check_tx_code(tx_code){
 
 // 	let query = `SELECT * FROM orders WHERE code = '${tx_code}'`;
@@ -128,20 +114,6 @@
 // }
 
 
-// *
-//  * @api {get} v1/orders               	Fetch orders 
-//  * @apiName Get Orders
-//  * @apiGroup Orders
-//  * 
-//  * 
-//  * @apiParam {String}      [search]      			Search order by first_name,last_name,username.code 
-//  * @apiParam {String}      [product_name]          	Filter matching Product name
-//  * @apiParam {String}      [username]			    Filter by username
-//  * @apiParam {String}      [first_name]				Filter by first_name
-//  * @apiParam {String}      [last_name]			    Filter by last_name
- 
-
-
 
 
 // const getAll = (req,res,next)=>{
@@ -236,12 +208,6 @@
 // }
 
 
-// /**
-//  * @api {get} v1/orders/:id               	Fetch specific order 
-//  * @apiName Get Order
-//  * @apiGroup Orders
-//  * 
-//  */
 
 
 // const getOne = (req,res,next)=>{
