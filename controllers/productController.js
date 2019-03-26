@@ -337,7 +337,6 @@ const updateProduct = (req,res,next)=>{
         }
 
         data.updated = new Date();
-        console.log(req.file.path);
 
         if(req.file){
             file = req.file.path
