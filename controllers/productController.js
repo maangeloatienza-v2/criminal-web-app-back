@@ -360,13 +360,11 @@ const updateProduct = (req,res,next)=>{
                     
                 }
             );
-        // data.file = temp_holder.url;
+        data.file = temp_holder.url;
         }
         
         data.updated = new Date();
-        data.file =temp_holder? temp_holder.url : null;
-        console.log(data.file);
-        
+        //data.file =temp_holder? temp_holder.url : null;
 
 
         mysql.use('master')
