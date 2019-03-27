@@ -347,7 +347,8 @@ const monthly_reports = (req,res,next)=>{
 			reports report \
 			INNER JOIN reports_item_list item \
 			ON report.id = item.report_id \
-
+			WHERE DATE(created) >= ${start_date} \
+			AND DATE(created) <= ${end_date}
 			`;
 
 	function start(){
