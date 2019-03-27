@@ -350,7 +350,6 @@ const monthly_reports = (req,res,next)=>{
 			WHERE DATE(report.created) >= '${start_date}' \
 			AND DATE(report.created) <= '${end_date}'
 			`;
-			console.log(query);
 
 	function start(){
 		mysql.use('master')
