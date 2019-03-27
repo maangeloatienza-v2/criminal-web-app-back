@@ -171,28 +171,28 @@ const getAll = (req,res,next)=>{
 	let where = ` WHERE ord.deleted IS NULL `;
 
 
-	if(is_read==true){
+	if(is_read=="true"){
 		console.log("true ***");
 		where += `
 			AND is_read = true \
 		`;
 	}
 
-	if(is_read==false){
+	if(is_read=="false"){
 		console.log("false ***");		
 		where += `
 			AND is_read = false \
 		`;
 	}
 
-	if(is_completed==true){
+	if(is_completed=="true"){
 		console.log("true ***");
 		where += `
 			AND is_completed = true \
 		`;
 	}
 
-	if(is_completed==false){
+	if(is_completed=="false"){
 		console.log("false ***");		
 		where += `
 			AND is_completed = false \
