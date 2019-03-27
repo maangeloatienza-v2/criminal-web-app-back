@@ -5,6 +5,7 @@ const bodyParser      = require('body-parser');
 const mysql           = require('anytv-node-mysql');                
 const dataManagement  = require('./routes/dataManagement');
 const app             = express();
+const logger          = require('./libraries/logger').LoggerMiddleware;
 const path            = require('path');
 const MASTER_DB       = require('./config/db_config');
 const apidoc          = __dirname + '/doc';
@@ -15,7 +16,7 @@ const uploads         = __dirname + '/uploads/';
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({limit: "50mb", extended: false, parameterLimit:50000,type:'*/x-www-form-urlencoded'}));
 // app.use(express.json({limit : '50mb'}));
-
+app.use(logger);
 
 try {
 	mysql.add('master',MASTER_DB);

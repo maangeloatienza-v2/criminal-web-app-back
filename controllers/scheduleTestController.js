@@ -255,7 +255,6 @@ const showSchedule = (req,res,next)=>{
 		ON user.id = schedule_activity.user_id \
 	 ${where}
 	`;
-	console.log(query);
 
 	function start(){
 
@@ -417,13 +416,12 @@ const updateActivity = (req,res,next)=>{
 		}
 
 		[error,activity] = await to(getActivity(res,` AND id = '${id}'`));
-		console.log(error);
+		
 		if(error) return err_response(res,error,BAD_REQ,500);
 		data.updated = new Date();
 		mysql.use('master')
 			.query(`UPDATE schedule_activity SET ? WHERE id = '${id}' AND deleted IS null`,data,
 			async (err,result,args,last_query)=>{
-				console.log(err);
 				
 				if(err) return err_response(res,BAD_REQ,BAD_REQ,500);
 
@@ -432,7 +430,6 @@ const updateActivity = (req,res,next)=>{
 				let updatedActivity;
 
 				[error,updatedActivity] = await to(getActivity(res,` AND id = '${id}'`));
-				console.log(error);
 
 				if(error) return err_response(res,error,BAD_REQ,500);
 

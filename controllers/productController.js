@@ -78,13 +78,10 @@ const create = (req,res,next)=>{
                     if(err){
                         return err_response(res,err,'ERROR UPLOADING',500);
                     }
-
                     // fs.unlinkSync(file);
 
-                    console.log('image url ****' ,image.url);
                     return image;
-
-                    
+  
                 }
             );
 
@@ -193,8 +190,8 @@ const getProducts = async (req,res,next)=>{
 	}
 
 	function send_response(err,result,args,last_query){
-        console.log(last_query)
 		if(err){
+            console.log('PRODUCT **',err)
             return err_response(res,BAD_REQ,err,500);
         }
 
@@ -324,9 +321,8 @@ const updateProduct = (req,res,next)=>{
     }
 
     async function update_product(err,result,args,last_query){
-    	console.log(last_query);
         if(err){
-            console.log(err);
+            console.log('PRODUCT',err);
             return err_response(res,BAD_REQ,err,500);
         }
 
@@ -351,10 +347,7 @@ const updateProduct = (req,res,next)=>{
                     }
 
                     // fs.unlinkSync(file);
-
-                    console.log('image url ****' ,image.url);
                     return image;
-
                     
                 }
             );

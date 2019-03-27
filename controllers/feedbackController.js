@@ -58,8 +58,9 @@ const createFeedback = (req,res,next)=>{
 	}
 
 	function send_response(err,result,args,last_query){
-		console.log(err);
+		
 		if(err){
+			console.log('FEEDBACK **',err);
 			return err_response(res,BAD_REQ,BAD_REQ,500);
 		}
 
@@ -125,8 +126,9 @@ const showProductFeedback = (req,res,next)=>{
 	}
 
 	function send_response(err,result,args,last_query){
-		console.log(last_query);
 		if(err){
+			console.log('FEEDBACK **',err);
+
 			return err_response(res,BAD_REQ,BAD_REQ,500);
 		}
 
@@ -267,8 +269,9 @@ const deleteFeedback = (req,res,next) =>{
 	}
 
 	function delete_feedback(err,result,args,last_query){
-		console.log(err);
 		if(err){
+			console.log('FEEDBACK DELETE **',err);
+
 			return err_response(res,BAD_REQ,BAD_REQ,500);
 		}
 

@@ -68,13 +68,12 @@ async function countUsers(res,where,offset){
             ${where}
             `;
 
-            console.log(query);
         let err,users;
 
         [err,users] = await to(mysql.build(query).promise());
 
         if(err) return err_response(res,BAD_REQ,err,500);
-        console.log(users)
+
         return users[0].total;
 }
 
@@ -298,7 +297,7 @@ const createUser = (req,res,next)=>{
         role = role?role:'customer';
         if(role){
             [error,roles] = await to(getRole(res,role))
-            console.log(roles);
+
             if(error) return err_response(res,err,BAD_REQ,500);
 
             data.role_id = roles.id; 

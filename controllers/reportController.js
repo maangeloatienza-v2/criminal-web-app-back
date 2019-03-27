@@ -44,7 +44,7 @@ async function getReports(res,data){
 	if(err){
 		return err_response(res,BAD_REQ,err,500);
 	}
-	console.log(reports);
+
 	return reports[0];
 }
 
@@ -65,7 +65,6 @@ async function getActivity(res,data){
 }
 
 async function createItemReport(res,data){
-	console.log(data);
 	let query = `
 		INSERT INTO  \
 		reports_item_list \ 
@@ -139,15 +138,12 @@ const create_reports = (req,res)=>{
 		reportsData.code = code;
 		reportsData.created = new Date();
 		
-
-		console.log('ID ****************',reportsData);
 		mysql.use('master')
 			.query(`INSERT INTO reports SET ?`,reportsData,addToList)
 			.end();
 	}
 
 	async function addToList(err,result,args,last_query){
-		console.log('GENERATE REPORTS',result);
 		if(err) {
 			console.log('CREATE REPORTS',err);
 			return err_response(res,BAD_REQ,err,500);
@@ -209,7 +205,7 @@ const create_reports = (req,res)=>{
 		}
 
 		tempHolder.id = null;
-		console.log(activity)
+
 		return res.send({
 			message : 'Test created successfully',
 			context: 'Data created successfully'
@@ -353,15 +349,15 @@ const monthly_reports = (req,res,next)=>{
 			ON report.id = item.report_id \
 
 			`;
-			console.log(query);
+
 	function start(){
 		mysql.use('master')
 		.query(query,send_response);
 	}
 
 	function send_response(err,result,args,last_query){
-		console.log(result);
 		if(err){
+			console.log('REPORTS **',err);
 
 			return err_response(res,err,BAD_REQ,500);
 		
@@ -464,8 +460,8 @@ const retrieve_all = (req,res,next)=>{
 	}
 
 	function send_response(err,result,args,last_query){
-		console.log(last_query);
 		if(err){
+			console.log('REPORT **',err);
 
 			return err_response(res,err,BAD_REQ,500);
 		
