@@ -46,7 +46,6 @@ async function getOrder(res,where){
 	`;
 
 	let err,order;
-	console.log('QUERY **',query);
 	[err,order] = await to(mysql.build(query).promise());
 
 
@@ -171,7 +170,6 @@ const getAll = (req,res,next)=>{
 	} = req.query;
 	let where = ` WHERE ord.deleted IS NULL `;
 
-	console.log(is_read);
 
 	if(is_read==true){
 		console.log("true ***");
