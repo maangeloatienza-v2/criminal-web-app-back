@@ -485,19 +485,30 @@ const retrieve_all = (req,res,next)=>{
 	start();
 }
 
+
+/**
+ * @api {get} v1/annual/reports               		Fetch Annual Reports 
+ * @apiName Fetch Annual Reports
+ * @apiGroup Reports
+ * 
+ */
+
+
+
 const annual_reports = (req,res,next)=>{
 
 
 	async function start(){
 		let query = `
 			SELECT \
-			((item.fw1+item.fw2+item.fw3+item.fw4+item.fw5+item.fw6+item.fw7+item.fw8)/8) AS avg_fw, \
-			((item.bw1+item.bw2+item.bw3+item.bw4+item.bw5+item.bw6+item.bw7+item.bw8)/8) AS avg_bw, \
+			AVG((item.fw1+item.fw2+item.fw3+item.fw4+item.fw5+item.fw6+item.fw7+item.fw8))/8 AS avg_fw, \
+			AVG((item.bw1+item.bw2+item.bw3+item.bw4+item.bw5+item.bw6+item.bw7+item.bw8))/8 AS avg_bw, \
 			MONTH(report.created) AS Month \
 			FROM \
 			reports report \ 
 			LEFT JOIN reports_item_list item \
 			ON report.id = item.report_id \
+			WHERE report.deleted IS null \
 			GROUP BY YEAR(report.created), \
 			MONTH(report.created) \
 		`;
