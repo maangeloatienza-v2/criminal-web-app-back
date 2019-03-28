@@ -80,6 +80,7 @@ router.post ('/reports/:id', 		checkAuthorization, reportController.create_repor
 router.get  ('/reports/:id', 	     reportController.show_reports);
 router.get  ('/reports', 	     	 reportController.retrieve_all);
 router.get  ('/average/reports', 	 reportController.monthly_reports);
+router.get  ('/annual/reports', 	 reportController.annual_reports);
 
 
 

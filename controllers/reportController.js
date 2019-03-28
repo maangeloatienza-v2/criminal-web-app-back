@@ -485,11 +485,51 @@ const retrieve_all = (req,res,next)=>{
 	start();
 }
 
+const annual_reports = (req,res,next)=>{
+
+
+	async function start(){
+		let query = `
+			SELECT \
+			((item.fw1+item.fw2+item.fw3+item.fw4+item.fw5+item.fw6+item.fw7+item.fw8)/8) AS avg_fw, \
+			((item.bw1+item.bw2+item.bw3+item.bw4+item.bw5+item.bw6+item.bw7+item.bw8)/8) AS avg_bw, \
+			MONTH(report.created) AS Month \
+			FROM \
+			reports report \ 
+			LEFT JOIN reports_item_list item \
+			ON report.id = item.report_id \
+			GROUP BY YEAR(report.created), \
+			MONTH(report.created) \
+		`;
+
+		let err,report;
+
+		[err,report]= await to(mysql.build(query).promise());
+
+		if(err){
+			return err_response(res,BAD_REQ,err,500);
+		}
+
+		if(!report.length){
+			return err_response(res,ZERO_RES,ZERO_RES,400);
+		}
+
+		return res.send({
+			data : report,
+			message : 'Annual report fetched successfully',
+			context : 'Data fetched successfully'
+		}).status(200);
+	}
+
+	start();
+}
+
 
 
 module.exports = {
 	create_reports,
 	show_reports,
 	monthly_reports,
+	annual_reports,
 	retrieve_all
 }
