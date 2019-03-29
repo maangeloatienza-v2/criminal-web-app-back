@@ -506,7 +506,8 @@ const annual_reports = (req,res,next)=>{
 			SELECT \
 			AVG((item.fw1+item.fw2+item.fw3+item.fw4+item.fw5+item.fw6+item.fw7+item.fw8))/8 AS avg_fw, \
 			AVG((item.bw1+item.bw2+item.bw3+item.bw4+item.bw5+item.bw6+item.bw7+item.bw8))/8 AS avg_bw, \
-			MONTH(report.created) AS Month \
+			MONTH(report.created) AS Month, \
+			YEAR(report.created) AS Year \
 			FROM \
 			reports report \ 
 			LEFT JOIN reports_item_list item \
