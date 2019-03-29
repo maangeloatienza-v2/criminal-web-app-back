@@ -326,6 +326,13 @@ define({ "api": [
           },
           {
             "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "created",
+            "description": "<p>Created date and time of report</p>"
+          },
+          {
+            "group": "Parameter",
             "type": "Float",
             "optional": false,
             "field": "fw_test[]",
