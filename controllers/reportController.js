@@ -11,6 +11,7 @@ const tx_code      		= require('./../libraries/code_generator').randomAlphanumer
 
 const reqBody = {
 	_description : '',
+	created : ''
 
 }
 
@@ -26,6 +27,7 @@ const itemBody = {
  * @apiGroup Reports
  * 
  * @apiParam 	{String}	id					Activity id
+ * @apiParam 	{String}	created				Created date and time of report
  * @apiParam	{Float}		fw_test[]			Array of fw test result	
  * @apiParam	{Float}		bw_test[]			Array of bw test result	
  */
@@ -136,7 +138,6 @@ const create_reports = (req,res)=>{
 		reportsData.id = uuidv4();
 		reportsData.activity_id = id;
 		reportsData.code = code;
-		reportsData.created = new Date();
 		
 		mysql.use('master')
 			.query(`INSERT INTO reports SET ?`,reportsData,addToList)
@@ -250,8 +251,10 @@ const show_reports = (req,res,next)=>{
 		`
 			SELECT \
 			report.id, \
+			activity.name, \
 			activity.description AS activity, \
 			activity.staff, \
+			activity.staff_id, \
 			report.id AS activity_id, \
 			item.code, \
 			item.fw1, \
@@ -275,8 +278,8 @@ const show_reports = (req,res,next)=>{
 			reports report \
 			INNER JOIN reports_item_list item \
 			ON report.id = item.report_id \
-			INNER JOIN schedule_activity activity
-			ON report.activity_id = activity.id
+			INNER JOIN schedule_activity activity \
+			ON report.activity_id = activity.id \
 			WHERE report.activity_id = '${id}'
 		`;
 
