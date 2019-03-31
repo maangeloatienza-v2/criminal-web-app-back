@@ -235,6 +235,48 @@ const getOne = (req,res,next)=>{
 
 		[err,order] = await to(getOrder(res,` WHERE ord.id = '${id}'`));
 
+		console.log(order);
+
+		if(err){
+			return err_response(res,err,BAD_REQ,500);
+		}
+
+		[err,updateOrder] = await to(updateRead(res,id));
+
+		if(err){
+			return err_response(res,err,BAD_REQ,500);
+		}
+
+		return res.send({
+			data : order[0],
+			message : 'Fetched order successfully',
+			context : 'Data fetched successfully'
+		}).status(200);
+	}
+
+	start();
+}
+
+
+/**
+ * @api {get} v1/orders/staff               Get specific order per staff
+ * @apiName Fetch specific Order for staff v2
+ * @apiGroup Orders v2
+ * 
+ */
+
+const getPerStaff = (req,res,next)=>{
+	if(req.user.role != 'STAFF'){
+		return err_response(res,BAD_REQ,BAD_REQ,500);
+	}
+
+	let id = req.params.id;
+	
+	async function start(){
+	let err,order,updateOrder;
+
+		[err,order] = await to(getOrder(res,` WHERE ord.order_by = '${id}'`));
+
 		if(err){
 			return err_response(res,err,BAD_REQ,500);
 		}
@@ -299,6 +341,7 @@ module.exports = {
 	create,
 	getAll,
 	getOne,
+	getPerStaff,
 	markComplete
 };
 

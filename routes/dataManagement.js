@@ -63,6 +63,8 @@ router.post ('/orders', 			checkAuthorization, orderControllerv2.create);
 router.get  ('/orders', 			checkAuthorization, orderControllerv2.getAll);
 router.get  ('/orders/:id',			checkAuthorization, orderControllerv2.getOne);
 router.put  ('/orders/:id',			checkAuthorization, orderControllerv2.markComplete);
+router.get  ('/orders/staff',       checkAuthorization, orderControllerv2.getPerStaff);
+
 
 
 router.post ('/add-feedbacks', 		checkAuthorization, feedbackController.createFeedback);
