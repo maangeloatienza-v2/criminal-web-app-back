@@ -133,9 +133,9 @@
   },
   {
     "type": "get",
-    "url": "v1/orders/staff",
-    "title": "Get specific order per staff",
-    "name": "Fetch_specific_Order_for_staff_v2",
+    "url": "v1/orders/customer",
+    "title": "Get specific order per customer",
+    "name": "Fetch_specific_Order_for_customer_v2",
     "group": "Orders_v2",
     "version": "0.0.0",
     "filename": "controllers/orderController_v2.js",
