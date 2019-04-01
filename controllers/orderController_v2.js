@@ -38,6 +38,7 @@ async function getOrder(res,where){
 		user.last_name, \
 		user.email, \
 		user.username, \
+		user.phone_number, \
 		ord.created \
 		FROM order_v2 ord \
 		LEFT JOIN users user \
