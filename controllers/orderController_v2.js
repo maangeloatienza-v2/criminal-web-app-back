@@ -44,10 +44,9 @@ async function getOrder(res,where){
 		ON user.id = ord.customer_id \ 
 		${where}
 	`;
-
+	console.log(query);
 	let err,order;
 	[err,order] = await to(mysql.build(query).promise());
-
 
 	if(err){
 
@@ -265,31 +264,34 @@ const getOne = (req,res,next)=>{
  * 
  */
 
-const getPerStaff = (req,res,next)=>{
-	if(req.user.role != 'customer' ||req.user.role != 'CUSTOMER'){
-		return err_response(res,BAD_REQ,BAD_REQ,500);
-	}
+const getPerStaff = async (req,res,next)=>{
 
 	let id = req.user.id;
-	
-	async function start(){
-	let err,order,updateOrder;
+
+	if(req.user.role == 'customer' || req.user.role == 'CUSTOMER'){
+		let err,order;
+
 
 		[err,order] = await to(getOrder(res,` WHERE ord.customer_id = '${id}'`));
 		console.log(order);
 
 		if(err){
+
 			return err_response(res,err,BAD_REQ,500);
 		}
 
 		return res.send({
-			data : order[0],
+			data : order,
 			message : 'Fetched order successfully',
 			context : 'Data fetched successfully'
 		}).status(200);
+		
 	}
 
-	start();
+	return err_response(res,BAD_REQ,BAD_REQ,500);	
+	
+
+
 }
 
 /**
