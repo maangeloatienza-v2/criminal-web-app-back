@@ -63,7 +63,7 @@ router.post ('/orders', 			checkAuthorization, orderControllerv2.create);
 router.get  ('/orders', 			checkAuthorization, orderControllerv2.getAll);
 router.get  ('/orders/:id',			checkAuthorization, orderControllerv2.getOne);
 router.put  ('/orders/:id',			checkAuthorization, orderControllerv2.markComplete);
-router.get  ('/orders/customer',    checkAuthorization, orderControllerv2.getPerStaff);
+router.get  ('/orders-customer',    checkAuthorization, orderControllerv2.getPerStaff);
 
 
 
