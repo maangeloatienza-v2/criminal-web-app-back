@@ -258,7 +258,7 @@ const getOne = (req,res,next)=>{
 
 
 /**
- * @api {get} v1/orders-customer               Get specific order per customer
+ * @api {get} v1/orders/customer               Get specific order per customer
  * @apiName Fetch specific Order for customer v2
  * @apiGroup Orders v2
  * 

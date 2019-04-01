@@ -133,7 +133,7 @@
   },
   {
     "type": "get",
-    "url": "v1/orders-customer",
+    "url": "v1/orders/customer",
     "title": "Get specific order per customer",
     "name": "Fetch_specific_Order_for_customer_v2",
     "group": "Orders_v2",
