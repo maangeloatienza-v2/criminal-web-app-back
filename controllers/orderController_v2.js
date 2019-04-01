@@ -266,7 +266,7 @@ const getOne = (req,res,next)=>{
  */
 
 const getPerStaff = (req,res,next)=>{
-	if(req.user.role != 'STAFF'){
+	if(req.user.role != 'customer' ||req.user.role != 'CUSTOMER'){
 		return err_response(res,BAD_REQ,BAD_REQ,500);
 	}
 
