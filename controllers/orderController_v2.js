@@ -275,7 +275,7 @@ const getPerStaff = (req,res,next)=>{
 	async function start(){
 	let err,order,updateOrder;
 
-		[err,order] = await to(getOrder(res,` WHERE ord.order_by = '${id}'`));
+		[err,order] = await to(getOrder(res,` WHERE ord.customer_id = '${id}'`));
 		console.log(order);
 
 		if(err){
