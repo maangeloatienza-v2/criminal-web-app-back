@@ -270,7 +270,7 @@ const getPerStaff = (req,res,next)=>{
 		return err_response(res,BAD_REQ,BAD_REQ,500);
 	}
 
-	let id = req.params.id;
+	let id = req.user.id;
 	
 	async function start(){
 	let err,order,updateOrder;
