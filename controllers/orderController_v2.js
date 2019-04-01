@@ -276,12 +276,7 @@ const getPerStaff = (req,res,next)=>{
 	let err,order,updateOrder;
 
 		[err,order] = await to(getOrder(res,` WHERE ord.order_by = '${id}'`));
-
-		if(err){
-			return err_response(res,err,BAD_REQ,500);
-		}
-
-		[err,updateOrder] = await to(updateRead(res,id));
+		console.log(order);
 
 		if(err){
 			return err_response(res,err,BAD_REQ,500);
