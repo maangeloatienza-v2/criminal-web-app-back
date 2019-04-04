@@ -49,15 +49,16 @@ router.get  ('/roles',                                  roleController.getRole);
 router.get  ('/roles/:id',                              roleController.getOneRole);
 
 
-router.post ('/products', checkAuthorization, upload.single('file'), productController.create);
+router.post ('/products', 			checkAuthorization, upload.single('file'), productController.create);
 router.get  ('/products',       		 				productController.getProducts);
 router.get  ('/products/:id',       		 			productController.getOneProduct);
-router.put  ('/products/:id', checkAuthorization, upload.single('file'), 		checkAuthorization,	productController.updateProduct);
+router.put  ('/products/:id', 		checkAuthorization, upload.single('file'), 		checkAuthorization,	productController.updateProduct);
 router.put  ('/delete-product/:id', checkAuthorization,	productController.deleteProduct);
 
-// router.post ('/add-orders', 		checkAuthorization, orderController.addOrder);
-// router.get  ('/orders', 			checkAuthorization, orderController.getAll);
-// router.get  ('/orders/:id',			checkAuthorization, orderController.getOne);
+router.post ('/ordersv1', 			checkAuthorization, orderController.addOrder);
+router.get  ('/ordersv1', 			checkAuthorization, orderController.getAll);
+router.get  ('/ordersv1/:id',		checkAuthorization, orderController.getOne);
+router.get  ('/ordersv1/customer',	checkAuthorization, orderController.getOrderByCustomer);
 
 router.post ('/orders', 			checkAuthorization, orderControllerv2.create);
 router.get  ('/orders', 			checkAuthorization, orderControllerv2.getAll);

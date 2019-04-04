@@ -100,6 +100,80 @@
   },
   {
     "type": "post",
+    "url": "v1/ordersv1",
+    "title": "Create order v1",
+    "name": "Create_Order_v1",
+    "group": "Orders_v1",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Array",
+            "optional": false,
+            "field": "products",
+            "description": "<p>Array of product objects</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "products.product_name",
+            "description": "<p>Product content</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "products.item_price",
+            "description": "<p>Product content</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "products.quantity",
+            "description": "<p>Product content</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "controllers/orderController.js",
+    "groupTitle": "Orders_v1"
+  },
+  {
+    "type": "get",
+    "url": "v1/ordersv1/customer",
+    "title": "Fetch specific orders for customers",
+    "name": "Fetch_Customers_Order_v1",
+    "group": "Orders_v1",
+    "version": "0.0.0",
+    "filename": "controllers/orderController.js",
+    "groupTitle": "Orders_v1"
+  },
+  {
+    "type": "get",
+    "url": "v1/ordersv1/:id",
+    "title": "Fetch specific order",
+    "name": "Fetch_One_Order_v1",
+    "group": "Orders_v1",
+    "version": "0.0.0",
+    "filename": "controllers/orderController.js",
+    "groupTitle": "Orders_v1"
+  },
+  {
+    "type": "get",
+    "url": "v1/ordersv1",
+    "title": "Fetch orders",
+    "name": "Fetch_Order_v1",
+    "group": "Orders_v1",
+    "version": "0.0.0",
+    "filename": "controllers/orderController.js",
+    "groupTitle": "Orders_v1"
+  },
+  {
+    "type": "post",
     "url": "v1/orders",
     "title": "Create order",
     "name": "Create_Order_v2",
@@ -384,6 +458,16 @@
   },
   {
     "type": "get",
+    "url": "v1/reports",
+    "title": "Fetch Reports",
+    "name": "Fetch_Reports",
+    "group": "Reports",
+    "version": "0.0.0",
+    "filename": "controllers/reportController.js",
+    "groupTitle": "Reports"
+  },
+  {
+    "type": "get",
     "url": "v1/reports/:id",
     "title": "Fetch One report",
     "name": "Fetch_Reports",
@@ -401,16 +485,6 @@
         ]
       }
     },
-    "version": "0.0.0",
-    "filename": "controllers/reportController.js",
-    "groupTitle": "Reports"
-  },
-  {
-    "type": "get",
-    "url": "v1/reports",
-    "title": "Fetch Reports",
-    "name": "Fetch_Reports",
-    "group": "Reports",
     "version": "0.0.0",
     "filename": "controllers/reportController.js",
     "groupTitle": "Reports"
