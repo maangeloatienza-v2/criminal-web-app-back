@@ -13,6 +13,7 @@ const tx_code      		= require('./../libraries/code_generator').randomAlphanumer
 const products = [
 	{
 		product_name : '',
+		product_id : '',
 		item_price : 1.0,
 		quantity : 1
 	}
@@ -312,6 +313,8 @@ const getOrderByCustomer = (req,res,next)=>{
 		FROM orders o \
 		LEFT JOIN users user \
 		ON user.id = o.order_by \
+		LEFT JOIN products product \
+		ON product.id = o.product_id \
 		${where}
 	`;
 

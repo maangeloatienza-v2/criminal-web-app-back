@@ -164,3 +164,6 @@ ADD COLUMN is_read BOOLEAN DEFAULT false;
 
 ALTER TABLE order_v2
 ADD COLUMN is_completed BOOLEAN DEFAULT false;
+
+ALTER TABLE orders
+ADD COLUMN product_id VARCHAR(64) NOT NULL;
