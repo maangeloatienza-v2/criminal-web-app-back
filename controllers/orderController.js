@@ -103,7 +103,7 @@ const addOrder = (req,res,next)=>{
 
         [error,order] = await to(insert_order(req,data));
 
-
+        console.log(order);
         if(!order){
 
             return err_response(res,NO_RECORD_CREATED,NO_RECORD_CREATED,404);
@@ -138,12 +138,14 @@ const addOrder = (req,res,next)=>{
 
 const getAll = (req,res,next)=>{
 	res.setHeader('Content-Type', 'application/json');
-	const {
+	let {
 		search,
 		username,
 		first_name,
 		last_name,
-		product_name
+		product_name,
+		sort_id,
+		sort_desc
 	} = req.query;
 
 	let where = ` WHERE o.deleted is null `;
@@ -184,6 +186,18 @@ const getAll = (req,res,next)=>{
 		`;
 	}
 
+	if(sort_id == 'product_name'){
+		sort_id = 'o.product_name';
+
+	}
+
+	if(sort_id == 'order_by'){
+		sort_id = 'o.order_by';
+
+	}
+
+	sort_desc = sort_desc?sort_desc:'ASC';
+
 
 	let query = 
 	`	SELECT \ 
@@ -195,6 +209,7 @@ const getAll = (req,res,next)=>{
 		LEFT JOIN users user \
 		ON user.id = o.order_by \
 		${where}
+		ORDER BY ${sort_id} ${sort_desc}
 	`;
 
 	function start(){
