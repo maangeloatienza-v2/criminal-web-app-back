@@ -185,6 +185,8 @@ const getAll = (req,res,next)=>{
 			AND user.last_name = '${last_name}'\
 		`;
 	}
+	sort_desc = sort_desc?sort_desc:'ASC';
+	sort_id = sort_id?sort_id:'o.product_name';
 
 	if(sort_id == 'product_name'){
 		sort_id = 'o.product_name';
@@ -196,7 +198,6 @@ const getAll = (req,res,next)=>{
 
 	}
 
-	sort_desc = sort_desc?sort_desc:'ASC';
 
 
 	let query = 
@@ -221,8 +222,9 @@ const getAll = (req,res,next)=>{
 	}
 
 	function send_response(err,result,args,last_query){
+
 		if(err){
-			return err_response(res,BAD_REQ,BAD_REQ,500)
+			return err_response(res,BAD_REQ,err,500)
 		}
 		
 		if(!result.length){
