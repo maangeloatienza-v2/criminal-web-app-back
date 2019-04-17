@@ -99,6 +99,16 @@ define({ "api": [
     "groupTitle": "Feedbacks"
   },
   {
+    "type": "put",
+    "url": "v1/ordersv1/cancel:id",
+    "title": "Mark specific order as cancelled",
+    "name": "Cancel_specific_Order_v1",
+    "group": "Orders_v1",
+    "version": "0.0.0",
+    "filename": "controllers/orderController.js",
+    "groupTitle": "Orders_v1"
+  },
+  {
     "type": "post",
     "url": "v1/ordersv1",
     "title": "Create order v1",
@@ -175,16 +185,6 @@ define({ "api": [
   {
     "type": "put",
     "url": "v1/ordersv1/:id",
-    "title": "Mark specific order as completed",
-    "name": "Update_specific_Order_v1",
-    "group": "Orders_v1",
-    "version": "0.0.0",
-    "filename": "controllers/orderController.js",
-    "groupTitle": "Orders_v1"
-  },
-  {
-    "type": "put",
-    "url": "v1/ordersv1/cancel:id",
     "title": "Mark specific order as completed",
     "name": "Update_specific_Order_v1",
     "group": "Orders_v1",

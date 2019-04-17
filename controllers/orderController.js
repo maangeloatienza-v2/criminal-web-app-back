@@ -558,8 +558,8 @@ const markComplete = (req,res,next) =>{
 
 
 /**
- * @api {put} v1/ordersv1/cancel:id               Mark specific order as completed
- * @apiName Update specific Order v1
+ * @api {put} v1/ordersv1/cancel:id               Mark specific order as cancelled
+ * @apiName Cancel specific Order v1
  * @apiGroup Orders v1
  * 
  */
