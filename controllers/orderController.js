@@ -263,7 +263,8 @@ const getAll = (req,res,next)=>{
 		sort_id,
 		sort_desc,
 		is_read,
-		is_completed
+		is_completed,
+		is_cancelled
 	} = req.query;
 
 	let where = ` WHERE o.deleted is null `;
@@ -298,6 +299,20 @@ const getAll = (req,res,next)=>{
 	}
 
 	if(is_completed=="false"){
+		console.log("false ***");		
+		where += `
+			AND is_completed = false \
+		`;
+	}
+
+	if(is_cancelled=="true"){
+		console.log("true ***");
+		where += `
+			AND is_completed = true \
+		`;
+	}
+
+	if(is_cancelled=="false"){
 		console.log("false ***");		
 		where += `
 			AND is_completed = false \
