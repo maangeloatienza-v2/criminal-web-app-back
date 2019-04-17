@@ -308,14 +308,14 @@ const getAll = (req,res,next)=>{
 	if(is_cancelled=="true"){
 		console.log("true ***");
 		where += `
-			AND is_completed = true \
+			AND is_cancelled = true \
 		`;
 	}
 
 	if(is_cancelled=="false"){
 		console.log("false ***");		
 		where += `
-			AND is_completed = false \
+			AND is_cancelled = false \
 		`;
 	}
 
