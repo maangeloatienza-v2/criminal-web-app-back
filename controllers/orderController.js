@@ -69,8 +69,124 @@ async function insert_order(req,items){
 
 	return true;
 
-	
+}
 
+
+async function getOrder(res,where){
+	let query = 
+	`
+		SELECT \
+		ord.id AS id, \
+		ord.product_name, \
+		ord.item_price, \
+		ord.code, \
+		ord.is_read, \
+		ord.is_completed, \
+		user.id AS user_id, \
+		user.first_name, \
+		user.last_name, \
+		user.email, \
+		user.username, \
+		user.phone_number, \
+		ord.created \
+		FROM orders ord \
+		LEFT JOIN users user \
+		ON user.id = ord.order_by \ 
+		${where}
+	`;
+	console.log(query);
+	let err,order;
+	[err,order] = await to(mysql.build(query).promise());
+
+	if(err){
+
+		return err_response(res,err,BAD_REQ,500);
+	}
+
+	if(!order){
+		return err_response(err,ZERO_RES,ZERO_RES,404);
+	}
+
+	return order;
+}
+
+
+
+async function updateRead(res,id){
+	let err,order;
+
+
+	let query = `
+		UPDATE orders \
+		SET \
+		is_read = true, \
+		updated = NOW() \
+		WHERE id = '${id}'
+	`;
+
+	[err,order] = await to(mysql.build(query).promise());
+
+	if(err){
+		return err_response(res,NO_DATA_UPDATED,err,500);
+	}
+
+	if(!order){
+		return err_response(res,NO_DATA_UPDATED,err,500);
+	}
+
+	return true;
+}
+
+
+async function updateCompleted(res,id){
+	let err,order;
+
+
+	let query = `
+		UPDATE orders \
+		SET \
+		is_completed = true, \
+		updated = NOW() \
+		WHERE id = '${id}'
+	`;
+
+	[err,order] = await to(mysql.build(query).promise());
+
+	if(err){
+		return err_response(res,NO_RECORD_UPDATED,err,500);
+	}
+
+	if(!order){
+		return err_response(res,NO_RECORD_UPDATED,err,500);
+	}
+
+	return true;
+}
+
+
+async function updateCancel(res,id){
+	let err,order;
+
+
+	let query = `
+		UPDATE orders \
+		SET \
+		is_cancelled = true, \
+		updated = NOW() \
+		WHERE id = '${id}'
+	`;
+
+	[err,order] = await to(mysql.build(query).promise());
+
+	if(err){
+		return err_response(res,NO_RECORD_UPDATED,err,500);
+	}
+
+	if(!order){
+		return err_response(res,NO_RECORD_UPDATED,err,500);
+	}
+
+	return true;
 }
 
 /**
@@ -145,7 +261,9 @@ const getAll = (req,res,next)=>{
 		last_name,
 		product_name,
 		sort_id,
-		sort_desc
+		sort_desc,
+		is_read,
+		is_completed
 	} = req.query;
 
 	let where = ` WHERE o.deleted is null `;
@@ -154,6 +272,35 @@ const getAll = (req,res,next)=>{
 		where += 
 		` 	AND o.code LIKE '%${search}%' \
 		  	OR o.product_name LIKE '%${search}%' \
+		`;
+	}
+
+
+	if(is_read=="true"){
+		console.log("true ***");
+		where += `
+			AND is_read = true \
+		`;
+	}
+
+	if(is_read=="false"){
+		console.log("false ***");		
+		where += `
+			AND is_read = false \
+		`;
+	}
+
+	if(is_completed=="true"){
+		console.log("true ***");
+		where += `
+			AND is_completed = true \
+		`;
+	}
+
+	if(is_completed=="false"){
+		console.log("false ***");		
+		where += `
+			AND is_completed = false \
 		`;
 	}
 
@@ -282,7 +429,7 @@ const getOne = (req,res,next)=>{
 
 	}
 
-	function send_response(err,result,args,last_query){
+	async function send_response(err,result,args,last_query){
 
 		if(err){
 			return err_response(res,BAD_REQ,BAD_REQ,500)
@@ -291,6 +438,10 @@ const getOne = (req,res,next)=>{
 		if(!result.length){
 			return err_response(res,ZERO_RES,ZERO_RES,400);
 		}
+
+		let error,read;
+
+		[error,read] = await to(updateRead(res,id));
 
 		return res.json({
 			data : result[0],
@@ -366,11 +517,91 @@ const getOrderByCustomer = (req,res,next)=>{
 	start();
 }
 
+/**
+ * @api {put} v1/ordersv1/:id               Mark specific order as completed
+ * @apiName Update specific Order v1
+ * @apiGroup Orders v1
+ * 
+ */
+
+const markComplete = (req,res,next) =>{
+
+	let id = req.params.id;
+	
+	async function start(){
+	let err,order,updateOrder;
+
+		[err,order] = await to(getOrder(res,` WHERE ord.id = '${id}'`));
+
+		if(!order.length){
+			return err_response(res,ZERO_RES,ZERO_RES,400);
+		}
+
+		if(err){
+			return err_response(res,err,BAD_REQ,500);
+		}
+
+		[err,updateOrder] = await to(updateCompleted(res,id));
+
+		if(err){
+			return err_response(res,err,BAD_REQ,500);
+		}
+
+		return res.send({
+			message : 'Order marked completed',
+			context : 'Data updated successfully'
+		}).status(200);
+	}
+
+	start();
+}
+
+
+/**
+ * @api {put} v1/ordersv1/cancel:id               Mark specific order as completed
+ * @apiName Update specific Order v1
+ * @apiGroup Orders v1
+ * 
+ */
+
+const cancelOrder = (req,res,next) =>{
+
+	let id = req.params.id;
+	
+	async function start(){
+	let err,order,updateOrder;
+
+		[err,order] = await to(getOrder(res,` WHERE ord.id = '${id}'`));
+
+		if(!order.length){
+			return err_response(res,ZERO_RES,ZERO_RES,400);
+		}
+
+		if(err){
+			return err_response(res,err,BAD_REQ,500);
+		}
+
+		[err,updateOrder] = await to(updateCancel(res,id));
+
+		if(err){
+			return err_response(res,err,BAD_REQ,500);
+		}
+
+		return res.send({
+			message : 'Order successfully cancelled',
+			context : 'Data updated successfully'
+		}).status(200);
+	}
+
+	start();
+}
 
 
 module.exports = {
 	addOrder,
 	getAll,
 	getOne,
-	getOrderByCustomer
+	getOrderByCustomer,
+	markComplete,
+	cancelOrder
 }

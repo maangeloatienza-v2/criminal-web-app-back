@@ -173,6 +173,26 @@ define({ "api": [
     "groupTitle": "Orders_v1"
   },
   {
+    "type": "put",
+    "url": "v1/ordersv1/:id",
+    "title": "Mark specific order as completed",
+    "name": "Update_specific_Order_v1",
+    "group": "Orders_v1",
+    "version": "0.0.0",
+    "filename": "controllers/orderController.js",
+    "groupTitle": "Orders_v1"
+  },
+  {
+    "type": "put",
+    "url": "v1/ordersv1/cancel:id",
+    "title": "Mark specific order as completed",
+    "name": "Update_specific_Order_v1",
+    "group": "Orders_v1",
+    "version": "0.0.0",
+    "filename": "controllers/orderController.js",
+    "groupTitle": "Orders_v1"
+  },
+  {
     "type": "post",
     "url": "v1/orders",
     "title": "Create order",
@@ -458,16 +478,6 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "v1/reports",
-    "title": "Fetch Reports",
-    "name": "Fetch_Reports",
-    "group": "Reports",
-    "version": "0.0.0",
-    "filename": "controllers/reportController.js",
-    "groupTitle": "Reports"
-  },
-  {
-    "type": "get",
     "url": "v1/reports/:id",
     "title": "Fetch One report",
     "name": "Fetch_Reports",
@@ -485,6 +495,16 @@ define({ "api": [
         ]
       }
     },
+    "version": "0.0.0",
+    "filename": "controllers/reportController.js",
+    "groupTitle": "Reports"
+  },
+  {
+    "type": "get",
+    "url": "v1/reports",
+    "title": "Fetch Reports",
+    "name": "Fetch_Reports",
+    "group": "Reports",
     "version": "0.0.0",
     "filename": "controllers/reportController.js",
     "groupTitle": "Reports"
@@ -514,8 +534,8 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "v1/roles/:id",
-    "title": "Fetch One Role",
+    "url": "v1/roles",
+    "title": "Fetch Roles",
     "name": "Fetch_Role",
     "group": "Roles",
     "version": "0.0.0",
@@ -524,8 +544,8 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "v1/roles",
-    "title": "Fetch Roles",
+    "url": "v1/roles/:id",
+    "title": "Fetch One Role",
     "name": "Fetch_Role",
     "group": "Roles",
     "version": "0.0.0",
