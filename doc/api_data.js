@@ -184,7 +184,7 @@ define({ "api": [
   },
   {
     "type": "put",
-    "url": "v1/orders/:id",
+    "url": "v1/ordersv1/:id",
     "title": "Mark specific order as completed",
     "name": "Update_specific_Order_v1",
     "group": "Orders_v1",
