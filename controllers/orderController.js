@@ -367,7 +367,10 @@ const getAll = (req,res,next)=>{
 		o.*,
 		user.username, \
 		user.first_name, \
-		user.last_name \
+		user.last_name, \
+		user.address, \
+		user.email, \
+		user.phone_number \
 		FROM orders o \
 		LEFT JOIN users user \
 		ON user.id = o.order_by \
