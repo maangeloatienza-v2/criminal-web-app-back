@@ -100,7 +100,7 @@
   },
   {
     "type": "put",
-    "url": "v1/ordersv1/cancel:id",
+    "url": "v1/orders/cancel:id",
     "title": "Mark specific order as cancelled",
     "name": "Cancel_specific_Order_v1",
     "group": "Orders_v1",
@@ -184,7 +184,7 @@
   },
   {
     "type": "put",
-    "url": "v1/ordersv1/:id",
+    "url": "v1/orders/:id",
     "title": "Mark specific order as completed",
     "name": "Update_specific_Order_v1",
     "group": "Orders_v1",
