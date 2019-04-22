@@ -10,14 +10,13 @@ const tx_code      		= require('./../libraries/code_generator').randomAlphanumer
                           require('./../config/err_config');
                           require('./../config/config');
 
-const products = [
-	{
+const products = {
 		product_name : '',
 		product_id : '',
 		item_price : 1.0,
 		quantity : 1
 	}
-]
+
 
 async function check_tx_code(tx_code){
 
@@ -44,15 +43,15 @@ async function insert_order(req,items){
     	return err_response(res,EXISTING,EXISTING,500);
     }
 
-	await items.map(item=>{
+	//await items.map(item=>{
 
-		item.code = txCode;
-		item.id = uuidv4();
-		item.created = new Date();
-  		item.total_item = ( item.quantity * item.item_price);
-  		item.order_by = req.user.id; 
+		items.code = txCode;
+		items.id = uuidv4();
+		items.created = new Date();
+  		items.total_item = ( items.quantity * items.item_price);
+  		items.order_by = req.user.id; 
 
-		(mysql.build(query,item)
+		(mysql.build(query,items)
 		 	.promise()
 		 	.then(res =>{
 		 	})
@@ -61,7 +60,7 @@ async function insert_order(req,items){
 		 		}
 
 		 	));
-	});
+	//});
 
 	if(err_flag == 1 ){
 		return false;
@@ -576,7 +575,7 @@ const markComplete = (req,res,next) =>{
 
 
 /**
- * @api {put} v1/ordersv1/cancel:id               Mark specific order as cancelled
+ * @api {put} v1/orders/cancel:id               Mark specific order as cancelled
  * @apiName Cancel specific Order v1
  * @apiGroup Orders v1
  * 
