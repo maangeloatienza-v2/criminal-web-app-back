@@ -485,7 +485,7 @@ const getOne = (req,res,next)=>{
 const getOrderByCustomer = (req,res,next)=>{
 	res.setHeader('Content-Type', 'application/json');
 	const id = req.user.id;
-
+	console.log(id)
 	let where = ` WHERE o.deleted is null AND o.order_by = '${id}'`;
 
 
@@ -512,7 +512,7 @@ const getOrderByCustomer = (req,res,next)=>{
 	}
 
 	function send_response(err,result,args,last_query){
-
+		console.log(err);
 		if(err){
 			return err_response(res,BAD_REQ,BAD_REQ,500)
 		}

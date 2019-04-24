@@ -59,7 +59,7 @@ router.post ('/ordersv1', 			checkAuthorization, orderController.addOrder);
 router.get  ('/ordersv1', 			checkAuthorization, orderController.getAll);
 router.get  ('/ordersv1/:id',		checkAuthorization, orderController.getOne);
 router.put  ('/ordersv1/:id',		checkAuthorization, orderController.markComplete);
-router.get  ('/ordersv1/customer',	checkAuthorization, orderController.getOrderByCustomer);
+router.get  ('/customer/orders',	checkAuthorization, orderController.getOrderByCustomer);
 router.put  ('/orders/cancel/:id',	checkAuthorization, orderController.cancelOrder);
 
 

@@ -154,7 +154,7 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "v1/ordersv1/customer",
+    "url": "v1/customer/orders",
     "title": "Fetch specific orders for customers",
     "name": "Fetch_Customers_Order_v1",
     "group": "Orders_v1",
