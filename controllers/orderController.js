@@ -474,7 +474,7 @@ const getOne = (req,res,next)=>{
 }
 
 /**
- * @api {get} v1/ordersv1/customer               	Fetch specific orders for customers
+ * @api {get} v1/customer/orders            		Fetch specific orders for customers
  * @apiName Fetch Customers Order v1
  * @apiGroup Orders v1
  * 
@@ -522,7 +522,7 @@ const getOrderByCustomer = (req,res,next)=>{
 		}
 
 		return res.json({
-			data : result[0],
+			data : result,
 			message : 'Successfully fetched orders',
 			context : 'Data fetched successfully'
 		})
