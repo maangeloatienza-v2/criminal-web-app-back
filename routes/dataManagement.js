@@ -48,7 +48,6 @@ router.post ('/roles',              checkAuthorization, roleController.createRol
 router.get  ('/roles',                                  roleController.getRole);
 router.get  ('/roles/:id',                              roleController.getOneRole);
 
-
 router.post ('/products', 			checkAuthorization, upload.single('file'), productController.create);
 router.get  ('/products',       		 				productController.getProducts);
 router.get  ('/products/:id',       		 			productController.getOneProduct);
@@ -62,14 +61,11 @@ router.put  ('/ordersv1/:id',		checkAuthorization, orderController.markComplete)
 router.get  ('/customer/orders',	checkAuthorization, orderController.getOrderByCustomer);
 router.put  ('/orders/cancel/:id',	checkAuthorization, orderController.cancelOrder);
 
-
 router.post ('/orders', 			checkAuthorization, orderControllerv2.create);
 router.get  ('/orders', 			checkAuthorization, orderControllerv2.getAll);
 router.get  ('/orders/customer',    checkAuthorization, orderControllerv2.getPerStaff);
 router.get  ('/orders/:id',			checkAuthorization, orderControllerv2.getOne);
 router.put  ('/orders/:id',			checkAuthorization, orderControllerv2.markComplete);
-
-
 
 router.post ('/add-feedbacks', 		checkAuthorization, feedbackController.createFeedback);
 router.get  ('/feedbacks/:id',		checkAuthorization, feedbackController.showProductFeedback);
@@ -82,10 +78,10 @@ router.put  ('/activity/:id', 		checkAuthorization, scheduleController.updateAct
 router.post ('/cancel-activity/:id',checkAuthorization, scheduleController.cancel_activity);
 router.post ('/complete-activity/:id',checkAuthorization, scheduleController.complete_activity);
 
-router.post ('/reports/:id', 		checkAuthorization, reportController.create_reports);
+router.post ('/reports/:id', 		checkAuthorization, reportController.create_reports_v2);
 router.get  ('/reports/:id', 	     reportController.show_reports);
 router.get  ('/reports', 	     	 reportController.retrieve_all);
-router.get  ('/average/reports', 	 reportController.monthly_reports);
+router.get  ('/average/reports', 	 reportController.monthly_reports_v2);
 router.get  ('/annual/reports', 	 reportController.annual_reports);
 
 

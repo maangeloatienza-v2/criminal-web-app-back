@@ -20,17 +20,44 @@ const itemBody = {
 	bw_test : [0.0]
 }
 
+// const itemBodies = {
+// 	fwr1 : [0.0],
+// 	fwr2 : [0.0],
+// 	fwr3 : [0.0],
+// 	bwr1 : [0.0],
+// 	bwr2 : [0.0],
+// 	bwr3 : [0.0]
+// }
 
-/**
- * @api {POST} v1/reports/:id                      Create reports 
- * @apiName Create Report
- * @apiGroup Reports
- * 
- * @apiParam 	{String}	id					Activity id
- * @apiParam 	{String}	created				Created date and time of report
- * @apiParam	{Float}		fw_test[]			Array of fw test result	
- * @apiParam	{Float}		bw_test[]			Array of bw test result	
- */
+
+const itemBodies = [
+	{
+		fw_test : [
+			{fwr1 : [0.0]},
+			{fwr2 : [0.0]},
+			{fwr3 : [0.0]}
+		]
+	},
+	{
+		bw_test : [
+			{bwr1 : [0.0]},
+			{bwr2 : [0.0]},
+			{bwr3 : [0.0]}
+		]
+	},
+]
+
+
+// *
+//  * @api {POST} v1/reports/:id                      Create reports 
+//  * @apiName Create Report
+//  * @apiGroup Reports
+//  * 
+//  * @apiParam 	{String}	id					Activity id
+//  * @apiParam 	{String}	created				Created date and time of report
+//  * @apiParam	{Float}		fw_test[]			Array of fw test result	
+//  * @apiParam	{Float}		bw_test[]			Array of bw test result	
+ 
 
 
 
@@ -84,12 +111,14 @@ async function createItemReport(res,data){
 		}
 	
 		if(!result.affectedRows){
+
 			return err_response(err,NO_CREATED_DATA,NO_CREATED_DATA,500);
 		}
 			return result;
 	});
 	
 }
+
 
 async function updateActivity(res,data){
 	let query = `
@@ -218,6 +247,156 @@ const create_reports = (req,res)=>{
 
 }
 
+/**
+ * @api {POST} v1/reports/:id                      Create reports 
+ * @apiName Create Report
+ * @apiGroup Reports
+ * 
+ * @apiParam 	{String}	id					Activity id
+ * @apiParam 	{String}	created				Created date and time of report
+ * @apiParam	{Float}		fw_test[]			Array of fw test result	
+ * @apiParam	{Float}		bw_test[]			Array of bw test result
+ *
+ * @apiParamExample {json} Sample-Body:
+ * {
+ *     "fw_test" : [
+ *             [1,2,3,4,5,6,7,8],
+ *             [2,2,3,4,5,6,7,8],
+ *             [3,2,3,4,5,6,7,8]
+ *         ],
+ *     "bw_test" : [
+ *             [1,2,3,4,5,6,7,8],
+ *             [2,2,3,4,5,6,7,8],
+ *             [3,2,3,4,5,6,7,8]
+ *         ]
+ * }
+ * 
+ */
+
+
+const create_reports_v2 = (req,res)=>{
+	const reportsData = util._get
+	.form_data(reqBody)
+	.from(req.body);
+
+	// const reportsItemData = util._get
+	// .form_data(itemBodies)
+	// .from(req.body);
+	let requestBody = req.body;
+
+
+	let id = req.params.id;
+	let code = tx_code();
+	
+	async function start(){
+		// if(reportsData instanceof Error){
+		// 	return err_response(res,reportsData.message,INC_DATA,500);
+		// }
+		
+		let err,activity;
+
+		[err,activity] = await to(getActivity(res,id));
+		if(!activity.length){
+			return err_response(res,ZERO_RES,ZERO_RES,400);
+		}
+
+		reportsData.id = uuidv4();
+		reportsData.activity_id = id;
+		reportsData.code = code;
+		reportsData.created = new Date();
+		
+		mysql.use('master')
+			.query(`INSERT INTO reports SET ?`,reportsData,addToList)
+			.end();
+	}
+
+	async function addToList(err,result,args,last_query){
+		if(err) {
+			console.log('CREATE REPORTS',err);
+			return err_response(res,BAD_REQ,err,500);
+		}
+
+		if(!result.affectedRows){
+			return err_response(err,NO_RECORD_CREATED,NO_RECORD_CREATED,500);
+		}
+
+		let error,reports,itemReport,activity;
+
+		[error,reports] = await to(getReports(res,code));
+
+		if(error) {
+			console.log('GET REPORTS',error);
+			return err_response(res,BAD_REQ,error,500);
+		}
+
+		let tempHolder = {};
+
+		tempHolder.code = code;
+		
+		tempHolder.report_id = reports.id;
+		tempHolder.created = new Date();
+
+		for(let i = 0;i <3;i++){
+			tempHolder.id = uuidv4();
+			tempHolder.fw1 = requestBody.fw_test[i][0];
+			tempHolder.fw2 = requestBody.fw_test[i][1];
+			tempHolder.fw3 = requestBody.fw_test[i][2];
+			tempHolder.fw4 = requestBody.fw_test[i][3];
+			tempHolder.fw5 = requestBody.fw_test[i][4];
+			tempHolder.fw6 = requestBody.fw_test[i][5];
+			tempHolder.fw7 = requestBody.fw_test[i][6];
+			tempHolder.fw8 = requestBody.fw_test[i][7];
+
+			tempHolder.bw1 = requestBody.bw_test[i][0];
+			tempHolder.bw2 = requestBody.bw_test[i][1];
+			tempHolder.bw3 = requestBody.bw_test[i][2];
+			tempHolder.bw4 = requestBody.bw_test[i][3];
+			tempHolder.bw5 = requestBody.bw_test[i][4];
+			tempHolder.bw6 = requestBody.bw_test[i][5];
+			tempHolder.bw7 = requestBody.bw_test[i][6];
+			tempHolder.bw8 = requestBody.bw_test[i][7];
+
+			[error,itemReport] = await to(createItemReport(
+				res,
+				tempHolder));
+
+			if(error){
+				console.log('CREATE ITEM REPORTS',err);
+				return err_response(err,BAD_REQ,BAD_REQ,500);
+			}
+			
+		}
+
+
+
+		console.log(tempHolder.code);
+		[err,activity] = await to(updateActivity(res,id));
+
+		
+		if(error){
+			console.log('UPDATE ACTIVITY',err);
+			return err_response(err,BAD_REQ,BAD_REQ,500);
+		}
+
+		tempHolder.id = null;
+
+		return res.send({
+			message : 'Test created successfully',
+			context: 'Data created successfully'
+		}).status(200);
+
+	}
+
+	start();
+
+}
+
+
+
+//VERSION 2 CREATE REPORT
+
+
+
 
 /**
  * @api {get} v1/reports/:id                 Fetch One report 
@@ -310,6 +489,8 @@ const show_reports = (req,res,next)=>{
 }
 
 
+
+
 /**
  * @api {get} v1/average/reports            Fetch Report with average 
  * @apiName Fetch Average
@@ -395,6 +576,96 @@ const monthly_reports = (req,res,next)=>{
 
 	start();
 }
+
+
+
+
+/**
+ * @api {get} v1/average/reports            Fetch Report with average 
+ * @apiName Fetch Average
+ * @apiGroup Reports
+ */
+
+
+const monthly_reports_v2 = (req,res,next)=>{
+	let {
+		start_date,
+		end_date
+	} = req.query;
+
+	let date_now = moment().format('YYYY-MM-DD'); 
+
+	start_date = start_date? start_date : date_now;
+	end_date = end_date? end_date : date_now;
+
+	let query = `
+			SELECT \
+			AVG(item.fw1) AS avg_fw1, \
+			AVG(item.fw2) AS avg_fw2, \
+			AVG(item.fw3) AS avg_fw3, \
+			AVG(item.fw4) AS avg_fw4, \
+			AVG(item.fw5) AS avg_fw5, \
+			AVG(item.fw6) AS avg_fw6, \
+			AVG(item.fw7) AS avg_fw7, \
+			AVG(item.fw8) AS avg_fw8, \
+			AVG(item.bw1) AS avg_bw1, \
+			AVG(item.bw2) AS avg_bw2, \
+			AVG(item.bw3) AS avg_bw3, \
+			AVG(item.bw4) AS avg_bw4, \
+			AVG(item.bw5) AS avg_bw5, \
+			AVG(item.bw6) AS avg_bw6, \
+			AVG(item.bw7) AS avg_bw7, \
+			AVG(item.bw8) AS avg_bw8 \
+			FROM \
+			reports report \
+			LEFT JOIN reports_item_list item \
+			ON report.id = item.report_id \
+			WHERE DATE(report.created) >= '${start_date}' \
+			AND DATE(report.created) <= '${end_date}'
+			`;
+
+	function start(){
+		mysql.use('master')
+		.query(query,send_response);
+	}
+
+	function send_response(err,result,args,last_query){
+
+		if(err){
+			console.log('REPORTS **',err);
+
+			return err_response(res,err,BAD_REQ,500);
+		
+		}
+
+		if(!result.length || result[0].avg_fw1 == null){
+
+			return err_response(res,ZERO_RES,ZERO_RES,400);
+
+		}
+		let test = [
+			(result[0].avg_fw1 + result[0].avg_bw1)/2,
+			(result[0].avg_fw2 + result[0].avg_bw2)/2,
+			(result[0].avg_fw3 + result[0].avg_bw3)/2,
+			(result[0].avg_fw4 + result[0].avg_bw4)/2,
+			(result[0].avg_fw5 + result[0].avg_bw5)/2,
+			(result[0].avg_fw6 + result[0].avg_bw6)/2,
+			(result[0].avg_fw7 + result[0].avg_bw7)/2,
+			(result[0].avg_fw8 + result[0].avg_bw8)/2,
+		];
+
+		
+
+		return res.send({
+			data : result[0],
+			message : 'Fetched reports successfully',
+			context : 'Data fetched successfully'
+		}).status(200);
+	}
+
+	start();
+}
+
 
 
 
@@ -543,8 +814,10 @@ const annual_reports = (req,res,next)=>{
 
 module.exports = {
 	create_reports,
+	create_reports_v2,
 	show_reports,
 	monthly_reports,
+	monthly_reports_v2,
 	annual_reports,
 	retrieve_all
 }
