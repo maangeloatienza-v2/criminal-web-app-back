@@ -257,7 +257,7 @@ const create_reports = (req,res)=>{
  * @apiParam	{Float}		fw_test[]			Array of fw test result	
  * @apiParam	{Float}		bw_test[]			Array of bw test result
  *
- * @apiParamExample {json} Sample-Body:
+ * @apiParamExample {json} Request-Example:
  * {
  *     "fw_test" : [
  *             [1,2,3,4,5,6,7,8],
