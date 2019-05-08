@@ -691,23 +691,12 @@ const retrieve_all = (req,res,next)=>{
 			activity.id AS activity_id, \
 			activity.name, \
 			activity.staff, \
-			item.code, \
-			item.fw1, \
-			item.fw2, \
-			item.fw3, \
-			item.fw4, \
-			item.fw5, \
-			item.fw6, \
-			item.fw7, \
-			item.fw8, \
-			item.bw1, \
-			item.bw2, \
-			item.bw3, \
-			item.bw4, \
-			item.bw5, \
-			item.bw6, \
-			item.bw7, \
-			item.bw8,
+			(select GROUP_CONCAT(JSON_ARRAY(fw1, fw2, fw3, fw4, fw5, fw6, fw7, fw8) SEPARATOR ':') from reports_item_list where report_id = report.id order by created desc) as fw,
+			(select GROUP_CONCAT(JSON_ARRAY(bw1, bw2, bw3, bw4, bw5, bw6, bw7, bw8) SEPARATOR ':') from reports_item_list where report_id = report.id order by created desc) as bw,
+			(select (JSON_ARRAY(avg(fw1), avg(fw2), avg(fw3), avg(fw4), avg(fw5), avg(fw6), avg(fw7), avg(fw8)) ) from reports_item_list where report_id = report.id order by created desc) as avgfw,
+			(select (JSON_ARRAY(avg(bw1), avg(bw2), avg(bw3), avg(bw4), avg(bw5), avg(bw6), avg(bw7), avg(bw8)) ) from reports_item_list where report_id = report.id order by created desc) as avgbw,
+
+			(select code from reports_item_list where report_id = report.id limit 1) AS code,
 			report.created  \
 			FROM \
 			reports report \
