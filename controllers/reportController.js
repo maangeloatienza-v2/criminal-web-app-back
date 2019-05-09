@@ -705,7 +705,6 @@ const retrieve_all = (req,res,next)=>{
 			INNER JOIN schedule_activity activity \
 			ON report.activity_id = activity.id \
 			${WHERE}
-			ORDER BY item.code ASC
 			`;
 
 	function start(){
