@@ -686,7 +686,7 @@ const retrieve_all = (req,res,next)=>{
 	
 
 	let query = `
-			SELECT \
+			SELECT DISTINCT\
 			report.id, \
 			activity.id AS activity_id, \
 			activity.name, \
