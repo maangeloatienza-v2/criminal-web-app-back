@@ -1,0 +1,12 @@
+version: 2.0
+os: linux
+files:
+  - source: /home
+    destination: /home/ubuntu
+hooks:
+  BeforeInstall:
+    - location: before_install.sh
+    - timeout: 3600
+  ApplicationStart:
+    - location: application_start.sh
+      timeout: 1000
