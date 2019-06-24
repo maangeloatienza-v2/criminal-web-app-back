@@ -11,8 +11,7 @@ phases:
       
 artifacts:
   files:
-    - build/**/*
     - node_modules/express/**/*
-    - serve.js
+    - serveR.js
     - application_start.sh
     - before_install.sh
