@@ -5,13 +5,14 @@ phases:
       nodejs: 10
     commands:
       - npm install
-  build:
-    commands:
-      - npm run build
+  # build:
+  #   commands:
+  #     - npm run build
       
 artifacts:
   files:
-    - node_modules/express/**/*
-    - serveR.js
+    - node_modules/**
+    - server.js
+    - appsec.yml
     - application_start.sh
     - before_install.sh
