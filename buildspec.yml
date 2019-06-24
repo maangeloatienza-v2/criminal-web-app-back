@@ -8,7 +8,6 @@ phases:
   # build:
   #   commands:
   #     - npm run build
-  
 artifacts:
   files:
     - node_modules/**/*
