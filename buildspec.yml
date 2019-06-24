@@ -9,8 +9,10 @@ phases:
   #   commands:
   #     - npm run build
 artifacts:
+  type : zip
   files:
-    - node_modules/**
+    - node_modules/**/*
+    - package.json
     - server.js
     - appsec.yml
     - application_start.sh
