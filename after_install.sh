@@ -1,2 +1,2 @@
 cd ~/criminal-web-app-back
-pm2 start node server.js
+apidoc -i routes/ -o doc/

@@ -10,3 +10,30 @@ hooks:
   ApplicationStart:
     - location: application_start.sh
       timeout: 1000
+
+
+
+version: 0.0
+os: linux
+files:
+  - source: /criminal-web-app-back
+permissions:
+  - object: /home/ubuntu
+    owner: ubuntu
+    group: ubuntu
+    type:
+      - directory
+      - file
+hooks:
+  BeforeInstall:
+    - location: before_install.sh
+      timeout: 3600
+      runas: root
+  AfterInstall:
+    - location: after_install.sh
+      timeout: 2000
+      runas: ubuntu
+  ApplicationStart:
+    - location: application_start.sh
+      timeout: 1000
+      runas: ubuntu
